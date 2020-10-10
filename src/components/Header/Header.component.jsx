@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme) => ({
 	opt: {
 		...theme.typography.tab,
 		margin: '0 20px'
+	},
+	toolbar: {
+		...theme.mixins.toolbar
 	}
 }));
 
@@ -74,40 +77,43 @@ export const Header = () => {
 	const classes = useStyles();
 
 	return (
-		<AppBar position="static" className={classes.nav}>
-			<Toolbar>
-				<IconButton
-					edge="start"
-					className={classes.menuButton}
-					color="inherit"
-					aria-label="open drawer"
-				>
-					<MenuIcon />
-				</IconButton>
-				<Typography className={classes.title} variant="h5" noWrap>
-					CODINITY
-				</Typography>
-				<div className={classes.options}>
-					<Typography className={classes.opt}>HOME</Typography>
-					<Typography className={classes.opt}>CATEGORIES</Typography>
-					<Typography className={classes.opt}>PRACTICE</Typography>
-					<Typography className={classes.opt}>ABOUT US</Typography>
-				</div>
-				<div className={classes.search}>
-					<div className={classes.searchIcon}>
-						<SearchIcon />
+		<>
+			<AppBar position="fixed" className={classes.nav}>
+				<Toolbar>
+					<IconButton
+						edge="start"
+						className={classes.menuButton}
+						color="inherit"
+						aria-label="open drawer"
+					>
+						<MenuIcon />
+					</IconButton>
+					<Typography className={classes.title} variant="h4" noWrap>
+						Codinity
+					</Typography>
+					<div className={classes.options}>
+						<Typography className={classes.opt}>HOME</Typography>
+						<Typography className={classes.opt}>CATEGORIES</Typography>
+						<Typography className={classes.opt}>PRACTICE</Typography>
+						<Typography className={classes.opt}>ABOUT US</Typography>
 					</div>
-					<InputBase
-						placeholder="Search…"
-						classes={{
-							root: classes.inputRoot,
-							input: classes.inputInput
-						}}
-						inputProps={{ 'aria-label': 'search' }}
-					/>
-				</div>
-			</Toolbar>
-		</AppBar>
+					<div className={classes.search}>
+						<div className={classes.searchIcon}>
+							<SearchIcon />
+						</div>
+						<InputBase
+							placeholder="Search…"
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput
+							}}
+							inputProps={{ 'aria-label': 'search' }}
+						/>
+					</div>
+				</Toolbar>
+			</AppBar>
+			<div className={classes.toolbar} />
+		</>
 	);
 };
 
