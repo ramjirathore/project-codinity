@@ -1,7 +1,13 @@
 import React from 'react';
+import { useTheme } from '@material-ui/core';
 
 const Landing = () => {
-	return <div>Landing page</div>;
+	const theme = useTheme();
+	return (
+		<div style={{ background: theme.palette.common.black, height: '100vh' }}>
+			Landing page
+		</div>
+	);
 };
 
 export default Landing;

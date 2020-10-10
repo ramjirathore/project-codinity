@@ -1,18 +1,24 @@
 import React from 'react';
+import { ThemeProvider } from '@material-ui/core';
+
 import Header from './components/Header/Header.component';
 import Landing from './components/Landing/Landing.component';
 import Footer from './components/Footer/Footer.component';
 
-import './App.css';
+import theme from './components/UI/theme';
 
-function App() {
+// import './App.css';
+
+const App = () => {
 	return (
-		<div className="App">
-			<Header />
-			<Landing />
-			<Footer />
-		</div>
+		<ThemeProvider theme={theme}>
+			<div>
+				<Header />
+				<Landing />
+				<Footer />
+			</div>
+		</ThemeProvider>
 	);
-}
+};
 
 export default App;
