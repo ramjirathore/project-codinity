@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	head: {
 		fontWeight: 600,
-		fontSize: '2em',
-		paddingBottom: theme.spacing(4)
+		fontSize: '2.3em',
+		paddingBottom: theme.spacing(1)
 	},
 	cardGrid: {
 		paddingTop: theme.spacing(8),
@@ -117,9 +117,10 @@ const Landing = () => {
 					</div>
 				</Container>
 			</div>
+			{/* End hero unit */}
 			<Container className={classes.cardGrid} maxWidth="lg">
-				{/* End hero unit */}
-				<Typography className={classes.head}>Popular Categories :</Typography>
+				<Typography className={classes.head}>Popular Categories</Typography>
+				<hr style={{ marginBottom: 40 }} />
 				<Grid container spacing={4}>
 					{cards.map((card, index) => (
 						<Grid item key={index} xs={12} sm={6} md={4}>
