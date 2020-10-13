@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/core';
 
 import Header from './components/Header/Header.component';
 import Landing from './components/Landing/Landing.component';
+import Practice from './containers/practice/practice.component';
 import Footer from './components/Footer/Footer.component';
 
 import theme from './components/UI/theme';
@@ -18,11 +19,7 @@ const App = () => {
 
 				<Switch>
 					<Route exact path="/" component={Landing} />
-					<Route
-						exact
-						path="/practice"
-						component={() => <div>Practice page</div>}
-					/>
+					<Route exact path="/practice" component={Practice} />
 					<Route
 						exact
 						path="/categories"
