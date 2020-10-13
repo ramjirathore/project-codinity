@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Tab, Tabs } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -66,15 +68,25 @@ const useStyles = makeStyles((theme) => ({
 	},
 	opt: {
 		...theme.typography.tab,
-		margin: '0 20px'
+		fontSize: '1.3em',
+		fontFamily: 'Roboto',
+		textTransform: 'uppercase'
 	},
 	toolbar: {
 		...theme.mixins.toolbar
 	}
 }));
 
+const routes = [
+	{ name: 'Home', link: '/' },
+	{ name: 'Categories', link: '/categories' },
+	{ name: 'Practice', link: '/practice' },
+	{ name: 'About', link: '/about' }
+];
+
 export const Header = () => {
 	const classes = useStyles();
+	const [value, setValue] = useState(0);
 
 	return (
 		<>
@@ -92,10 +104,22 @@ export const Header = () => {
 						Codinity
 					</Typography>
 					<div className={classes.options}>
-						<Typography className={classes.opt}>HOME</Typography>
-						<Typography className={classes.opt}>CATEGORIES</Typography>
-						<Typography className={classes.opt}>PRACTICE</Typography>
-						<Typography className={classes.opt}>ABOUT US</Typography>
+						<Tabs
+							value={value}
+							onChange={(e, val) => setValue(val)}
+							className={classes.tabContainer}
+						>
+							{routes.map((route, index) => (
+								<Tab
+									key={`${route}${index}`}
+									className={classes.opt}
+									component={Link}
+									to={route.link}
+									label={route.name}
+									// onMouseOver={route.mouseOver}
+								/>
+							))}
+						</Tabs>
 					</div>
 					<div className={classes.search}>
 						<div className={classes.searchIcon}>

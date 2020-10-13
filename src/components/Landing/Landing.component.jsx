@@ -12,16 +12,16 @@ import {
 	Typography
 } from '@material-ui/core';
 
-import datastructures from '../../assets/ds.jpg';
-import algorithms from '../../assets/dsa3.jpg';
-import cpp from '../../assets/cpp.png';
-import python from '../../assets/python.jpg';
-import java from '../../assets/java.png';
-import nodejs from '../../assets/nodejs.jpg';
-import react from '../../assets/reactjs.png';
-import problemSolving from '../../assets/Problem_solving.png';
-import angular from '../../assets/Angular-illustrations.jpg';
-import vue from '../../assets/vuejs.png';
+import datastructures from '../../assets/categoriesForeground/ds.jpg';
+import algorithms from '../../assets/categoriesForeground/dsa3.jpg';
+import cpp from '../../assets/categoriesForeground/cpp.png';
+// import python from '../../assets/categoriesForeground/python.jpg';
+// import java from '../../assets/categoriesForeground/java.png';
+import nodejs from '../../assets/categoriesForeground/nodejs.jpg';
+import react from '../../assets/categoriesForeground/reactjs.png';
+import problemSolving from '../../assets/categoriesForeground/Problem_solving.png';
+import angular from '../../assets/categoriesForeground/Angular-illustrations.jpg';
+import vue from '../../assets/categoriesForeground/vuejs.png';
 
 const cards = [
 	{ field: 'Problem Solving', imgSrc: problemSolving },
@@ -124,7 +124,7 @@ const Landing = () => {
 				<Grid container spacing={4}>
 					{cards.map((card, index) => (
 						<Grid item key={index} xs={12} sm={6} md={4}>
-							<Card className={classes.card}>
+							<Card className={classes.card} elevation={4}>
 								<CardMedia
 									className={classes.cardMedia}
 									image={card.imgSrc}

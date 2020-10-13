@@ -1,10 +1,13 @@
 import React from 'react';
 import { makeStyles, Typography, Link } from '@material-ui/core';
 
+// const drawerWidth = window.location.pathname === '/practice' ? 240 : 0;
 const useStyles = makeStyles((theme) => ({
 	footer: {
 		backgroundColor: '#eee',
 		padding: theme.spacing(6)
+		// width: `calc(100% - ${drawerWidth}px)`,
+		// marginLeft: drawerWidth
 	}
 }));
 
@@ -23,12 +26,12 @@ function Copyright() {
 	);
 }
 
-const Footer = () => {
+const Footer = (props) => {
 	const classes = useStyles();
 	return (
 		// <div style={{ background: '#444', height: '100vh' }}>
 		<footer className={classes.footer}>
-			<Typography variant="h6" align="center" gutterBottom>
+			<Typography variasnt="h6" align="center" gutterBottom>
 				Footer
 			</Typography>
 			<Typography
