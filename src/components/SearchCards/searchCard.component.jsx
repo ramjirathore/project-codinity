@@ -112,7 +112,7 @@ const SearchCard = ({ data, isLoading, searchOn }) => {
 					<Typography
 						className={classes.pos}
 						component="div"
-						style={{ width: '10%' }}
+						style={{ width: '40%', height: '40%' }}
 					>
 						<Typography className={classes.courtName}>
 							<Skeleton aninmation="wave" style={{ width: '100%' }} />

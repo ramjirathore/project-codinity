@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import { Grid } from '@material-ui/core';
 
 import ds from '../../assets/icons/data.svg';
 import algo from '../../assets/icons/algorithm.svg';
@@ -20,7 +21,8 @@ import javascript from '../../assets/icons/javascript.svg';
 import php from '../../assets/icons/php-document.svg';
 import nodejs from '../../assets/icons/nodejs.svg';
 import cpp from '../../assets/icons/cpp.svg';
-import SearchCard from '../../components/SearchCards/searchCard.component';
+import SearchCard from '../../components/Card/Card.component';
+// import SearchCard from '../../components/SearchCards/searchCard.component';
 
 const drawerWidth = 240;
 
@@ -35,23 +37,27 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawer: {
 		width: drawerWidth,
-		flexShrink: 0
+		flexShrink: 0,
+		color: 'white'
 	},
 	drawerPaper: {
-		width: drawerWidth
+		width: drawerWidth,
+		background: theme.palette.common.grey
 	},
 	// necessary for content to be below app bar
 	toolbar: theme.mixins.toolbar,
 	content: {
 		flexGrow: 1,
-		backgroundColor: theme.palette.background.default,
-		padding: theme.spacing(3)
+		backgroundColor: theme.palette.common.black,
+		padding: theme.spacing(2),
+		minHeight: '100vh'
 	},
 	title: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		height: '100%'
+		height: '100%',
+		color: 'white'
 	},
 	icon: {
 		height: 28,
@@ -71,6 +77,15 @@ const topicsList = [
 	{ item: 'JAVA', icon: java },
 	{ item: 'PHP', icon: php }
 	// { item: 'Vue', icon: <ForumIcon /> },
+];
+
+const videos = [
+	{ path: 'https://www.youtube.com/embed/6ZfuNTqbHE8' },
+	{ path: 'https://www.youtube.com/embed/EXeTwQWrcwY' },
+	{ path: 'https://www.youtube.com/embed/5iaYLCiq5RM' },
+	{ path: 'https://www.youtube.com/embed/zSWdZVtXT7E' },
+	{ path: 'https://www.youtube.com/embed/sutgWjz10sM' },
+	{ path: 'https://www.youtube.com/embed/XiHiW4N7-bo' }
 ];
 
 const Practice = () => {
@@ -116,7 +131,14 @@ const Practice = () => {
 				</List>
 			</Drawer>
 			<main className={classes.content}>
-				<SearchCard data={null} isLoading={true} searchOn={true} />
+				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
+				<Grid container>
+					{videos.map((video) => (
+						<Grid item lg={3}>
+							<SearchCard loading={false} vSrc={video.path} />
+						</Grid>
+					))}
+				</Grid>
 			</main>
 		</div>
 	);

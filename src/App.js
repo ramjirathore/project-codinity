@@ -18,7 +18,16 @@ const App = () => {
 				<Header />
 
 				<Switch>
-					<Route exact path="/" component={Landing} />
+					<Route
+						exact
+						path="/"
+						render={() => (
+							<>
+								<Landing />
+								<Footer />
+							</>
+						)}
+					/>
 					<Route exact path="/practice" component={Practice} />
 					<Route
 						exact
@@ -27,7 +36,7 @@ const App = () => {
 					/>
 					<Route exact path="/about" component={() => <div>About page</div>} />
 				</Switch>
-				<Footer />
+				{/* <Footer /> */}
 			</BrowserRouter>
 		</ThemeProvider>
 	);
