@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Paper, makeStyles, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 	nav: {
@@ -13,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 		marginLeft: 20,
 		cursor: 'pointer',
 		color: 'white',
+		textDecoration: 'none',
 	},
 	toolbar: {
 		...theme.mixins.toolbar,
@@ -30,7 +32,13 @@ export const Header = () => {
 	return (
 		<>
 			<Paper square position='static' className={classes.nav}>
-				<Typography className={classes.company} variant='h4' noWrap>
+				<Typography
+					className={classes.company}
+					variant='h4'
+					noWrap
+					component={Link}
+					to='/'
+				>
 					Codinity
 				</Typography>
 				<hr size='2' style={{ height: '40%', margin: '0 20px' }} />
