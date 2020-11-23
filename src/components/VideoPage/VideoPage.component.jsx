@@ -11,6 +11,8 @@ import {
 } from '@material-ui/core';
 import ReactPlayer from 'react-player/lazy';
 
+import SearchCard from '../Card/Card.component';
+
 const useStyles = makeStyles((theme) => ({
 	sideContainer: {
 		flex: 0.25,
@@ -30,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '1.5em',
 		padding: 10,
 		fontFamily: 'Raleway',
+	},
+	videos: {
+		maxHeight: '95vh',
+		overflowY: 'scroll',
+		flex: 1,
 	},
 }));
 
@@ -54,6 +61,15 @@ function a11yProps(index) {
 		'aria-controls': `simple-tabpanel-${index}`,
 	};
 }
+
+const videos = [
+	{ path: 'https://www.youtube.com/embed/6ZfuNTqbHE8' },
+	{ path: 'https://www.youtube.com/embed/EXeTwQWrcwY' },
+	{ path: 'https://www.youtube.com/embed/5iaYLCiq5RM' },
+	{ path: 'https://www.youtube.com/embed/zSWdZVtXT7E' },
+	{ path: 'https://www.youtube.com/embed/sutgWjz10sM' },
+	{ path: 'https://www.youtube.com/embed/XiHiW4N7-bo' },
+];
 
 const VideoPage = () => {
 	const classes = useStyles();
@@ -111,6 +127,11 @@ const VideoPage = () => {
 				<Paper className={classes.recomnd} elevation={6} square>
 					<div className={classes.recomndHead}>RECOMMENDED</div>
 					<Divider style={{ background: 'lightgray' }} />
+					<div className={classes.videos}>
+						{videos.map((video) => (
+							<SearchCard loading={false} vSrc={video.path} />
+						))}
+					</div>
 				</Paper>
 			</Grid>
 		</Grid>

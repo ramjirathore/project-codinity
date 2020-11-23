@@ -1,9 +1,6 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import { Link, Paper } from '@material-ui/core';
+
+import { Paper, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	nav: {
