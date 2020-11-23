@@ -9,6 +9,7 @@ import {
 	Box,
 	AppBar,
 } from '@material-ui/core';
+import ReactPlayer from 'react-player/lazy';
 
 const useStyles = makeStyles((theme) => ({
 	sideContainer: {
@@ -61,36 +62,48 @@ const VideoPage = () => {
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
+
+	const tabsSection = (
+		<React.Fragment>
+			<AppBar position='static'>
+				<Tabs
+					value={value}
+					onChange={handleChange}
+					aria-label='video tabs'
+				>
+					<Tab label='Description' {...a11yProps(0)} />
+					<Tab label='Q & A' {...a11yProps(1)} />
+					<Tab label='Notes' {...a11yProps(2)} />
+				</Tabs>
+			</AppBar>
+			<TabPanel value={value} index={0}>
+				Item One
+			</TabPanel>
+			<TabPanel value={value} index={1}>
+				Item Two
+			</TabPanel>
+			<TabPanel value={value} index={2}>
+				Item Three
+			</TabPanel>
+		</React.Fragment>
+	);
+
 	return (
 		<Grid container>
 			<Grid item className={classes.main}>
 				<Grid container direction='column'>
 					<Grid item>
 						<Paper square style={{ height: '75vh' }}>
-							Video
+							<ReactPlayer
+								controls
+								width='75vw'
+								height='75vh'
+								url='https://www.youtube.com/watch?v=ysz5S6PUM-U'
+							/>
 						</Paper>
 					</Grid>
 					<Grid item style={{ height: '25vh' }}>
-						<AppBar position='static'>
-							<Tabs
-								value={value}
-								onChange={handleChange}
-								aria-label='video tabs'
-							>
-								<Tab label='Description' {...a11yProps(0)} />
-								<Tab label='Q & A' {...a11yProps(1)} />
-								<Tab label='Notes' {...a11yProps(2)} />
-							</Tabs>
-						</AppBar>
-						<TabPanel value={value} index={0}>
-							Item One
-						</TabPanel>
-						<TabPanel value={value} index={1}>
-							Item Two
-						</TabPanel>
-						<TabPanel value={value} index={2}>
-							Item Three
-						</TabPanel>
+						{tabsSection}
 					</Grid>
 				</Grid>
 			</Grid>
