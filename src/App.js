@@ -7,7 +7,10 @@ import Landing from './components/Landing/Landing.component';
 import Practice from './containers/practice/practice.component';
 import Footer from './components/Footer/Footer.component';
 
+import Video from './components/VideoPage/VideoPage.component';
+
 import theme from './components/UI/theme';
+
 
 // import './App.css';
 
@@ -15,14 +18,14 @@ const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
-				<Header />
 
 				<Switch>
 					<Route
 						exact
 						path="/"
 						render={() => (
-							<>
+							<>	
+								<Header />
 								<Landing />
 								<Footer />
 							</>
@@ -35,6 +38,7 @@ const App = () => {
 						component={() => <div>All categories here</div>}
 					/>
 					<Route exact path="/about" component={() => <div>About page</div>} />
+					<Route exact path='/video/:id' component={Video} />
 				</Switch>
 				{/* <Footer /> */}
 			</BrowserRouter>

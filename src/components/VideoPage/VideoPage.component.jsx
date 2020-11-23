@@ -1,0 +1,107 @@
+import React from 'react';
+import {
+	Grid,
+	makeStyles,
+	Paper,
+	Divider,
+	Tab,
+	Tabs,
+	Box,
+	AppBar,
+} from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+	sideContainer: {
+		flex: 0.25,
+		height: '100vh',
+	},
+	main: {
+		flex: 0.75,
+		background: theme.palette.common.grey,
+	},
+	recomnd: {
+		height: '100%',
+		background: theme.palette.common.black,
+		color: 'white',
+		borderLeft: '1px solid lightgray',
+	},
+	recomndHead: {
+		fontSize: '1.5em',
+		padding: 10,
+		fontFamily: 'Raleway',
+	},
+}));
+
+function TabPanel(props) {
+	const { children, value, index, ...other } = props;
+	return (
+		<div
+			role='tabpanel'
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+			aria-labelledby={`simple-tab-${index}`}
+			{...other}
+		>
+			{value === index && <Box p={3}>{children}</Box>}
+		</div>
+	);
+}
+
+function a11yProps(index) {
+	return {
+		id: `simple-tab-${index}`,
+		'aria-controls': `simple-tabpanel-${index}`,
+	};
+}
+
+const VideoPage = () => {
+	const classes = useStyles();
+	const [value, setValue] = React.useState(0);
+
+	const handleChange = (event, newValue) => {
+		setValue(newValue);
+	};
+	return (
+		<Grid container>
+			<Grid item className={classes.main}>
+				<Grid container direction='column'>
+					<Grid item>
+						<Paper square style={{ height: '75vh' }}>
+							Video
+						</Paper>
+					</Grid>
+					<Grid item style={{ height: '25vh' }}>
+						<AppBar position='static'>
+							<Tabs
+								value={value}
+								onChange={handleChange}
+								aria-label='video tabs'
+							>
+								<Tab label='Description' {...a11yProps(0)} />
+								<Tab label='Q & A' {...a11yProps(1)} />
+								<Tab label='Notes' {...a11yProps(2)} />
+							</Tabs>
+						</AppBar>
+						<TabPanel value={value} index={0}>
+							Item One
+						</TabPanel>
+						<TabPanel value={value} index={1}>
+							Item Two
+						</TabPanel>
+						<TabPanel value={value} index={2}>
+							Item Three
+						</TabPanel>
+					</Grid>
+				</Grid>
+			</Grid>
+			<Grid item className={classes.sideContainer}>
+				<Paper className={classes.recomnd} elevation={6} square>
+					<div className={classes.recomndHead}>RECOMMENDED</div>
+					<Divider style={{ background: 'lightgray' }} />
+				</Paper>
+			</Grid>
+		</Grid>
+	);
+};
+
+export default VideoPage;
