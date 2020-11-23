@@ -43,7 +43,7 @@ const App = () => {
 					/>
 					<Route
 						exact
-						path='/video'
+						path='/video/:id'
 						render={() => (
 							<>
 								<SimpleHeader />

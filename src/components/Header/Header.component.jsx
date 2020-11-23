@@ -12,19 +12,19 @@ import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		flexGrow: 1
+		flexGrow: 1,
 	},
 	nav: {
-		background: theme.palette.common.grey
+		background: theme.palette.common.grey,
 	},
 	menuButton: {
-		marginRight: theme.spacing(2)
+		marginRight: theme.spacing(2),
 	},
 	title: {
 		display: 'none',
 		[theme.breakpoints.up('sm')]: {
-			display: 'block'
-		}
+			display: 'block',
+		},
 	},
 	search: {
 		marginLeft: 'auto',
@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: theme.shape.borderRadius,
 		backgroundColor: fade(theme.palette.common.white, 0.15),
 		'&:hover': {
-			backgroundColor: fade(theme.palette.common.white, 0.25)
-		}
+			backgroundColor: fade(theme.palette.common.white, 0.25),
+		},
 	},
 	searchIcon: {
 		padding: theme.spacing(0, 2),
@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme) => ({
 		pointerEvents: 'none',
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	inputRoot: {
-		color: 'inherit'
+		color: 'inherit',
 	},
 	inputInput: {
 		padding: theme.spacing(1, 1, 1, 0),
@@ -56,32 +56,32 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.up('sm')]: {
 			width: '12ch',
 			'&:focus': {
-				width: '20ch'
-			}
-		}
+				width: '20ch',
+			},
+		},
 	},
 	options: {
 		display: 'flex',
 		flexGrow: 1,
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	opt: {
 		...theme.typography.tab,
 		fontSize: '1.3em',
 		fontFamily: 'Roboto',
-		textTransform: 'uppercase'
+		textTransform: 'uppercase',
 	},
 	toolbar: {
-		...theme.mixins.toolbar
-	}
+		...theme.mixins.toolbar,
+	},
 }));
 
 const routes = [
 	{ name: 'Home', link: '/' },
 	{ name: 'Categories', link: '/categories' },
 	{ name: 'Practice', link: '/practice' },
-	{ name: 'About', link: '/about' }
+	{ name: 'About', link: '/about' },
 ];
 
 export const Header = () => {
@@ -90,17 +90,17 @@ export const Header = () => {
 
 	return (
 		<>
-			<AppBar position="fixed" className={classes.nav}>
+			<AppBar position='fixed' className={classes.nav}>
 				<Toolbar>
 					<IconButton
-						edge="start"
+						edge='start'
 						className={classes.menuButton}
-						color="inherit"
-						aria-label="open drawer"
+						color='inherit'
+						aria-label='open drawer'
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography className={classes.title} variant="h4" noWrap>
+					<Typography className={classes.title} variant='h4' noWrap>
 						Codinity
 					</Typography>
 					<div className={classes.options}>
@@ -126,10 +126,10 @@ export const Header = () => {
 							<SearchIcon />
 						</div>
 						<InputBase
-							placeholder="Search…"
+							placeholder='Search…'
 							classes={{
 								root: classes.inputRoot,
-								input: classes.inputInput
+								input: classes.inputInput,
 							}}
 							inputProps={{ 'aria-label': 'search' }}
 						/>

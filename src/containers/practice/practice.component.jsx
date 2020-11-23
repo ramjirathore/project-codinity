@@ -10,7 +10,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import ds from '../../assets/icons/data.svg';
 import algo from '../../assets/icons/algorithm.svg';
@@ -28,21 +29,21 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		display: 'flex'
+		display: 'flex',
 	},
 	appBar: {
 		width: `calc(100% - ${drawerWidth}px)`,
 		marginLeft: drawerWidth,
-		background: theme.palette.common.grey
+		background: theme.palette.common.grey,
 	},
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
-		color: 'white'
+		color: 'white',
 	},
 	drawerPaper: {
 		width: drawerWidth,
-		background: theme.palette.common.grey
+		background: theme.palette.common.grey,
 	},
 	// necessary for content to be below app bar
 	toolbar: theme.mixins.toolbar,
@@ -50,19 +51,19 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		backgroundColor: theme.palette.common.black,
 		padding: theme.spacing(2),
-		minHeight: '100vh'
+		minHeight: '100vh',
 	},
 	title: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
 		height: '100%',
-		color: 'white'
+		color: 'white',
 	},
 	icon: {
 		height: 28,
-		width: 28
-	}
+		width: 28,
+	},
 }));
 
 const topicsList = [
@@ -75,7 +76,7 @@ const topicsList = [
 	{ item: 'NodeJS', icon: nodejs },
 	// { item: 'Angular', icon: <GraphicEqIcon /> },
 	{ item: 'JAVA', icon: java },
-	{ item: 'PHP', icon: php }
+	{ item: 'PHP', icon: php },
 	// { item: 'Vue', icon: <ForumIcon /> },
 ];
 
@@ -85,7 +86,7 @@ const videos = [
 	{ path: 'https://www.youtube.com/embed/5iaYLCiq5RM' },
 	{ path: 'https://www.youtube.com/embed/zSWdZVtXT7E' },
 	{ path: 'https://www.youtube.com/embed/sutgWjz10sM' },
-	{ path: 'https://www.youtube.com/embed/XiHiW4N7-bo' }
+	{ path: 'https://www.youtube.com/embed/XiHiW4N7-bo' },
 ];
 
 const Practice = () => {
@@ -94,23 +95,42 @@ const Practice = () => {
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			<AppBar position="fixed" className={classes.appBar}>
+			<AppBar position='fixed' className={classes.appBar}>
 				<Toolbar>
-					<Typography variant="h5" noWrap style={{ fontFamily: 'Roboto' }}>
+					<Typography
+						variant='h5'
+						noWrap
+						style={{ fontFamily: 'Roboto' }}
+					>
 						Practice
 					</Typography>
+					<Button
+						variant='contained'
+						color='primary'
+						style={{ marginLeft: 'auto', color: 'white' }}
+					>
+						<Link
+							to='/video/test'
+							style={{
+								textDecoration: 'none',
+								color: 'white',
+							}}
+						>
+							Video Page
+						</Link>
+					</Button>
 				</Toolbar>
 			</AppBar>
 			<Drawer
 				className={classes.drawer}
-				variant="permanent"
+				variant='permanent'
 				classes={{
-					paper: classes.drawerPaper
+					paper: classes.drawerPaper,
 				}}
-				anchor="left"
+				anchor='left'
 			>
 				<div className={classes.toolbar}>
-					<Typography className={classes.title} variant="h4" noWrap>
+					<Typography className={classes.title} variant='h4' noWrap>
 						Codinity
 					</Typography>
 				</div>
@@ -122,7 +142,7 @@ const Practice = () => {
 								<img
 									src={topic.icon}
 									className={classes.icon}
-									alt="data-structure"
+									alt='data-structure'
 								/>
 							</ListItemIcon>
 							<ListItemText primary={topic.item} />
