@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import ReactPlayer from 'react-player/lazy';
 
-import SearchCard from '../Card/Card.component';
+import SmallCard from './SmallCard/SmallCard.component';
 
 const useStyles = makeStyles((theme) => ({
 	sideContainer: {
@@ -128,8 +128,8 @@ const VideoPage = () => {
 					<div className={classes.recomndHead}>RECOMMENDED</div>
 					<Divider style={{ background: 'lightgray' }} />
 					<div className={classes.videos}>
-						{videos.map((video) => (
-							<SearchCard loading={false} vSrc={video.path} />
+						{videos.map(() => (
+							<SmallCard />
 						))}
 					</div>
 				</Paper>
