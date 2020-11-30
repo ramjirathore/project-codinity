@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -95,16 +95,19 @@ export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
+	useEffect(() => {
+		props.onInitCategories();
+	});
+
 	return (
 		<>
-			<AppBar position='fixed' className={classes.nav}>
+			<AppBar position='static' className={classes.nav}>
 				<Toolbar>
 					<IconButton
 						edge='start'
 						className={classes.menuButton}
 						color='inherit'
 						aria-label='open drawer'
-						onClick={() => props.onInitCategories()}
 					>
 						<MenuIcon />
 					</IconButton>

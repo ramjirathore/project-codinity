@@ -115,9 +115,7 @@ const VideoCard = (props) => {
 						component='p'
 						style={{ color: 'white', fontFamily: 'roboto' }}
 					>
-						{
-							"Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
-						}
+						{props.title}
 					</Typography>
 				)}
 			</CardContent>

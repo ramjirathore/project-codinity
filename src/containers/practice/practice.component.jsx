@@ -69,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
 		height: 28,
 		width: 28,
 	},
+	toolbar: {
+		...theme.mixins.toolbar,
+	},
 }));
 
 const topicsList = [
@@ -85,18 +88,11 @@ const topicsList = [
 	// { item: 'Vue', icon: <ForumIcon /> },
 ];
 
-const videos = [
-	{ path: 'https://www.youtube.com/embed/6ZfuNTqbHE8' },
-	{ path: 'https://www.youtube.com/embed/EXeTwQWrcwY' },
-	{ path: 'https://www.youtube.com/embed/5iaYLCiq5RM' },
-	{ path: 'https://www.youtube.com/embed/zSWdZVtXT7E' },
-	{ path: 'https://www.youtube.com/embed/sutgWjz10sM' },
-	{ path: 'https://www.youtube.com/embed/XiHiW4N7-bo' },
-];
+const Practice = ({ categories, loading }) => {
+	const path = 'https://www.youtube.com/embed/';
 
-const Practice = (props) => {
 	const classes = useStyles();
-	console.log(props.error);
+	console.log(categories, loading);
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
@@ -156,14 +152,25 @@ const Practice = (props) => {
 				</List>
 			</Drawer>
 			<main className={classes.content}>
+				<div className={classes.toolbar} />
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
-				<Grid container>
-					{videos.map((video, index) => (
-						<Grid item lg={3} key={index}>
-							<SearchCard loading={false} vSrc={video.path} />
-						</Grid>
-					))}
-				</Grid>
+				{loading === true ? (
+					<Typography variant='h4' style={{ color: 'white' }}>
+						Loading...
+					</Typography>
+				) : (
+					<Grid container>
+						{categories.dataStructure.map((video, index) => (
+							<Grid item lg={3} key={index}>
+								<SearchCard
+									title={video.title}
+									loading={false}
+									vSrc={path + video.id}
+								/>
+							</Grid>
+						))}
+					</Grid>
+				)}
 			</main>
 		</div>
 	);
@@ -173,6 +180,7 @@ const mapStateToProps = (state) => {
 	return {
 		categories: state.ctgr.categories,
 		error: state.ctgr.error,
+		loading: state.ctgr.loading,
 	};
 };
 
