@@ -50,8 +50,6 @@ const useStyles = makeStyles((theme) => ({
 		width: drawerWidth,
 		background: theme.palette.common.grey,
 	},
-	// necessary for content to be below app bar
-	toolbar: theme.mixins.toolbar,
 	content: {
 		flexGrow: 1,
 		backgroundColor: theme.palette.common.black,
@@ -156,13 +154,14 @@ const Practice = ({ categories, loading }) => {
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
 				{loading === true ? (
 					<Typography variant='h4' style={{ color: 'white' }}>
-						Loading...
+						Go back to home then Practice...
 					</Typography>
 				) : (
 					<Grid container>
 						{categories.dataStructure.map((video, index) => (
 							<Grid item lg={3} key={index}>
 								<SearchCard
+									creator={video.creator}
 									title={video.title}
 									loading={false}
 									vSrc={path + video.id}

@@ -24,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const VideoCard = (props) => {
-	const { loading, vSrc } = props;
+const VideoCard = ({ creator, title, loading, vSrc }) => {
 	const classes = useStyles();
 
 	return (
@@ -63,7 +62,7 @@ const VideoCard = (props) => {
 							style={{ marginBottom: 6 }}
 						/>
 					) : (
-						'Ted'
+						creator
 					)
 				}
 				subheader={
@@ -115,7 +114,7 @@ const VideoCard = (props) => {
 						component='p'
 						style={{ color: 'white', fontFamily: 'roboto' }}
 					>
-						{props.title}
+						{title}
 					</Typography>
 				)}
 			</CardContent>
