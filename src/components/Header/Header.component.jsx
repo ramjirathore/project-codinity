@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 import { Tab, Tabs } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -77,9 +79,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const getData = () => {
+	axios
+		.get('https://codinity-6ab53.firebaseio.com/categories.json')
+		.then((response) => console.log(response))
+		.catch((err) => console.log(err));
+};
+
 const routes = [
 	{ name: 'Home', link: '/' },
-	{ name: 'Categories', link: '/categories' },
+	{ name: 'Categories', link: '/categories', test: getData() },
 	{ name: 'Practice', link: '/practice' },
 	{ name: 'About', link: '/about' },
 ];
@@ -117,6 +126,7 @@ export const Header = () => {
 									to={route.link}
 									label={route.name}
 									// onMouseOver={route.mouseOver}
+									onClick={route.test ? route.test : null}
 								/>
 							))}
 						</Tabs>
