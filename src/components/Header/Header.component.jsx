@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
-import { Tab, Tabs } from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import {
+	Tab,
+	Tabs,
+	AppBar,
+	Toolbar,
+	IconButton,
+	Typography,
+	InputBase,
+	fade,
+	makeStyles,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -79,21 +84,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const getData = () => {
-	axios
-		.get('https://codinity-6ab53.firebaseio.com/categories.json')
-		.then((response) => console.log(response))
-		.catch((err) => console.log(err));
-};
-
 const routes = [
 	{ name: 'Home', link: '/' },
-	{ name: 'Categories', link: '/categories', test: getData() },
+	{ name: 'Categories', link: '/categories' },
 	{ name: 'Practice', link: '/practice' },
 	{ name: 'About', link: '/about' },
 ];
 
-export const Header = () => {
+export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
@@ -106,6 +104,7 @@ export const Header = () => {
 						className={classes.menuButton}
 						color='inherit'
 						aria-label='open drawer'
+						onClick={() => props.onInitCategories()}
 					>
 						<MenuIcon />
 					</IconButton>
@@ -126,7 +125,6 @@ export const Header = () => {
 									to={route.link}
 									label={route.name}
 									// onMouseOver={route.mouseOver}
-									onClick={route.test ? route.test : null}
 								/>
 							))}
 						</Tabs>
@@ -151,4 +149,10 @@ export const Header = () => {
 	);
 };
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onInitCategories: () => dispatch(actions.initCategories()),
+	};
+};
+
+export default connect(null, mapDispatchToProps)(Header);

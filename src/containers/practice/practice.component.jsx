@@ -1,16 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Grid, Button } from '@material-ui/core';
+import { connect } from 'react-redux';
+import {
+	Grid,
+	Button,
+	makeStyles,
+	Drawer,
+	CssBaseline,
+	AppBar,
+	Toolbar,
+	List,
+	Typography,
+	Divider,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+} from '@material-ui/core';
+
 import { Link } from 'react-router-dom';
 
 import ds from '../../assets/icons/data.svg';
@@ -89,9 +94,9 @@ const videos = [
 	{ path: 'https://www.youtube.com/embed/XiHiW4N7-bo' },
 ];
 
-const Practice = () => {
+const Practice = (props) => {
 	const classes = useStyles();
-
+	console.log(props.error);
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
@@ -153,8 +158,8 @@ const Practice = () => {
 			<main className={classes.content}>
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
 				<Grid container>
-					{videos.map((video) => (
-						<Grid item lg={3}>
+					{videos.map((video, index) => (
+						<Grid item lg={3} key={index}>
 							<SearchCard loading={false} vSrc={video.path} />
 						</Grid>
 					))}
@@ -164,4 +169,11 @@ const Practice = () => {
 	);
 };
 
-export default Practice;
+const mapStateToProps = (state) => {
+	return {
+		categories: state.ctgr.categories,
+		error: state.ctgr.error,
+	};
+};
+
+export default connect(mapStateToProps)(Practice);

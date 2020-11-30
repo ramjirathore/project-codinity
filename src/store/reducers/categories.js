@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_CATEGORIES_FAILED:
                 return {
                     ...state,
-                    error: action.err,
+                    error: action.err.message,
                     loading: false
                 };
         case actionTypes.SET_CATEGORIES:
