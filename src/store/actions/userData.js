@@ -6,7 +6,6 @@ import axios from "axios";
 export const fetchUserDataStart = () => {
 	return {
         type: actionTypes.FETCH_USER_DATA_START,
-        load: true
 	};
 };
 
@@ -14,7 +13,6 @@ export const fetchUserDataStart = () => {
 export const fetchUserDataSuccess = () => {
 	return {
         type: actionTypes.FETCH_USER_DATA_SUCCESS,
-        load: false
 	};
 };
 

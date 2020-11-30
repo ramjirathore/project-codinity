@@ -4,7 +4,6 @@ import axios from "axios";
 export const fetchCategoriesStart = () => {
 	return {
         type: actionTypes.FETCH_CATEGORIES_START,
-        load: true
 	};
 };
 
@@ -12,7 +11,6 @@ export const fetchCategoriesStart = () => {
 export const fetchCategoriesSuccess = () => {
 	return {
         type: actionTypes.FETCH_CATEGORIES_SUCCESS,
-        load: false
 	};
 };
 
