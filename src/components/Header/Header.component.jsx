@@ -8,13 +8,14 @@ import {
 	Tabs,
 	AppBar,
 	Toolbar,
-	IconButton,
+	// IconButton,
 	Typography,
 	InputBase,
+	Button,
 	fade,
 	makeStyles,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+// import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	search: {
-		marginLeft: 'auto',
+		marginLeft: '2.5em',
 		position: 'relative',
 		borderRadius: theme.shape.borderRadius,
 		backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -61,15 +62,12 @@ const useStyles = makeStyles((theme) => ({
 		transition: theme.transitions.create('width'),
 		width: '100%',
 		[theme.breakpoints.up('sm')]: {
-			width: '12ch',
-			'&:focus': {
-				width: '20ch',
-			},
+			width: '15ch',
 		},
 	},
 	options: {
 		display: 'flex',
-		flexGrow: 1,
+		flexGrow: 0.6,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -81,6 +79,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	toolbar: {
 		...theme.mixins.toolbar,
+	},
+	login: {
+		marginLeft: 'auto',
 	},
 }));
 
@@ -103,17 +104,30 @@ export const Header = (props) => {
 		<>
 			<AppBar position='fixed' className={classes.nav}>
 				<Toolbar>
-					<IconButton
+					{/* <IconButton
 						edge='start'
 						className={classes.menuButton}
 						color='inherit'
 						aria-label='open drawer'
 					>
 						<MenuIcon />
-					</IconButton>
+					</IconButton> */}
 					<Typography className={classes.title} variant='h4' noWrap>
 						Codinity
 					</Typography>
+					<div className={classes.search}>
+						<div className={classes.searchIcon}>
+							<SearchIcon />
+						</div>
+						<InputBase
+							placeholder='Search'
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput,
+							}}
+							inputProps={{ 'aria-label': 'search' }}
+						/>
+					</div>
 					<div className={classes.options}>
 						<Tabs
 							value={value}
@@ -132,18 +146,15 @@ export const Header = (props) => {
 							))}
 						</Tabs>
 					</div>
-					<div className={classes.search}>
-						<div className={classes.searchIcon}>
-							<SearchIcon />
-						</div>
-						<InputBase
-							placeholder='Search…'
-							classes={{
-								root: classes.inputRoot,
-								input: classes.inputInput,
-							}}
-							inputProps={{ 'aria-label': 'search' }}
-						/>
+					<div className={classes.login}>
+						<Button
+							variant='contained'
+							color='primary'
+							component={Link}
+							to='/login'
+						>
+							Login
+						</Button>
 					</div>
 				</Toolbar>
 			</AppBar>
