@@ -8,14 +8,14 @@ import {
 	Tabs,
 	AppBar,
 	Toolbar,
-	// IconButton,
+	IconButton,
 	Typography,
 	InputBase,
 	Button,
 	fade,
 	makeStyles,
 } from '@material-ui/core';
-// import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
@@ -104,14 +104,14 @@ export const Header = (props) => {
 		<>
 			<AppBar position='fixed' className={classes.nav}>
 				<Toolbar>
-					{/* <IconButton
+					<IconButton
 						edge='start'
 						className={classes.menuButton}
 						color='inherit'
 						aria-label='open drawer'
 					>
 						<MenuIcon />
-					</IconButton> */}
+					</IconButton>
 					<Typography className={classes.title} variant='h4' noWrap>
 						Codinity
 					</Typography>
