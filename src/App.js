@@ -15,7 +15,7 @@ import Video from './components/VideoPage/VideoPage.component';
 
 const App = (props) => {
 	// added on temp basis
-	const addVideo = () => {
+	/* const addVideo = () => {
 		props.addVideoObject({
 			creator: 'Prerna Singh',
 			id: '5dRGRueKU3M',
@@ -23,7 +23,7 @@ const App = (props) => {
 			title: 'Introduction to Dynammic Programming',
 			uploaded: '28-11-2020',
 		});
-	};
+	}; */
 	return (
 		<React.Fragment>
 			<Switch>
