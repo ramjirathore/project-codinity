@@ -1,9 +1,7 @@
 import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import 'firebase/database';
 
-
-const config = {
+var firebaseConfig = {
     apiKey: "AIzaSyByzn7AP7mu2Zb1sVb-ZVC3DPKKLOg_Pd8",
     authDomain: "codinity-6ab53.firebaseapp.com",
     databaseURL: "https://codinity-6ab53.firebaseio.com",
@@ -12,9 +10,9 @@ const config = {
     messagingSenderId: "664481511537",
     appId: "1:664481511537:web:1177ea783560e19c0c03d0",
     measurementId: "G-85LJX8D9P9"
-};
+  };
 
-firebase.initializeApp(config);
-firebase.firestore().settings({ timestampInSnapshots: true });
+var fireDb = firebase.initializeApp(firebaseConfig);
+// firebase.firestore().settings({ timestampInSnapshots: true });
   
-export default firebase;
+export default fireDb.database().ref();

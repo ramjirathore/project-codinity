@@ -101,7 +101,7 @@ export const Header = (props) => {
 
 	return (
 		<>
-			<AppBar position='static' className={classes.nav}>
+			<AppBar position='fixed' className={classes.nav}>
 				<Toolbar>
 					<IconButton
 						edge='start'
