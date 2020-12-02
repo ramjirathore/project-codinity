@@ -12,7 +12,7 @@ var firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
   };
 
-var fireDb = firebase.initializeApp(firebaseConfig);
+const fireDb = firebase.initializeApp(firebaseConfig);
 // firebase.firestore().settings({ timestampInSnapshots: true });
   
-export default fireDb.database().ref();
+export default fireDb.database().ref(); // https://firebase.google.com/docs/reference/js/firebase.database.Reference (Hemant's comment)
