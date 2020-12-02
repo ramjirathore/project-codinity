@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	nav: {
-		background: theme.palette.common.grey,
+		background: theme.palette.common.black,
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	opt: {
 		...theme.typography.tab,
-		fontSize: '1.3em',
+		fontSize: '1.2em',
 		fontFamily: 'Roboto',
 		textTransform: 'uppercase',
 	},
@@ -131,6 +131,7 @@ export const Header = (props) => {
 					</div>
 					<div className={classes.options}>
 						<Tabs
+							indicatorColor='primary'
 							value={value}
 							onChange={(e, val) => setValue(val)}
 							className={classes.tabContainer}
@@ -150,7 +151,6 @@ export const Header = (props) => {
 					<div className={classes.login}>
 						<Button
 							variant='contained'
-							color='primary'
 							component={Link}
 							to='/login'
 						>
