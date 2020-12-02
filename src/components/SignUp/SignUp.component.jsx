@@ -5,8 +5,6 @@ import {
 	Button,
 	CssBaseline,
 	TextField,
-	FormControlLabel,
-	Checkbox,
 	Paper,
 	Box,
 	Grid,
@@ -100,7 +98,12 @@ const SignUp = () => {
 		<Grid container component='main' className={classes.root}>
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={8} className={classes.image}>
-				<Typography variant='h1' className={classes.company} to='/'>
+				<Typography
+					variant='h1'
+					className={classes.company}
+					component={Link}
+					to='/'
+				>
 					Codinity
 				</Typography>
 			</Grid>
