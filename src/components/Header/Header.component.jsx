@@ -109,6 +109,7 @@ export const Header = (props) => {
 						className={classes.menuButton}
 						color='inherit'
 						aria-label='open drawer'
+						onC
 					>
 						<MenuIcon />
 					</IconButton>

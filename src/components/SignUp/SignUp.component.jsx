@@ -12,8 +12,11 @@ import {
 	Grid,
 	makeStyles,
 	Typography,
+	FormControl,
+	InputLabel,
+	Select,
 } from '@material-ui/core';
-
+import list from './collegeslist.json';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const Copyright = () => {
@@ -53,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 		background: 'linear-gradient(45deg, #fff, #888)',
 		WebkitBackgroundClip: 'text',
 		WebkitTextFillColor: 'transparent',
+		textDecoration: 'none !important',
 	},
 	paper: {
 		margin: theme.spacing(8, 4),
@@ -73,20 +77,23 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SignIn = () => {
+const SignUp = () => {
 	const classes = useStyles();
 
 	const initialState = {
+		name: '',
 		email: '',
 		password: '',
+		college: '',
 	};
 
 	const [user, setUser] = useState(initialState);
 
-	const handleSignIn = (event) => {
+	const handleSignUp = (event) => {
 		event.preventDefault();
 		console.log(user);
 		setUser(initialState);
+		window.location.assign('/');
 	};
 
 	return (
@@ -98,6 +105,7 @@ const SignIn = () => {
 					className={classes.company}
 					component={Link}
 					to='/'
+					style={{ textDecoration: 'none' }}
 				>
 					Codinity
 				</Typography>
@@ -116,13 +124,28 @@ const SignIn = () => {
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component='h1' variant='h5'>
-						Sign in
+						Sign Up
 					</Typography>
 					<form
 						className={classes.form}
-						onSubmit={handleSignIn}
+						onSubmit={handleSignUp}
 						noValidate
 					>
+						<TextField
+							variant='outlined'
+							margin='normal'
+							required
+							fullWidth
+							id='name'
+							label='Name'
+							name='name'
+							autoComplete='name'
+							autoFocus
+							value={user.name}
+							onChange={(e) =>
+								setUser({ ...user, name: e.target.value })
+							}
+						/>
 						<TextField
 							variant='outlined'
 							margin='normal'
@@ -153,6 +176,41 @@ const SignIn = () => {
 								setUser({ ...user, password: e.target.value })
 							}
 						/>
+						<FormControl
+							variant='outlined'
+							style={{ marginTop: 18 }}
+						>
+							<InputLabel htmlFor='outlined-age-native-simple'>
+								College
+							</InputLabel>
+							<Select
+								native
+								required
+								autoWidth
+								value={user.college}
+								onChange={(e) =>
+									setUser({
+										...user,
+										college: e.target.value,
+									})
+								}
+								label='College'
+								inputProps={{
+									name: 'age',
+									id: 'outlined-age-native-simple',
+								}}
+							>
+								<option aria-label='None' value='' />
+								{list.map((item) => (
+									<option
+										key={item.college}
+										value={item.college}
+									>
+										{item.college}
+									</option>
+								))}
+							</Select>
+						</FormControl>
 						<FormControlLabel
 							control={
 								<Checkbox value='remember' color='primary' />
@@ -166,25 +224,16 @@ const SignIn = () => {
 							color='primary'
 							className={classes.submit}
 						>
-							Sign In
+							Sign Up
 						</Button>
-						<Grid container>
-							<Grid item xs>
-								<Link
-									href='https://google.com'
-									variant='body2'
-									to='/'
-								>
-									Forgot password?
-								</Link>
-							</Grid>
+						<Grid container justify='center'>
 							<Grid item>
 								<Link
 									href='https://google.com'
 									variant='body2'
-									to='/signup'
+									to='/login'
 								>
-									{"Don't have an account? Sign Up"}
+									{'Already have an account? SignIn'}
 								</Link>
 							</Grid>
 						</Grid>
@@ -198,4 +247,4 @@ const SignIn = () => {
 	);
 };
 
-export default SignIn;
+export default SignUp;
