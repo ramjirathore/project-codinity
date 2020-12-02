@@ -20,7 +20,7 @@ const Copyright = () => {
 	return (
 		<Typography variant='body2' color='textSecondary' align='center'>
 			{'Copyright © '}
-			<Link color='inherit' href='https://material-ui.com/' to='/'>
+			<Link color='inherit' to='/' style={{ textDecoration: 'none' }}>
 				Codinity
 			</Link>{' '}
 			{new Date().getFullYear()}
@@ -171,18 +171,19 @@ const SignIn = () => {
 						<Grid container>
 							<Grid item xs>
 								<Link
-									href='https://google.com'
 									variant='body2'
 									to='/'
+									style={{ textDecoration: 'none' }}
 								>
+									{/* path will be added */}
 									Forgot password?
 								</Link>
 							</Grid>
 							<Grid item>
 								<Link
-									href='https://google.com'
 									variant='body2'
 									to='/signup'
+									style={{ textDecoration: 'none' }}
 								>
 									{"Don't have an account? Sign Up"}
 								</Link>
