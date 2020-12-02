@@ -23,7 +23,7 @@ const Copyright = () => {
 	return (
 		<Typography variant='body2' color='textSecondary' align='center'>
 			{'Copyright © '}
-			<Link color='inherit' href='https://material-ui.com/' to='/'>
+			<Link color='inherit' to='/' style={{ textDecoration: 'none' }}>
 				Codinity
 			</Link>{' '}
 			{new Date().getFullYear()}
@@ -100,13 +100,7 @@ const SignUp = () => {
 		<Grid container component='main' className={classes.root}>
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={8} className={classes.image}>
-				<Typography
-					variant='h1'
-					className={classes.company}
-					component={Link}
-					to='/'
-					style={{ textDecoration: 'none' }}
-				>
+				<Typography variant='h1' className={classes.company} to='/'>
 					Codinity
 				</Typography>
 			</Grid>
@@ -211,12 +205,6 @@ const SignUp = () => {
 								))}
 							</Select>
 						</FormControl>
-						<FormControlLabel
-							control={
-								<Checkbox value='remember' color='primary' />
-							}
-							label='Remember me'
-						/>
 						<Button
 							type='submit'
 							fullWidth
@@ -229,11 +217,13 @@ const SignUp = () => {
 						<Grid container justify='center'>
 							<Grid item>
 								<Link
-									href='https://google.com'
 									variant='body2'
 									to='/login'
+									style={{
+										textDecoration: 'none',
+									}}
 								>
-									{'Already have an account? SignIn'}
+									Already have an account? SignIn
 								</Link>
 							</Grid>
 						</Grid>
