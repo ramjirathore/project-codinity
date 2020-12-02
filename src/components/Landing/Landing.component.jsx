@@ -112,7 +112,7 @@ const Landing = () => {
 							</Grid>
 							<Grid item>
 								<Button variant='outlined' color='primary'>
-									FIND YOUR DOMAIN
+									BECOME CREATOR
 								</Button>
 							</Grid>
 						</Grid>

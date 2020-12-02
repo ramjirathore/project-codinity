@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer.component';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
 
+import SignUp from './components/SignUp/SignUp.component';
 import SignIn from './components/SignIn/SignIn.component';
 import SimpleHeader from './components/VideoPage/SimpleHeader/SimpleHeader.component';
 import Video from './components/VideoPage/VideoPage.component';
@@ -50,6 +51,7 @@ const App = (props) => {
 					component={() => <div>About page</div>}
 				/>
 				<Route exact path='/login' component={SignIn} />
+				<Route exact path='/signup' component={SignUp} />
 				<Route
 					exact
 					path='/video/:id'

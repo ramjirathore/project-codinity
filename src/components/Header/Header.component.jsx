@@ -8,14 +8,14 @@ import {
 	Tabs,
 	AppBar,
 	Toolbar,
-	// IconButton,
+	IconButton,
 	Typography,
 	InputBase,
 	Button,
 	fade,
 	makeStyles,
 } from '@material-ui/core';
-// import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	nav: {
-		background: theme.palette.common.grey,
+		background: theme.palette.common.black,
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	opt: {
 		...theme.typography.tab,
-		fontSize: '1.3em',
+		fontSize: '1.2em',
 		fontFamily: 'Roboto',
 		textTransform: 'uppercase',
 	},
@@ -104,14 +104,15 @@ export const Header = (props) => {
 		<>
 			<AppBar position='fixed' className={classes.nav}>
 				<Toolbar>
-					{/* <IconButton
+					<IconButton
 						edge='start'
 						className={classes.menuButton}
 						color='inherit'
 						aria-label='open drawer'
+						onC
 					>
 						<MenuIcon />
-					</IconButton> */}
+					</IconButton>
 					<Typography className={classes.title} variant='h4' noWrap>
 						Codinity
 					</Typography>
@@ -130,6 +131,7 @@ export const Header = (props) => {
 					</div>
 					<div className={classes.options}>
 						<Tabs
+							indicatorColor='primary'
 							value={value}
 							onChange={(e, val) => setValue(val)}
 							className={classes.tabContainer}
@@ -149,7 +151,6 @@ export const Header = (props) => {
 					<div className={classes.login}>
 						<Button
 							variant='contained'
-							color='primary'
 							component={Link}
 							to='/login'
 						>
