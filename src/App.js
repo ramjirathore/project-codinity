@@ -16,15 +16,15 @@ import Video from './components/VideoPage/VideoPage.component';
 
 const App = (props) => {
 	// added on temp basis
-	// const addVideo = () => {
-	// 	props.addVideoObject({
-	// 		creator: 'Prerna Singh',
-	// 		id: '5dRGRueKU3M',
-	// 		rating: 4.5,
-	// 		title: 'Introduction to Dynammic Programming',
-	// 		uploaded: '28-11-2020',
-	// 	});
-	// };
+	/* const addVideo = () => {
+		props.addVideoObject({
+			creator: 'Prerna Singh',
+			id: '5dRGRueKU3M',
+			rating: 4.5,
+			title: 'Introduction to Dynammic Programming',
+			uploaded: '28-11-2020',
+		});
+	}; */
 	return (
 		<React.Fragment>
 			<Switch>
