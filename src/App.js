@@ -8,11 +8,13 @@ import Footer from './components/Footer/Footer.component';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
 
+import AdminDashboard from './containers/admin/dashboard.component';
+
 import SignUp from './components/SignUp/SignUp.component';
 import SignIn from './components/SignIn/SignIn.component';
 import SimpleHeader from './components/VideoPage/SimpleHeader/SimpleHeader.component';
+
 import Video from './components/VideoPage/VideoPage.component';
-// import { Button } from '@material-ui/core';
 
 const App = (props) => {
 	// added on temp basis
@@ -52,6 +54,7 @@ const App = (props) => {
 				/>
 				<Route exact path='/login' component={SignIn} />
 				<Route exact path='/signup' component={SignUp} />
+				<Route exact path='/admin' component={AdminDashboard} />
 				<Route
 					exact
 					path='/video/:id'
