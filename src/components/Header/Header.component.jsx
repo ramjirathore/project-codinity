@@ -18,6 +18,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import { useAuth } from '../../contexts/AuthContext' 
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -96,6 +98,8 @@ export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
+    const { currentUser } = useAuth();
+
 	useEffect(() => {
 		props.onInitCategories();
 	});
@@ -103,6 +107,7 @@ export const Header = (props) => {
 	return (
 		<>
 			<AppBar position='fixed' className={classes.nav}>
+                {/* {console.log(currentUser.email)} */}
 				<Toolbar>
 					<IconButton
 						edge='start'
@@ -151,7 +156,8 @@ export const Header = (props) => {
 						<Button
 							variant='contained'
 							component={Link}
-							to='/login'
+                            to='/login'
+                            disabled={currentUser!=null}
 						>
 							Login
 						</Button>

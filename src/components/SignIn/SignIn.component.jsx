@@ -16,6 +16,8 @@ import {
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
+import { useAuth } from '../../contexts/AuthContext'
+
 const Copyright = () => {
 	return (
 		<Typography variant='body2' color='textSecondary' align='center'>
@@ -81,16 +83,30 @@ const SignIn = () => {
 		password: '',
 	};
 
-	const [user, setUser] = useState(initialState);
+    const [user, setUser] = useState(initialState);
+    const { login } = useAuth();
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-	const handleSignIn = (event) => {
+	async function handleSignIn(event) {
 		event.preventDefault();
-		console.log(user);
-		setUser(initialState);
+        console.log(user);
+        
+        try {
+            setError("")
+            setLoading(true)
+            await login(user.email, user.password)
+            window.location.assign('/');
+        } catch {
+            setError("Failed to log in")
+        }
+
+        console.log(error);
 	};
 
 	return (
 		<Grid container component='main' className={classes.root}>
+            {/* {console.log(user.email)} */}
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={8} className={classes.image}>
 				<Typography
@@ -164,7 +180,8 @@ const SignIn = () => {
 							fullWidth
 							variant='contained'
 							color='primary'
-							className={classes.submit}
+                            className={classes.submit}
+                            disabled={loading}
 						>
 							Sign In
 						</Button>
