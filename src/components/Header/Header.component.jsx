@@ -84,7 +84,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	login: {
 		marginLeft: 'auto',
-	},
+    },
+    logout: {
+        marginLeft: 'auto',
+    },
 }));
 
 const routes = [
@@ -98,7 +101,21 @@ export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
-    const { currentUser } = useAuth();
+    const { currentUser, logout } = useAuth();
+    const [error, setError] = useState("");
+
+    async function handleLogout() {
+        setError("")
+    
+        try {
+          await logout();
+          window.location.assign('/');
+        } catch {
+          setError("Failed to log out");
+        }
+
+        console.log(error);
+      }
 
 	useEffect(() => {
 		props.onInitCategories();
@@ -162,6 +179,15 @@ export const Header = (props) => {
 							Login
 						</Button>
 					</div>
+                    <div className={classes.logout}>
+                        <Button
+                            variant='contained'
+                            disabled={currentUser==null}
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </Button>
+                    </div>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.toolbar} />
