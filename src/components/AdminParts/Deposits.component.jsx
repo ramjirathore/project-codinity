@@ -10,14 +10,14 @@ const useStyles = makeStyles({
 	},
 });
 
-const DataCard = ({ heading, mainData, currentDate }) => {
+const DataCard = ({ heading, mainData, currentDate, headColor }) => {
 	const classes = useStyles();
 	return (
 		<React.Fragment>
 			<Typography
 				component='b'
 				variant='h5'
-				style={{ color: 'cyan' }}
+				style={{ color: headColor }}
 				className={classes.main}
 			>
 				{heading}

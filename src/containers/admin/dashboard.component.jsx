@@ -126,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
 		height: 220,
 		color: 'white',
 		background: theme.palette.common.grey,
-		border: '1px solid cyan',
+		border: '1px solid',
 	},
 }));
 
@@ -204,11 +204,12 @@ export default function Dashboard() {
 						<Grid item xs={12} md={4} lg={3}>
 							<Paper
 								variant='outlined'
+								style={{ borderColor: 'cyan' }}
 								className={fixedHeightPaper}
 							>
 								<Deposits
 									heading='Total Users'
-									headColor='lightgreen'
+									headColor='cyan'
 									mainData='208'
 									currentDate='1 December, 2020'
 								/>
@@ -217,12 +218,13 @@ export default function Dashboard() {
 						<Grid item xs={12} md={4} lg={3}>
 							<Paper
 								variant='outlined'
+								style={{ borderColor: 'yellow' }}
 								className={fixedHeightPaper}
 							>
 								<Deposits
 									heading='Blogs Posted'
-									headColor='lightgreen'
-									mainData='208'
+									headColor='yellow'
+									mainData='10'
 									currentDate='1 December, 2020'
 								/>
 							</Paper>
@@ -231,10 +233,12 @@ export default function Dashboard() {
 							<Paper
 								variant='outlined'
 								className={fixedHeightPaper}
+								style={{ borderColor: 'lightgreen' }}
 							>
 								<Deposits
 									heading='Total Users'
-									mainData='208'
+									mainData='21'
+									headColor='lightgreen'
 									currentDate='1 December, 2020'
 								/>
 							</Paper>
