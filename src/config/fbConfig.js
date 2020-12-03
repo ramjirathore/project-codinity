@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/auth'
 
 var firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -16,3 +17,5 @@ const fireDb = firebase.initializeApp(firebaseConfig);
 // firebase.firestore().settings({ timestampInSnapshots: true });
   
 export default fireDb.database().ref(); // https://firebase.google.com/docs/reference/js/firebase.database.Reference (Hemant's comment)
+
+export const auth = fireDb.auth();
