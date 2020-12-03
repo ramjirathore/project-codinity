@@ -30,9 +30,13 @@ import Orders from '../../components/AdminParts/Orders.component';
 
 const Copyright = () => {
 	return (
-		<Typography variant='body2' color='textSecondary' align='center'>
+		<Typography variant='body2' style={{ color: 'white' }} align='center'>
 			{'Copyright © '}
-			<Link color='inherit' to='/' style={{ textDecoration: 'none' }}>
+			<Link
+				color='inherit'
+				to='/'
+				style={{ textDecoration: 'none', color: 'white' }}
+			>
 				Codinity
 			</Link>{' '}
 			{new Date().getFullYear()}
@@ -103,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	appBarSpacer: theme.mixins.toolbar,
 	content: {
+		background: theme.palette.common.black,
 		flexGrow: 1,
 		height: '100vh',
 		overflow: 'auto',
@@ -118,7 +123,10 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 	},
 	fixedHeight: {
-		height: 240,
+		height: 220,
+		color: 'white',
+		background: theme.palette.common.grey,
+		border: '1px solid cyan',
 	},
 }));
 
@@ -191,20 +199,59 @@ export default function Dashboard() {
 			</Drawer>
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
-				<Container maxWidth='lg' className={classes.container}>
-					<Grid container spacing={3}>
-						{/* Chart */}
-						<Grid item xs={12} md={8} lg={9}>
-							<Paper className={fixedHeightPaper}>
-								<Chart />
-							</Paper>
-						</Grid>
-						{/* Recent Deposits */}
+				<Container maxWidth='xl' className={classes.container}>
+					<Grid container spacing={4}>
 						<Grid item xs={12} md={4} lg={3}>
-							<Paper className={fixedHeightPaper}>
-								<Deposits />
+							<Paper
+								variant='outlined'
+								className={fixedHeightPaper}
+							>
+								<Deposits
+									heading='Total Users'
+									headColor='lightgreen'
+									mainData='208'
+									currentDate='1 December, 2020'
+								/>
 							</Paper>
 						</Grid>
+						<Grid item xs={12} md={4} lg={3}>
+							<Paper
+								variant='outlined'
+								className={fixedHeightPaper}
+							>
+								<Deposits
+									heading='Blogs Posted'
+									headColor='lightgreen'
+									mainData='208'
+									currentDate='1 December, 2020'
+								/>
+							</Paper>
+						</Grid>
+						<Grid item xs={12} md={4} lg={3}>
+							<Paper
+								variant='outlined'
+								className={fixedHeightPaper}
+							>
+								<Deposits
+									heading='Total Users'
+									mainData='208'
+									currentDate='1 December, 2020'
+								/>
+							</Paper>
+						</Grid>
+						<Grid item xs={12} md={4} lg={3}>
+							<Paper
+								variant='outlined'
+								className={fixedHeightPaper}
+							>
+								<Deposits
+									heading='Total Users'
+									mainData='208'
+									currentDate='1 December, 2020'
+								/>
+							</Paper>
+						</Grid>
+
 						{/* Recent Orders */}
 						<Grid item xs={12}>
 							<Paper className={classes.paper}>

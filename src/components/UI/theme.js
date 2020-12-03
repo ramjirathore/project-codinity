@@ -9,14 +9,14 @@ export default createMuiTheme({
 		common: {
 			black: codinityBlack,
 			grey: codinityGrey,
-			white: codinityWhite
+			white: codinityWhite,
 		},
 		primary: {
-			main: codinityBlack
+			main: codinityBlack,
 		},
 		secondary: {
-			main: codinityGrey
-		}
+			main: codinityGrey,
+		},
 	},
 	typography: {
 		fontFamily: [
@@ -30,14 +30,15 @@ export default createMuiTheme({
 			'sans-serif',
 			'"Apple Color Emoji"',
 			'"Segoe UI Emoji"',
-			'"Segoe UI Symbol"'
+			'"Segoe UI Symbol"',
 		].join(','),
 		tab: {
 			fontFamily: 'Roboto',
 			fontWeight: 600,
 			fontSize: '1.2rem',
-			textTransform: 'none'
-		}
+			textTransform: 'none',
+		},
+
 		// h2: {
 		// 	fontFamily: 'Raleway',
 		// 	fontWeight: 700,
@@ -85,5 +86,5 @@ export default createMuiTheme({
 		// 	width: '12px',
 		// 	marginLeft: '10px'
 		// }
-	}
+	},
 });

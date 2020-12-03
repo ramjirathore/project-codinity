@@ -1,38 +1,38 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Title from './Title.component';
-
-function preventDefault(event) {
-	event.preventDefault();
-}
+import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
-	depositContext: {
-		flex: 1,
+	main: {
+		flex: 0.3,
+	},
+	context: {
+		flex: 0.5,
 	},
 });
 
-export default function Deposits() {
+const DataCard = ({ heading, mainData, currentDate }) => {
 	const classes = useStyles();
 	return (
 		<React.Fragment>
-			<Title>Recent Deposits</Title>
-			<Typography component='p' variant='h4'>
-				$3,024.00
-			</Typography>
 			<Typography
-				color='textSecondary'
-				className={classes.depositContext}
+				component='b'
+				variant='h5'
+				style={{ color: 'cyan' }}
+				className={classes.main}
 			>
-				on 15 March, 2019
+				{heading}
+			</Typography>
+			<Typography component='p' variant='h4' className={classes.context}>
+				{mainData}
+			</Typography>
+			<Typography component='p' variant='h6'>
+				Last Updated:{' '}
 			</Typography>
 			<div>
-				<Link color='primary' href='#' onClick={preventDefault}>
-					View balance
-				</Link>
+				<Typography> {currentDate}</Typography>
 			</div>
 		</React.Fragment>
 	);
-}
+};
+
+export default DataCard;

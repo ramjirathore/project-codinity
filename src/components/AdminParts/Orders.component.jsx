@@ -1,103 +1,96 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Title from './Title.component';
+import Paper from '@material-ui/core/Paper';
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-	return { id, date, name, shipTo, paymentMethod, amount };
+const StyledTableCell = withStyles((theme) => ({
+	head: {
+		backgroundColor: '#F54',
+		color: theme.palette.common.white,
+	},
+	body: {
+		fontSize: 14,
+	},
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+	root: {
+		'&:nth-of-type(odd)': {
+			backgroundColor: theme.palette.action.hover,
+		},
+	},
+}))(TableRow);
+
+function createData(name, calories, fat, carbs, protein) {
+	return { name, calories, fat, carbs, protein };
 }
 
 const rows = [
-	createData(
-		0,
-		'16 Mar, 2019',
-		'Elvis Presley',
-		'Tupelo, MS',
-		'VISA ⠀•••• 3719',
-		312.44
-	),
-	createData(
-		1,
-		'16 Mar, 2019',
-		'Paul McCartney',
-		'London, UK',
-		'VISA ⠀•••• 2574',
-		866.99
-	),
-	createData(
-		2,
-		'16 Mar, 2019',
-		'Tom Scholz',
-		'Boston, MA',
-		'MC ⠀•••• 1253',
-		100.81
-	),
-	createData(
-		3,
-		'16 Mar, 2019',
-		'Michael Jackson',
-		'Gary, IN',
-		'AMEX ⠀•••• 2000',
-		654.39
-	),
-	createData(
-		4,
-		'15 Mar, 2019',
-		'Bruce Springsteen',
-		'Long Branch, NJ',
-		'VISA ⠀•••• 5919',
-		212.79
-	),
+	createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+	createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+	createData('Eclair', 262, 16.0, 24, 6.0),
+	createData('Cupcake', 305, 3.7, 67, 4.3),
+	createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function preventDefault(event) {
-	event.preventDefault();
-}
-
-const useStyles = makeStyles((theme) => ({
-	seeMore: {
-		marginTop: theme.spacing(3),
+const useStyles = makeStyles({
+	table: {
+		minWidth: 700,
 	},
-}));
+});
 
-export default function Orders() {
+export default function CustomizedTables() {
 	const classes = useStyles();
+
 	return (
-		<React.Fragment>
-			<Title>Recent Orders</Title>
-			<Table size='small'>
+		<TableContainer component={Paper}>
+			<Table className={classes.table} aria-label='customized table'>
 				<TableHead>
 					<TableRow>
-						<TableCell>Date</TableCell>
-						<TableCell>Name</TableCell>
-						<TableCell>Ship To</TableCell>
-						<TableCell>Payment Method</TableCell>
-						<TableCell align='right'>Sale Amount</TableCell>
+						<StyledTableCell>
+							Dessert (100g serving)
+						</StyledTableCell>
+						<StyledTableCell align='right'>
+							Calories
+						</StyledTableCell>
+						<StyledTableCell align='right'>
+							Fat&nbsp;(g)
+						</StyledTableCell>
+						<StyledTableCell align='right'>
+							Carbs&nbsp;(g)
+						</StyledTableCell>
+						<StyledTableCell align='right'>
+							Protein&nbsp;(g)
+						</StyledTableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{rows.map((row) => (
-						<TableRow key={row.id}>
-							<TableCell>{row.date}</TableCell>
-							<TableCell>{row.name}</TableCell>
-							<TableCell>{row.shipTo}</TableCell>
-							<TableCell>{row.paymentMethod}</TableCell>
-							<TableCell align='right'>{row.amount}</TableCell>
-						</TableRow>
+						<StyledTableRow key={row.name}>
+							<StyledTableCell component='th' scope='row'>
+								{row.name}
+							</StyledTableCell>
+							<StyledTableCell align='right'>
+								{row.calories}
+							</StyledTableCell>
+							<StyledTableCell align='right'>
+								{row.fat}
+							</StyledTableCell>
+							<StyledTableCell align='right'>
+								{row.carbs}
+							</StyledTableCell>
+							<StyledTableCell align='right'>
+								{row.protein}
+							</StyledTableCell>
+						</StyledTableRow>
 					))}
 				</TableBody>
 			</Table>
-			<div className={classes.seeMore}>
-				<Link color='primary' href='#' onClick={preventDefault}>
-					See more orders
-				</Link>
-			</div>
-		</React.Fragment>
+		</TableContainer>
 	);
 }
