@@ -1,12 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
 	makeStyles,
 	CssBaseline,
-	Box,
-	Typography,
 	Container,
 	Grid,
 	Paper,

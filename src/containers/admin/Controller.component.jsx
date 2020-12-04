@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import {
@@ -12,14 +12,20 @@ import {
 	Divider,
 	IconButton,
 	Badge,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {
-	mainListItems,
-	secondaryListItems,
-} from '../../components/AdminParts/ListItems.component';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import AccountBalanceWalletSharpIcon from '@material-ui/icons/AccountBalanceWalletSharp';
+import BugReportSharpIcon from '@material-ui/icons/BugReportSharp';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import LayersIcon from '@material-ui/icons/Layers';
+
+import { secondaryListItems } from '../../components/AdminParts/ListItems.component';
 
 const drawerWidth = 240;
 
@@ -81,6 +87,13 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	appBarSpacer: theme.mixins.toolbar,
+	active: {
+		opacity: 1,
+		color: 'black',
+	},
+	inactive: {
+		opacity: 0.8,
+	},
 }));
 
 const Copyright = () => {
@@ -97,7 +110,6 @@ const Copyright = () => {
 						Codinity
 					</Link>{' '}
 					{new Date().getFullYear()}
-					{'.'}
 				</b>
 			</Typography>
 			<Typography variant='body2' align='center'>
@@ -107,15 +119,35 @@ const Copyright = () => {
 	);
 };
 
+const list = [
+	{
+		name: 'Dashboard',
+		link: '/dashboard',
+		value: 0,
+		icon: DashboardIcon,
+	},
+	{ name: 'Requests', link: '/requests', value: 1, icon: LayersIcon },
+	{
+		name: 'Earnings',
+		link: '/earnings',
+		value: 2,
+		icon: AccountBalanceWalletSharpIcon,
+	},
+	{ name: 'Bugs', link: '/bugs', value: 3, icon: BugReportSharpIcon },
+	{ name: 'Reports', link: '/reports', value: 4, icon: BarChartIcon },
+];
+
 const Controller = () => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
+	const [activeIndex, setActiveIndex] = useState(0);
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
+
 	return (
 		<>
 			<AppBar
@@ -180,7 +212,36 @@ const Controller = () => {
 					</IconButton>
 				</div>
 				<Divider />
-				<List>{mainListItems}</List>
+				<List>
+					{list.map((item, index) => (
+						<ListItem
+							button
+							selected={item.value === activeIndex}
+							className={
+								item.value === activeIndex
+									? classes.active
+									: classes.inactive
+							}
+							component={Link}
+							to={'/admin' + item.link}
+							onClick={() => {
+								setActiveIndex(index);
+							}}
+						>
+							<ListItemIcon>
+								<item.icon
+									style={{
+										color:
+											item.value === activeIndex
+												? 'black'
+												: 'inherit',
+									}}
+								/>
+							</ListItemIcon>
+							<ListItemText primary={item.name} />
+						</ListItem>
+					))}
+				</List>
 				<Divider />
 				<List>{secondaryListItems}</List>
 				<Divider />
