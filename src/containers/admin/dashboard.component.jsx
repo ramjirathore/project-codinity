@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
 	makeStyles,
 	CssBaseline,
@@ -24,9 +25,8 @@ import {
 	mainListItems,
 	secondaryListItems,
 } from '../../components/AdminParts/ListItems.component';
-import Chart from '../../components/AdminParts/Charts.component';
 import Deposits from '../../components/AdminParts/Deposits.component';
-import Orders from '../../components/AdminParts/Orders.component';
+import Table from '../../components/AdminParts/Table.component';
 
 const Copyright = () => {
 	return (
@@ -117,10 +117,11 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: theme.spacing(4),
 	},
 	paper: {
-		padding: theme.spacing(2),
+		padding: theme.spacing(1),
 		display: 'flex',
 		overflow: 'auto',
 		flexDirection: 'column',
+		background: theme.palette.common.grey,
 	},
 	fixedHeight: {
 		height: 220,
@@ -130,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Dashboard() {
+const Dashboard = ({ categories }) => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
 	const handleDrawerOpen = () => {
@@ -140,6 +141,10 @@ export default function Dashboard() {
 		setOpen(false);
 	};
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+	const categoriesHeader = ['Category', 'Videos'];
+
+	console.log(categories);
 
 	return (
 		<div className={classes.root}>
@@ -257,11 +262,16 @@ export default function Dashboard() {
 						</Grid>
 
 						{/* Recent Orders */}
-						<Grid item xs={12}>
+						<Grid item xs={12} lg={4}>
 							<Paper className={classes.paper}>
-								<Orders />
+								<Table header={categoriesHeader} />
 							</Paper>
 						</Grid>
+						{/* <Grid item xs={12} lg={6}>
+							<Paper className={classes.paper}>
+								<Table />
+							</Paper>
+						</Grid> */}
 					</Grid>
 					<Box pt={4}>
 						<Copyright />
@@ -270,4 +280,14 @@ export default function Dashboard() {
 			</main>
 		</div>
 	);
-}
+};
+
+const mapStateToProps = (state) => {
+	return {
+		categories: state.ctgr.categories,
+		error: state.ctgr.error,
+		loading: state.ctgr.loading,
+	};
+};
+
+export default connect(mapStateToProps)(Dashboard);

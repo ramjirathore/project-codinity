@@ -90,7 +90,7 @@ const Practice = ({ categories, loading }) => {
 	const path = 'https://www.youtube.com/embed/';
 
 	const classes = useStyles();
-	console.log(categories, loading);
+	// console.log(categories, loading);
 	return (
 		<div className={classes.root}>
 			<CssBaseline />

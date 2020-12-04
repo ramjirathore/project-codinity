@@ -33,16 +33,7 @@ export const initCategories = () => {
 		axios
 			.get('https://codinity-6ab53.firebaseio.com/categories.json')
 			.then((response) => {
-				let categories = [];
-				for (let [key, value] of Object.entries(response.data)) {
-					categories.push({
-						key,
-						videos: value,
-						count: value.length,
-					});
-				}
-
-				dispatch(setCategories(categories));
+				dispatch(setCategories(response.data));
 				dispatch(fetchCategoriesSuccess());
 			})
 			.catch((error) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './components/Header/Header.component';
 import Landing from './components/Landing/Landing.component';
@@ -27,6 +27,9 @@ const App = (props) => {
 			uploaded: '28-11-2020',
 		});
 	}; */
+	useEffect(() => {
+		props.onInitCategories();
+	});
 	return (
 		<React.Fragment>
 			<Switch>
@@ -75,6 +78,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		addVideoObject: (video) =>
 			dispatch(actions.addVideo('machineLsearning', video)),
+		onInitCategories: () => dispatch(actions.initCategories()),
 	};
 };
 

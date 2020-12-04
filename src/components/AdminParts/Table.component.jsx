@@ -31,20 +31,21 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-	createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-	createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-	createData('Eclair', 262, 16.0, 24, 6.0),
-	createData('Cupcake', 305, 3.7, 67, 4.3),
-	createData('Gingerbread', 356, 16.0, 49, 3.9),
+	createData('Frozen yoghurt', 159),
+	createData('Ice cream sandwich', 237),
+	createData('Eclair', 262),
+	createData('Cupcake', 305),
+	createData('Gingerbread', 356),
 ];
 
 const useStyles = makeStyles({
 	table: {
-		minWidth: 700,
+		minWidth: 500,
+		// backgroundColor: '#eee',
 	},
 });
 
-export default function CustomizedTables() {
+const CustomizedTable = ({ header }) => {
 	const classes = useStyles();
 
 	return (
@@ -52,21 +53,11 @@ export default function CustomizedTables() {
 			<Table className={classes.table} aria-label='customized table'>
 				<TableHead>
 					<TableRow>
-						<StyledTableCell>
-							Dessert (100g serving)
-						</StyledTableCell>
-						<StyledTableCell align='right'>
-							Calories
-						</StyledTableCell>
-						<StyledTableCell align='right'>
-							Fat&nbsp;(g)
-						</StyledTableCell>
-						<StyledTableCell align='right'>
-							Carbs&nbsp;(g)
-						</StyledTableCell>
-						<StyledTableCell align='right'>
-							Protein&nbsp;(g)
-						</StyledTableCell>
+						{header.map((head, index) => (
+							<StyledTableCell key={index}>
+								<b>{head}</b>
+							</StyledTableCell>
+						))}
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -75,17 +66,8 @@ export default function CustomizedTables() {
 							<StyledTableCell component='th' scope='row'>
 								{row.name}
 							</StyledTableCell>
-							<StyledTableCell align='right'>
+							<StyledTableCell align='left'>
 								{row.calories}
-							</StyledTableCell>
-							<StyledTableCell align='right'>
-								{row.fat}
-							</StyledTableCell>
-							<StyledTableCell align='right'>
-								{row.carbs}
-							</StyledTableCell>
-							<StyledTableCell align='right'>
-								{row.protein}
 							</StyledTableCell>
 						</StyledTableRow>
 					))}
@@ -93,4 +75,6 @@ export default function CustomizedTables() {
 			</Table>
 		</TableContainer>
 	);
-}
+};
+
+export default CustomizedTable;

@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
 
 import {
 	Tab,
@@ -96,10 +94,6 @@ export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
-	useEffect(() => {
-		props.onInitCategories();
-	});
-
 	return (
 		<>
 			<AppBar position='fixed' className={classes.nav}>
@@ -163,10 +157,4 @@ export const Header = (props) => {
 	);
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onInitCategories: () => dispatch(actions.initCategories()),
-	};
-};
-
-export default connect(null, mapDispatchToProps)(Header);
+export default Header;
