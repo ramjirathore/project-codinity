@@ -1,91 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
-import {
-	makeStyles,
-	CssBaseline,
-	Container,
-	Grid,
-	Paper,
-} from '@material-ui/core';
+import { makeStyles, Grid, Paper } from '@material-ui/core';
 
 import DataCard from '../../components/AdminParts/DataCard.component';
 import Table from '../../components/AdminParts/Table.component';
-import Controller from './Controller.component';
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		display: 'flex',
-	},
-	toolbar: {
-		paddingRight: 24, // keep right padding when drawer closed
-	},
-	toolbarIcon: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-		padding: '0 8px',
-		...theme.mixins.toolbar,
-	},
-	appBar: {
-		zIndex: theme.zIndex.drawer + 1,
-		transition: theme.transitions.create(['width', 'margin'], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
-	},
-	appBarShift: {
-		marginLeft: drawerWidth,
-		width: `calc(100% - ${drawerWidth}px)`,
-		transition: theme.transitions.create(['width', 'margin'], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.enteringScreen,
-		}),
-	},
-	menuButton: {
-		marginRight: 36,
-	},
-	menuButtonHidden: {
-		display: 'none',
-	},
-	title: {
-		flexGrow: 1,
-		textTransform: 'uppercase',
-	},
-	drawerPaper: {
-		position: 'relative',
-		whiteSpace: 'nowrap',
-		width: drawerWidth,
-		transition: theme.transitions.create('width', {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.enteringScreen,
-		}),
-		background: '#ddd',
-	},
-	drawerPaperClose: {
-		overflowX: 'hidden',
-		transition: theme.transitions.create('width', {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
-		width: theme.spacing(7),
-		[theme.breakpoints.up('sm')]: {
-			width: theme.spacing(9),
-		},
-	},
-	appBarSpacer: theme.mixins.toolbar,
-	content: {
-		background: theme.palette.common.black,
-		flexGrow: 1,
-		height: '100vh',
-		overflow: 'auto',
-	},
-	container: {
-		paddingTop: theme.spacing(4),
-		paddingBottom: theme.spacing(4),
-	},
 	paper: {
 		padding: theme.spacing(1),
 		display: 'flex',
@@ -120,94 +41,87 @@ const Dashboard = ({ categories, blogs, loading }) => {
 		: [];
 
 	return (
-		<div className={classes.root}>
-			<CssBaseline />
-			<Controller />
-			<main className={classes.content}>
-				<div className={classes.appBarSpacer} />
-				<Container maxWidth='xl' className={classes.container}>
-					{!loading ? (
-						<>
-							<Grid container spacing={4}>
-								<Grid item xs={12} md={4} lg={3}>
-									<Paper
-										variant='outlined'
-										style={{ borderColor: 'cyan' }}
-										className={fixedHeightPaper}
-									>
-										<DataCard
-											heading='Total Users'
-											headColor='cyan'
-											mainData='208'
-											currentDate='1 December, 2020'
-										/>
-									</Paper>
-								</Grid>
-								<Grid item xs={12} md={4} lg={3}>
-									<Paper
-										variant='outlined'
-										style={{ borderColor: 'yellow' }}
-										className={fixedHeightPaper}
-									>
-										<DataCard
-											heading='Blogs Posted'
-											headColor='yellow'
-											mainData={blogs.length}
-											currentDate='1 December, 2020'
-										/>
-									</Paper>
-								</Grid>
-								<Grid item xs={12} md={4} lg={3}>
-									<Paper
-										variant='outlined'
-										className={fixedHeightPaper}
-										style={{ borderColor: 'lightgreen' }}
-									>
-										<DataCard
-											heading='Events Scheduled'
-											mainData='20'
-											headColor='lightgreen'
-											currentDate='1 December, 2020'
-										/>
-									</Paper>
-								</Grid>
-								<Grid item xs={12} md={4} lg={3}>
-									<Paper
-										variant='outlined'
-										className={fixedHeightPaper}
-										style={{ borderColor: 'orange' }}
-									>
-										<DataCard
-											heading='Total Videos'
-											mainData='208'
-											headColor='orange'
-											currentDate='1 December, 2020'
-										/>
-									</Paper>
-								</Grid>
+		<>
+			{!loading ? (
+				<>
+					<Grid container spacing={4}>
+						<Grid item xs={12} md={4} lg={3}>
+							<Paper
+								variant='outlined'
+								style={{ borderColor: 'cyan' }}
+								className={fixedHeightPaper}
+							>
+								<DataCard
+									heading='Total Users'
+									headColor='cyan'
+									mainData='208'
+									currentDate='1 December, 2020'
+								/>
+							</Paper>
+						</Grid>
+						<Grid item xs={12} md={4} lg={3}>
+							<Paper
+								variant='outlined'
+								style={{ borderColor: 'yellow' }}
+								className={fixedHeightPaper}
+							>
+								<DataCard
+									heading='Blogs Posted'
+									headColor='yellow'
+									mainData={blogs.length}
+									currentDate='1 December, 2020'
+								/>
+							</Paper>
+						</Grid>
+						<Grid item xs={12} md={4} lg={3}>
+							<Paper
+								variant='outlined'
+								className={fixedHeightPaper}
+								style={{ borderColor: 'lightgreen' }}
+							>
+								<DataCard
+									heading='Events Scheduled'
+									mainData='20'
+									headColor='lightgreen'
+									currentDate='1 December, 2020'
+								/>
+							</Paper>
+						</Grid>
+						<Grid item xs={12} md={4} lg={3}>
+							<Paper
+								variant='outlined'
+								className={fixedHeightPaper}
+								style={{ borderColor: 'orange' }}
+							>
+								<DataCard
+									heading='Total Videos'
+									mainData='208'
+									headColor='orange'
+									currentDate='1 December, 2020'
+								/>
+							</Paper>
+						</Grid>
 
-								{/* Recent Orders */}
-								<Grid item xs={12} lg={6}>
-									<Paper className={classes.paper}>
-										<Table
-											header={categoriesHeader}
-											rows={allCategories}
-										/>
-									</Paper>
-								</Grid>
-								{/* <Grid item xs={12} lg={6}>
+						{/* Recent Orders */}
+						<Grid item xs={12} lg={6}>
 							<Paper className={classes.paper}>
-							<Table />
+								<Table
+									header={categoriesHeader}
+									rows={allCategories}
+								/>
+							</Paper>
+						</Grid>
+						{/* <Grid item xs={12} lg={6}>
+							<Paper className={classes.paper}>
+								<Table />
 							</Paper>
 						</Grid> */}
-							</Grid>
-						</>
-					) : (
-						<div className={classes.loading}>Loading...</div>
-					)}
-				</Container>
-			</main>
-		</div>
+					</Grid>
+				</>
+			) : (
+				<div className={classes.loading}>Loading...</div>
+			)}
+		</>
 	);
 };
 

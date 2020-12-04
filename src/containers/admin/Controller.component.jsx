@@ -15,6 +15,8 @@ import {
 	ListItem,
 	ListItemIcon,
 	ListItemText,
+	CssBaseline,
+	Container,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -27,9 +29,14 @@ import LayersIcon from '@material-ui/icons/Layers';
 
 import { secondaryListItems } from '../../components/AdminParts/ListItems.component';
 
+import Dashboard from './dashboard.component';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+	root: {
+		display: 'flex',
+	},
 	toolbar: {
 		paddingRight: 24, // keep right padding when drawer closed
 	},
@@ -86,13 +93,31 @@ const useStyles = makeStyles((theme) => ({
 			width: theme.spacing(9),
 		},
 	},
-	appBarSpacer: theme.mixins.toolbar,
 	active: {
 		opacity: 1,
 		color: 'black',
 	},
 	inactive: {
 		opacity: 0.8,
+	},
+	appBarSpacer: theme.mixins.toolbar,
+	content: {
+		background: theme.palette.common.black,
+		flexGrow: 1,
+		height: '100vh',
+		overflow: 'auto',
+	},
+	container: {
+		paddingTop: theme.spacing(4),
+		paddingBottom: theme.spacing(4),
+	},
+	comingsoon: {
+		display: 'flex',
+		height: '80vh',
+		color: 'white',
+		fontSize: '2rem',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 }));
 
@@ -140,7 +165,10 @@ const list = [
 const Controller = () => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
-	const [activeIndex, setActiveIndex] = useState(0);
+	const [activeIndex, setActiveIndex] = useState({
+		name: 'Dashboard',
+		index: 0,
+	});
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -148,8 +176,11 @@ const Controller = () => {
 		setOpen(false);
 	};
 
+	// const parts = window.location.pathname.split('/');
+	// let lastSegment = parts.pop();
 	return (
-		<>
+		<div className={classes.root}>
+			<CssBaseline />
 			<AppBar
 				position='absolute'
 				className={clsx(classes.appBar, open && classes.appBarShift)}
@@ -174,7 +205,7 @@ const Controller = () => {
 						noWrap
 						className={classes.title}
 					>
-						<b>Dashboard</b>
+						<b>{activeIndex.name}</b>
 					</Typography>
 					<IconButton color='inherit'>
 						<Badge badgeContent={4} color='secondary'>
@@ -215,24 +246,29 @@ const Controller = () => {
 				<List>
 					{list.map((item, index) => (
 						<ListItem
+							key={index}
 							button
-							selected={item.value === activeIndex}
+							selected={item.value === activeIndex.index}
 							className={
-								item.value === activeIndex
+								item.value === activeIndex.index
 									? classes.active
 									: classes.inactive
 							}
-							component={Link}
-							to={'/admin' + item.link}
+							// component={Link}
+							// to={'/admin'}
 							onClick={() => {
-								setActiveIndex(index);
+								setActiveIndex({
+									...activeIndex,
+									name: item.name,
+									index,
+								});
 							}}
 						>
 							<ListItemIcon>
 								<item.icon
 									style={{
 										color:
-											item.value === activeIndex
+											item.value === activeIndex.index
 												? 'black'
 												: 'inherit',
 									}}
@@ -252,7 +288,17 @@ const Controller = () => {
 					<Copyright />
 				</Box>
 			</Drawer>
-		</>
+			<main className={classes.content}>
+				<div className={classes.appBarSpacer} />
+				<Container maxWidth='xl' className={classes.container}>
+					{activeIndex.name === 'Dashboard' ? (
+						<Dashboard />
+					) : (
+						<div className={classes.comingsoon}>Coming soon!</div>
+					)}
+				</Container>
+			</main>
+		</div>
 	);
 };
 
