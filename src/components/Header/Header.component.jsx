@@ -18,7 +18,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
-import { useAuth } from '../../contexts/AuthContext' 
+import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -84,10 +84,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	login: {
 		marginLeft: 'auto',
-    },
-    logout: {
-        marginLeft: 'auto',
-    },
+	},
+	logout: {
+		marginLeft: 'auto',
+	},
 }));
 
 const routes = [
@@ -101,21 +101,23 @@ export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
-    const { currentUser, logout } = useAuth();
-    const [error, setError] = useState("");
+	const { currentUser, logout } = useAuth();
+	const [error, setError] = useState('');
 
-    async function handleLogout() {
-        setError("")
-    
-        try {
-          await logout();
-          window.location.assign('/');
-        } catch {
-          setError("Failed to log out");
-        }
+	console.log(currentUser);
 
-        console.log(error);
-      }
+	async function handleLogout() {
+		setError('');
+
+		try {
+			await logout();
+			window.location.assign('/');
+		} catch {
+			setError('Failed to log out');
+		}
+
+		console.log(error);
+	}
 
 	useEffect(() => {
 		props.onInitCategories();
@@ -124,7 +126,7 @@ export const Header = (props) => {
 	return (
 		<>
 			<AppBar position='fixed' className={classes.nav}>
-                {/* {console.log(currentUser.email)} */}
+				{/* {console.log(currentUser.email)} */}
 				<Toolbar>
 					<IconButton
 						edge='start'
@@ -173,21 +175,21 @@ export const Header = (props) => {
 						<Button
 							variant='contained'
 							component={Link}
-                            to='/login'
-                            disabled={currentUser!=null}
+							to='/login'
+							disabled={currentUser != null}
 						>
 							Login
 						</Button>
 					</div>
-                    <div className={classes.logout}>
-                        <Button
-                            variant='contained'
-                            disabled={currentUser==null}
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </Button>
-                    </div>
+					<div className={classes.logout}>
+						<Button
+							variant='contained'
+							disabled={currentUser == null}
+							onClick={handleLogout}
+						>
+							Logout
+						</Button>
+					</div>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.toolbar} />
