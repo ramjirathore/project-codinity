@@ -17,6 +17,8 @@ import {
 import list from './collegeslist.json';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
+import { useAuth } from '../../contexts/AuthContext'
+
 const Copyright = () => {
 	return (
 		<Typography variant='body2' color='textSecondary' align='center'>
@@ -85,13 +87,29 @@ const SignUp = () => {
 		college: '',
 	};
 
-	const [user, setUser] = useState(initialState);
+    const [user, setUser] = useState(initialState);
+    const { signup } = useAuth();
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-	const handleSignUp = (event) => {
-		event.preventDefault();
-		console.log(user);
-		setUser(initialState);
-		window.location.assign('/');
+	async function handleSignUp(event) {
+        event.preventDefault();
+        
+        console.log(user);
+        
+        try {
+            setError("");
+            setLoading(true);
+            await signup(user.email, user.password);
+            window.location.assign('/');
+        } catch {
+            setError("Failed to sign up");
+        }
+
+        console.log("error:", error);
+      
+        setLoading(false);
+        setUser(initialState);
 	};
 
 	return (
@@ -213,7 +231,8 @@ const SignUp = () => {
 							fullWidth
 							variant='contained'
 							color='primary'
-							className={classes.submit}
+                            className={classes.submit}
+                            disabled={loading}
 						>
 							Sign Up
 						</Button>

@@ -16,6 +16,8 @@ import SimpleHeader from './components/VideoPage/SimpleHeader/SimpleHeader.compo
 
 import Video from './components/VideoPage/VideoPage.component';
 
+import { AuthProvider } from './contexts/AuthContext';
+
 const App = (props) => {
 	// added on temp basis
 	/* const addVideo = () => {
@@ -33,44 +35,46 @@ const App = (props) => {
 	});
 	return (
 		<React.Fragment>
-			<Switch>
-				<Route
-					exact
-					path='/'
-					render={() => (
-						<>
-							<Header />
-							<Landing />
-							<Footer />
-						</>
-					)}
-				/>
-				<Route exact path='/practice' component={Practice} />
-				<Route
-					exact
-					path='/categories'
-					component={() => <div>All categories here</div>}
-				/>
-				<Route
-					exact
-					path='/about'
-					component={() => <div>About page</div>}
-				/>
-				<Route exact path='/login' component={SignIn} />
-				<Route exact path='/signup' component={SignUp} />
-				<Route exact path='/admin' component={AdminDashboard} />
-				<Route
-					exact
-					path='/video/:id'
-					render={() => (
-						<>
-							<SimpleHeader />
-							<Video />
-						</>
-					)}
-				/>
-			</Switch>
-			{/* <Footer /> */}
+			<AuthProvider>
+				<Switch>
+					<Route
+						exact
+						path='/'
+						render={() => (
+							<>
+								<Header />
+								<Landing />
+								<Footer />
+							</>
+						)}
+					/>
+					<Route exact path='/practice' component={Practice} />
+					<Route
+						exact
+						path='/categories'
+						component={() => <div>All categories here</div>}
+					/>
+					<Route
+						exact
+						path='/about'
+						component={() => <div>About page</div>}
+					/>
+					<Route exact path='/login' component={SignIn} />
+					<Route exact path='/signup' component={SignUp} />
+					<Route exact path='/admin' component={AdminDashboard} />
+					<Route
+						exact
+						path='/video/:id'
+						render={() => (
+							<>
+								<SimpleHeader />
+								<Video />
+							</>
+						)}
+					/>
+				</Switch>
+				{/* <Footer /> */}
+			</AuthProvider>
 		</React.Fragment>
 	);
 };

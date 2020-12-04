@@ -16,6 +16,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import { useAuth } from '../../contexts/AuthContext';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -81,6 +83,9 @@ const useStyles = makeStyles((theme) => ({
 	login: {
 		marginLeft: 'auto',
 	},
+	logout: {
+		marginLeft: 'auto',
+	},
 }));
 
 const routes = [
@@ -94,9 +99,28 @@ export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
+	const { currentUser, logout } = useAuth();
+	const [error, setError] = useState('');
+
+	console.log(currentUser);
+
+	async function handleLogout() {
+		setError('');
+
+		try {
+			await logout();
+			window.location.assign('/');
+		} catch {
+			setError('Failed to log out');
+		}
+
+		console.log(error);
+	}
+
 	return (
 		<>
 			<AppBar position='fixed' className={classes.nav}>
+				{/* {console.log(currentUser.email)} */}
 				<Toolbar>
 					<IconButton
 						edge='start'
@@ -146,8 +170,18 @@ export const Header = (props) => {
 							variant='contained'
 							component={Link}
 							to='/login'
+							disabled={currentUser != null}
 						>
 							Login
+						</Button>
+					</div>
+					<div className={classes.logout}>
+						<Button
+							variant='contained'
+							disabled={currentUser == null}
+							onClick={handleLogout}
+						>
+							Logout
 						</Button>
 					</div>
 				</Toolbar>
