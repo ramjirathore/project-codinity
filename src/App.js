@@ -28,7 +28,8 @@ const App = (props) => {
 		});
 	}; */
 	useEffect(() => {
-		props.onInitCategories();
+		props.InitCategories();
+		props.InitBlogs();
 	});
 	return (
 		<React.Fragment>
@@ -78,7 +79,8 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		addVideoObject: (video) =>
 			dispatch(actions.addVideo('machineLsearning', video)),
-		onInitCategories: () => dispatch(actions.initCategories()),
+		InitCategories: () => dispatch(actions.initCategories()),
+		InitBlogs: () => dispatch(actions.initBlogs()),
 	};
 };
 

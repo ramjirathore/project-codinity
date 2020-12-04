@@ -20,7 +20,7 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
 	ctgr: categoriesReducer,
-	blogs: blogsReducer,
+	blg: blogsReducer,
 });
 const store = createStore(
 	rootReducer,

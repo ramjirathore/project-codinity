@@ -49,8 +49,8 @@ const CustomizedTable = ({ header, rows }) => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row) => (
-						<StyledTableRow key={row}>
+					{rows.map((row, index) => (
+						<StyledTableRow key={index}>
 							{Object.entries(row).map(([, val]) => (
 								<StyledTableCell
 									key={val}

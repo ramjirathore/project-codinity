@@ -131,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Dashboard = ({ categories }) => {
+const Dashboard = ({ categories, blogs }) => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
 	const handleDrawerOpen = () => {
@@ -146,6 +146,8 @@ const Dashboard = ({ categories }) => {
 	const allCategories = categories
 		? categories.map((item) => ({ key: item.key, len: item.count }))
 		: [];
+
+	const totalBlogs = blogs.length();
 
 	return (
 		<div className={classes.root}>
@@ -289,8 +291,8 @@ const Dashboard = ({ categories }) => {
 const mapStateToProps = (state) => {
 	return {
 		categories: state.ctgr.categories,
-		error: state.ctgr.error,
-		loading: state.ctgr.loading,
+		blogs: state.blg.blogs,
+		loading: state.ctgr.loading || state.blg.loading,
 	};
 };
 
