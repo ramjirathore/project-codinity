@@ -281,12 +281,14 @@ const Controller = () => {
 				<Divider />
 				<List>{secondaryListItems}</List>
 				<Divider />
-				<Box
-					pt={4}
-					style={{ marginTop: 'auto', opacity: 0.5, padding: 20 }}
-				>
-					<Copyright />
-				</Box>
+				{open ? (
+					<Box
+						pt={4}
+						style={{ marginTop: 'auto', opacity: 0.5, padding: 20 }}
+					>
+						<Copyright />
+					</Box>
+				) : null}
 			</Drawer>
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
