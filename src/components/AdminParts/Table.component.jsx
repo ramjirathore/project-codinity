@@ -26,18 +26,6 @@ const StyledTableRow = withStyles((theme) => ({
 	},
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-	return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-	createData('Frozen yoghurt', 159),
-	createData('Ice cream sandwich', 237),
-	createData('Eclair', 262),
-	createData('Cupcake', 305),
-	createData('Gingerbread', 356),
-];
-
 const useStyles = makeStyles({
 	table: {
 		minWidth: 500,
@@ -45,7 +33,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const CustomizedTable = ({ header }) => {
+const CustomizedTable = ({ header, rows }) => {
 	const classes = useStyles();
 
 	return (
@@ -62,13 +50,16 @@ const CustomizedTable = ({ header }) => {
 				</TableHead>
 				<TableBody>
 					{rows.map((row) => (
-						<StyledTableRow key={row.name}>
-							<StyledTableCell component='th' scope='row'>
-								{row.name}
-							</StyledTableCell>
-							<StyledTableCell align='left'>
-								{row.calories}
-							</StyledTableCell>
+						<StyledTableRow key={row}>
+							{Object.entries(row).map(([, val]) => (
+								<StyledTableCell
+									key={val}
+									scope='row'
+									align='left'
+								>
+									{val}
+								</StyledTableCell>
+							))}
 						</StyledTableRow>
 					))}
 				</TableBody>

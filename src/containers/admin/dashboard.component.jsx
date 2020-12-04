@@ -143,8 +143,9 @@ const Dashboard = ({ categories }) => {
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
 	const categoriesHeader = ['Category', 'Videos'];
-
-	console.log(categories);
+	const allCategories = categories
+		? categories.map((item) => ({ key: item.key, len: item.count }))
+		: [];
 
 	return (
 		<div className={classes.root}>
@@ -264,7 +265,10 @@ const Dashboard = ({ categories }) => {
 						{/* Recent Orders */}
 						<Grid item xs={12} lg={4}>
 							<Paper className={classes.paper}>
-								<Table header={categoriesHeader} />
+								<Table
+									header={categoriesHeader}
+									rows={allCategories}
+								/>
 							</Paper>
 						</Grid>
 						{/* <Grid item xs={12} lg={6}>
