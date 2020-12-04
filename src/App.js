@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './components/Header/Header.component';
 import Landing from './components/Landing/Landing.component';
@@ -16,7 +16,7 @@ import SimpleHeader from './components/VideoPage/SimpleHeader/SimpleHeader.compo
 
 import Video from './components/VideoPage/VideoPage.component';
 
-import { AuthProvider } from './contexts/AuthContext'
+import { AuthProvider } from './contexts/AuthContext';
 
 const App = (props) => {
 	// added on temp basis
@@ -29,48 +29,52 @@ const App = (props) => {
 			uploaded: '28-11-2020',
 		});
 	}; */
+	useEffect(() => {
+		props.InitCategories();
+		props.InitBlogs();
+	});
 	return (
 		<React.Fragment>
-            <AuthProvider>
-                <Switch>
-                    <Route
-                        exact
-                        path='/'
-                        render={() => (
-                            <>
-                                <Header />
-                                <Landing />
-                                <Footer />
-                            </>
-                        )}
-                    />
-                    <Route exact path='/practice' component={Practice} />
-                    <Route
-                        exact
-                        path='/categories'
-                        component={() => <div>All categories here</div>}
-                    />
-                    <Route
-                        exact
-                        path='/about'
-                        component={() => <div>About page</div>}
-                    />
-                    <Route exact path='/login' component={SignIn} />
-                    <Route exact path='/signup' component={SignUp} />
-                    <Route exact path='/admin' component={AdminDashboard} />
-                    <Route
-                        exact
-                        path='/video/:id'
-                        render={() => (
-                            <>
-                                <SimpleHeader />
-                                <Video />
-                            </>
-                        )}
-                    />
-                </Switch>
-                {/* <Footer /> */}
-            </AuthProvider>
+			<AuthProvider>
+				<Switch>
+					<Route
+						exact
+						path='/'
+						render={() => (
+							<>
+								<Header />
+								<Landing />
+								<Footer />
+							</>
+						)}
+					/>
+					<Route exact path='/practice' component={Practice} />
+					<Route
+						exact
+						path='/categories'
+						component={() => <div>All categories here</div>}
+					/>
+					<Route
+						exact
+						path='/about'
+						component={() => <div>About page</div>}
+					/>
+					<Route exact path='/login' component={SignIn} />
+					<Route exact path='/signup' component={SignUp} />
+					<Route exact path='/admin' component={AdminDashboard} />
+					<Route
+						exact
+						path='/video/:id'
+						render={() => (
+							<>
+								<SimpleHeader />
+								<Video />
+							</>
+						)}
+					/>
+				</Switch>
+				{/* <Footer /> */}
+			</AuthProvider>
 		</React.Fragment>
 	);
 };
@@ -78,7 +82,9 @@ const App = (props) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		addVideoObject: (video) =>
-			dispatch(actions.addVideo('machineLearning', video)),
+			dispatch(actions.addVideo('machineLsearning', video)),
+		InitCategories: () => dispatch(actions.initCategories()),
+		InitBlogs: () => dispatch(actions.initBlogs()),
 	};
 };
 

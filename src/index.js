@@ -7,15 +7,20 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import categoriesReducer from './store/reducers/categories';
+import blogsReducer from './store/reducers/blogs';
 
 import theme from './components/UI/theme';
 import App from './App';
 import './index.css';
 
-const composeEnhancers = (process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose;
+const composeEnhancers =
+	(process.env.NODE_ENV === 'development'
+		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+		: null) || compose;
 
 const rootReducer = combineReducers({
 	ctgr: categoriesReducer,
+	blg: blogsReducer,
 });
 const store = createStore(
 	rootReducer,
@@ -29,9 +34,8 @@ ReactDOM.render(
 				<BrowserRouter>
 					<App />
 				</BrowserRouter>
-		</ThemeProvider>
+			</ThemeProvider>
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
-
