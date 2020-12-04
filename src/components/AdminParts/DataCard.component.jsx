@@ -4,9 +4,13 @@ import { makeStyles, Typography } from '@material-ui/core';
 const useStyles = makeStyles({
 	main: {
 		flex: 0.3,
+		textAlign: 'center',
+		fontWeight: 'bold',
 	},
 	context: {
 		flex: 0.5,
+		textAlign: 'center',
+		fontWeight: 600,
 	},
 });
 
@@ -15,7 +19,6 @@ const DataCard = ({ heading, mainData, currentDate, headColor }) => {
 	return (
 		<React.Fragment>
 			<Typography
-				component='b'
 				variant='h5'
 				style={{ color: headColor }}
 				className={classes.main}
@@ -25,10 +28,15 @@ const DataCard = ({ heading, mainData, currentDate, headColor }) => {
 			<Typography component='p' variant='h4' className={classes.context}>
 				{mainData}
 			</Typography>
-			<Typography component='p' variant='h6'>
-				Last Updated:{' '}
+			<Typography
+				style={{
+					textAlign: 'center',
+					fontSize: '1rem',
+				}}
+			>
+				<b>Last Updated</b>{' '}
 			</Typography>
-			<div>
+			<div style={{ textAlign: 'center' }}>
 				<Typography> {currentDate}</Typography>
 			</div>
 		</React.Fragment>

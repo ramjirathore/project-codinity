@@ -252,8 +252,8 @@ const Dashboard = ({ categories, blogs, loading }) => {
 										style={{ borderColor: 'lightgreen' }}
 									>
 										<DataCard
-											heading='Total Users'
-											mainData='21'
+											heading='Events Scheduled'
+											mainData='20'
 											headColor='lightgreen'
 											currentDate='1 December, 2020'
 										/>

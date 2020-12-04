@@ -22,25 +22,25 @@ export const mainListItems = (
 			<ListItemIcon>
 				<ShoppingCartIcon />
 			</ListItemIcon>
-			<ListItemText primary='Orders' />
+			<ListItemText primary='Requests' />
 		</ListItem>
 		<ListItem button>
 			<ListItemIcon>
 				<PeopleIcon />
 			</ListItemIcon>
-			<ListItemText primary='Customers' />
+			<ListItemText primary='Earnings' />
 		</ListItem>
 		<ListItem button>
 			<ListItemIcon>
 				<BarChartIcon />
 			</ListItemIcon>
-			<ListItemText primary='Reports' />
+			<ListItemText primary='Bugs' />
 		</ListItem>
 		<ListItem button>
 			<ListItemIcon>
 				<LayersIcon />
 			</ListItemIcon>
-			<ListItemText primary='Integrations' />
+			<ListItemText primary='Reports' />
 		</ListItem>
 	</div>
 );
