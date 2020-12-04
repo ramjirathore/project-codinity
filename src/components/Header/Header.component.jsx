@@ -80,10 +80,7 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		...theme.mixins.toolbar,
 	},
-	login: {
-		marginLeft: 'auto',
-	},
-	logout: {
+	log: {
 		marginLeft: 'auto',
 	},
 }));
@@ -165,23 +162,12 @@ export const Header = (props) => {
 							))}
 						</Tabs>
 					</div>
-					<div className={classes.login}>
+					<div className={classes.log}>
 						<Button
 							variant='contained'
-							component={Link}
-							to='/login'
-							disabled={currentUser != null}
+							onClick={currentUser ? handleLogout : null}
 						>
-							Login
-						</Button>
-					</div>
-					<div className={classes.logout}>
-						<Button
-							variant='contained'
-							disabled={currentUser == null}
-							onClick={handleLogout}
-						>
-							Logout
+							{currentUser ? 'Logout' : 'Login'}
 						</Button>
 					</div>
 				</Toolbar>
