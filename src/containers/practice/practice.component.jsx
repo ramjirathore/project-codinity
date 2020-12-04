@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'center',
 		height: '100%',
 		color: 'white',
+		textDecoration: 'none',
 	},
 	icon: {
 		height: 28,
@@ -90,7 +91,7 @@ const Practice = ({ categories, loading }) => {
 	const path = 'https://www.youtube.com/embed/';
 
 	const classes = useStyles();
-	// console.log(categories, loading);
+	// console.log(categories[1], loading);
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
@@ -129,7 +130,13 @@ const Practice = ({ categories, loading }) => {
 				anchor='left'
 			>
 				<div className={classes.toolbar}>
-					<Typography className={classes.title} variant='h4' noWrap>
+					<Typography
+						className={classes.title}
+						variant='h4'
+						noWrap
+						component={Link}
+						to='/'
+					>
 						Codinity
 					</Typography>
 				</div>
@@ -158,7 +165,7 @@ const Practice = ({ categories, loading }) => {
 					</Typography>
 				) : (
 					<Grid container>
-						{categories.dataStructure.map((video, index) => (
+						{categories[1].videos.map((video, index) => (
 							<Grid item lg={3} key={index}>
 								<SearchCard
 									creator={video.creator}

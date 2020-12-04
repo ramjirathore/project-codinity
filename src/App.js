@@ -20,15 +20,15 @@ import { AuthProvider } from './contexts/AuthContext';
 
 const App = (props) => {
 	// added on temp basis
-	/* const addVideo = () => {
-		props.addVideoObject({
-			creator: 'Prerna Singh',
-			id: '5dRGRueKU3M',
-			rating: 4.5,
-			title: 'Introduction to Dynammic Programming',
-			uploaded: '28-11-2020',
-		});
-	}; */
+	// const addVideo = () => {
+	// 	props.addVideoObject({
+	// 		creator: 'Prerna Singh',
+	// 		id: '5dRGRueKU3M',
+	// 		rating: 4.5,
+	// 		title: 'Introduction to Dynammic Programming',
+	// 		uploaded: '28-11-2020',
+	// 	});
+	// };
 	useEffect(() => {
 		props.InitCategories();
 		props.InitBlogs();
@@ -53,6 +53,16 @@ const App = (props) => {
 						exact
 						path='/categories'
 						component={() => <div>All categories here</div>}
+					/>
+					<Route
+						exact
+						path='/events'
+						component={() => <div>All events</div>}
+					/>
+					<Route
+						exact
+						path='/blogs'
+						component={() => <div>All blogs here</div>}
 					/>
 					<Route
 						exact
@@ -82,7 +92,7 @@ const App = (props) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		addVideoObject: (video) =>
-			dispatch(actions.addVideo('machineLsearning', video)),
+			dispatch(actions.addVideo('dataStructure', video)),
 		InitCategories: () => dispatch(actions.initCategories()),
 		InitBlogs: () => dispatch(actions.initBlogs()),
 	};

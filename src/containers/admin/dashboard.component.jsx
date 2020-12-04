@@ -263,17 +263,19 @@ const Dashboard = ({ categories, blogs, loading }) => {
 									<Paper
 										variant='outlined'
 										className={fixedHeightPaper}
+										style={{ borderColor: 'orange' }}
 									>
 										<DataCard
-											heading='Total Users'
+											heading='Total Videos'
 											mainData='208'
+											headColor='orange'
 											currentDate='1 December, 2020'
 										/>
 									</Paper>
 								</Grid>
 
 								{/* Recent Orders */}
-								<Grid item xs={12} lg={4}>
+								<Grid item xs={12} lg={6}>
 									<Paper className={classes.paper}>
 										<Table
 											header={categoriesHeader}

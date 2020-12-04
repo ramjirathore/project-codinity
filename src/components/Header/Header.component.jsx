@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	options: {
 		display: 'flex',
-		flexGrow: 0.6,
+		flexGrow: 0.4,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -89,6 +89,8 @@ const routes = [
 	{ name: 'Home', link: '/' },
 	{ name: 'Categories', link: '/categories' },
 	{ name: 'Practice', link: '/practice' },
+	{ name: 'Events', link: '/events' },
+	{ name: 'Blogs', link: '/blogs' },
 	{ name: 'About', link: '/about' },
 ];
 
@@ -164,6 +166,8 @@ export const Header = (props) => {
 					</div>
 					<div className={classes.log}>
 						<Button
+							component={Link}
+							to={currentUser ? '/' : '/login'}
 							variant='contained'
 							onClick={currentUser ? handleLogout : null}
 						>
