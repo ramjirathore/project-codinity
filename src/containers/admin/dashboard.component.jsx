@@ -5,45 +5,16 @@ import { connect } from 'react-redux';
 import {
 	makeStyles,
 	CssBaseline,
-	Drawer,
 	Box,
-	AppBar,
-	Toolbar,
-	List,
 	Typography,
-	Divider,
-	IconButton,
-	Badge,
 	Container,
 	Grid,
 	Paper,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import {
-	mainListItems,
-	secondaryListItems,
-} from '../../components/AdminParts/ListItems.component';
+
 import DataCard from '../../components/AdminParts/DataCard.component';
 import Table from '../../components/AdminParts/Table.component';
-
-const Copyright = () => {
-	return (
-		<Typography variant='body2' style={{ color: 'white' }} align='center'>
-			{'Copyright © '}
-			<Link
-				color='inherit'
-				to='/'
-				style={{ textDecoration: 'none', color: 'white' }}
-			>
-				Codinity
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
-	);
-};
+import Controller from './Controller.component';
 
 const drawerWidth = 240;
 
@@ -84,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		flexGrow: 1,
+		textTransform: 'uppercase',
 	},
 	drawerPaper: {
 		position: 'relative',
@@ -93,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.enteringScreen,
 		}),
+		background: '#ddd',
 	},
 	drawerPaperClose: {
 		overflowX: 'hidden',
@@ -141,13 +114,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = ({ categories, blogs, loading }) => {
 	const classes = useStyles();
-	const [open, setOpen] = React.useState(true);
-	const handleDrawerOpen = () => {
-		setOpen(true);
-	};
-	const handleDrawerClose = () => {
-		setOpen(false);
-	};
+
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
 	const categoriesHeader = ['Category', 'Videos'];
@@ -158,59 +125,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			<AppBar
-				position='absolute'
-				className={clsx(classes.appBar, open && classes.appBarShift)}
-			>
-				<Toolbar className={classes.toolbar}>
-					<IconButton
-						edge='start'
-						color='inherit'
-						aria-label='open drawer'
-						onClick={handleDrawerOpen}
-						className={clsx(
-							classes.menuButton,
-							open && classes.menuButtonHidden
-						)}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography
-						component='h1'
-						variant='h6'
-						color='inherit'
-						noWrap
-						className={classes.title}
-					>
-						Dashboard
-					</Typography>
-					<IconButton color='inherit'>
-						<Badge badgeContent={4} color='secondary'>
-							<NotificationsIcon />
-						</Badge>
-					</IconButton>
-				</Toolbar>
-			</AppBar>
-			<Drawer
-				variant='permanent'
-				classes={{
-					paper: clsx(
-						classes.drawerPaper,
-						!open && classes.drawerPaperClose
-					),
-				}}
-				open={open}
-			>
-				<div className={classes.toolbarIcon}>
-					<IconButton onClick={handleDrawerClose}>
-						<ChevronLeftIcon />
-					</IconButton>
-				</div>
-				<Divider />
-				<List>{mainListItems}</List>
-				<Divider />
-				<List>{secondaryListItems}</List>
-			</Drawer>
+			<Controller />
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='xl' className={classes.container}>
@@ -289,9 +204,6 @@ const Dashboard = ({ categories, blogs, loading }) => {
 							</Paper>
 						</Grid> */}
 							</Grid>
-							<Box pt={4}>
-								<Copyright />
-							</Box>
 						</>
 					) : (
 						<div className={classes.loading}>Loading...</div>
