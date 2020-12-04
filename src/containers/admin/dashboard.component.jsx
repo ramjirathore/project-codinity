@@ -25,7 +25,7 @@ import {
 	mainListItems,
 	secondaryListItems,
 } from '../../components/AdminParts/ListItems.component';
-import Deposits from '../../components/AdminParts/Deposits.component';
+import DataCard from '../../components/AdminParts/DataCard.component';
 import Table from '../../components/AdminParts/Table.component';
 
 const Copyright = () => {
@@ -129,9 +129,17 @@ const useStyles = makeStyles((theme) => ({
 		background: theme.palette.common.grey,
 		border: '1px solid',
 	},
+	loading: {
+		display: 'flex',
+		height: '80vh',
+		color: 'white',
+		fontSize: '2rem',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 }));
 
-const Dashboard = ({ categories, blogs }) => {
+const Dashboard = ({ categories, blogs, loading }) => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
 	const handleDrawerOpen = () => {
@@ -146,8 +154,6 @@ const Dashboard = ({ categories, blogs }) => {
 	const allCategories = categories
 		? categories.map((item) => ({ key: item.key, len: item.count }))
 		: [];
-
-	const totalBlogs = blogs.length();
 
 	return (
 		<div className={classes.root}>
@@ -208,80 +214,86 @@ const Dashboard = ({ categories, blogs }) => {
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='xl' className={classes.container}>
-					<Grid container spacing={4}>
-						<Grid item xs={12} md={4} lg={3}>
-							<Paper
-								variant='outlined'
-								style={{ borderColor: 'cyan' }}
-								className={fixedHeightPaper}
-							>
-								<Deposits
-									heading='Total Users'
-									headColor='cyan'
-									mainData='208'
-									currentDate='1 December, 2020'
-								/>
-							</Paper>
-						</Grid>
-						<Grid item xs={12} md={4} lg={3}>
-							<Paper
-								variant='outlined'
-								style={{ borderColor: 'yellow' }}
-								className={fixedHeightPaper}
-							>
-								<Deposits
-									heading='Blogs Posted'
-									headColor='yellow'
-									mainData='10'
-									currentDate='1 December, 2020'
-								/>
-							</Paper>
-						</Grid>
-						<Grid item xs={12} md={4} lg={3}>
-							<Paper
-								variant='outlined'
-								className={fixedHeightPaper}
-								style={{ borderColor: 'lightgreen' }}
-							>
-								<Deposits
-									heading='Total Users'
-									mainData='21'
-									headColor='lightgreen'
-									currentDate='1 December, 2020'
-								/>
-							</Paper>
-						</Grid>
-						<Grid item xs={12} md={4} lg={3}>
-							<Paper
-								variant='outlined'
-								className={fixedHeightPaper}
-							>
-								<Deposits
-									heading='Total Users'
-									mainData='208'
-									currentDate='1 December, 2020'
-								/>
-							</Paper>
-						</Grid>
+					{!loading ? (
+						<>
+							<Grid container spacing={4}>
+								<Grid item xs={12} md={4} lg={3}>
+									<Paper
+										variant='outlined'
+										style={{ borderColor: 'cyan' }}
+										className={fixedHeightPaper}
+									>
+										<DataCard
+											heading='Total Users'
+											headColor='cyan'
+											mainData='208'
+											currentDate='1 December, 2020'
+										/>
+									</Paper>
+								</Grid>
+								<Grid item xs={12} md={4} lg={3}>
+									<Paper
+										variant='outlined'
+										style={{ borderColor: 'yellow' }}
+										className={fixedHeightPaper}
+									>
+										<DataCard
+											heading='Blogs Posted'
+											headColor='yellow'
+											mainData={blogs.length}
+											currentDate='1 December, 2020'
+										/>
+									</Paper>
+								</Grid>
+								<Grid item xs={12} md={4} lg={3}>
+									<Paper
+										variant='outlined'
+										className={fixedHeightPaper}
+										style={{ borderColor: 'lightgreen' }}
+									>
+										<DataCard
+											heading='Total Users'
+											mainData='21'
+											headColor='lightgreen'
+											currentDate='1 December, 2020'
+										/>
+									</Paper>
+								</Grid>
+								<Grid item xs={12} md={4} lg={3}>
+									<Paper
+										variant='outlined'
+										className={fixedHeightPaper}
+									>
+										<DataCard
+											heading='Total Users'
+											mainData='208'
+											currentDate='1 December, 2020'
+										/>
+									</Paper>
+								</Grid>
 
-						{/* Recent Orders */}
-						<Grid item xs={12} lg={4}>
+								{/* Recent Orders */}
+								<Grid item xs={12} lg={4}>
+									<Paper className={classes.paper}>
+										<Table
+											header={categoriesHeader}
+											rows={allCategories}
+										/>
+									</Paper>
+								</Grid>
+								{/* <Grid item xs={12} lg={6}>
 							<Paper className={classes.paper}>
-								<Table
-									header={categoriesHeader}
-									rows={allCategories}
-								/>
-							</Paper>
-						</Grid>
-						{/* <Grid item xs={12} lg={6}>
-							<Paper className={classes.paper}>
-								<Table />
+							<Table />
 							</Paper>
 						</Grid> */}
-					</Grid>
-					<Box pt={4}>
-						<Copyright />
-					</Box>
+							</Grid>
+							<Box pt={4}>
+								<Copyright />
+							</Box>
+						</>
+					) : (
+						<div className={classes.loading}>Loading...</div>
+					)}
 				</Container>
 			</main>
 		</div>
