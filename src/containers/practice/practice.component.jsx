@@ -151,7 +151,9 @@ const Practice = ({ categories, loading }) => {
 									alt='data-structure'
 								/>
 							</ListItemIcon>
-							<ListItemText primary={topic.item} />
+							<ListItemText style={{ color: 'lightgray' }}>
+								{topic.item}
+							</ListItemText>
 						</ListItem>
 					))}
 				</List>

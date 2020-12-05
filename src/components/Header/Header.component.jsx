@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	nav: {
 		background: theme.palette.common.black,
+		zIndex: 10,
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
