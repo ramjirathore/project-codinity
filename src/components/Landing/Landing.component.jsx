@@ -12,6 +12,8 @@ import {
 	Typography,
 } from '@material-ui/core';
 
+import CategoriesCard from '../Categories/CategoryCards/CategoryCards.component';
+
 import datastructures from '../../assets/categoriesForeground/ds.jpg';
 import algorithms from '../../assets/categoriesForeground/dsa3.jpg';
 import cpp from '../../assets/categoriesForeground/cpp.png';
@@ -128,43 +130,10 @@ const Landing = () => {
 				<Grid container spacing={4}>
 					{cards.map((card, index) => (
 						<Grid item key={index} xs={12} sm={6} md={4}>
-							<Card className={classes.card} elevation={4}>
-								<CardMedia
-									className={classes.cardMedia}
-									image={card.imgSrc}
-									title='Image title'
-								/>
-								<CardContent className={classes.cardContent}>
-									<Typography
-										gutterBottom
-										// variant='b'
-										component='h2'
-									>
-										{card.field}
-									</Typography>
-									<Typography>
-										This is a media card which will have
-										readme introduction or something like
-										that..
-									</Typography>
-								</CardContent>
-								<CardActions>
-									<Button
-										size='small'
-										variant='contained'
-										color='primary'
-									>
-										Practice
-									</Button>
-									<Button
-										size='small'
-										variant='contained'
-										color='primary'
-									>
-										Explore
-									</Button>
-								</CardActions>
-							</Card>
+							<CategoriesCard
+								imgSrc={card.imgSrc}
+								field={card.field}
+							/>
 						</Grid>
 					))}
 				</Grid>
