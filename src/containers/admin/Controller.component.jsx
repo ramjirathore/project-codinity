@@ -30,6 +30,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 import { secondaryListItems } from '../../components/AdminParts/ListItems.component';
 
 import Dashboard from './dashboard.component';
+import Requests from './Requests.component';
 
 const drawerWidth = 240;
 
@@ -166,7 +167,7 @@ const Controller = () => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
 	const [activeIndex, setActiveIndex] = useState({
-		name: 'Dashboard',
+		name: 'Requests',
 		index: 0,
 	});
 	const handleDrawerOpen = () => {
@@ -176,6 +177,11 @@ const Controller = () => {
 		setOpen(false);
 	};
 
+	const imports = [
+		{ comp: Dashboard, name: 'Dashboard' },
+		{ comp: Requests, name: 'Requests' },
+	];
+	const Render = imports.find((val) => val.name === activeIndex.name);
 	// const parts = window.location.pathname.split('/');
 	// let lastSegment = parts.pop();
 	return (
@@ -293,8 +299,8 @@ const Controller = () => {
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='xl' className={classes.container}>
-					{activeIndex.name === 'Dashboard' ? (
-						<Dashboard />
+					{Render ? (
+						<Render.comp />
 					) : (
 						<div className={classes.comingsoon}>Coming soon!</div>
 					)}
