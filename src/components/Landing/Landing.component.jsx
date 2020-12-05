@@ -2,18 +2,14 @@ import React from 'react';
 import {
 	useTheme,
 	Grid,
-	Card,
-	CardMedia,
-	CardContent,
 	makeStyles,
-	CardActions,
 	Button,
 	Container,
 	Typography,
 } from '@material-ui/core';
 
 import CategoriesCard from '../Categories/CategoryCards/CategoryCards.component';
-
+import { categoriesList } from '../../components/Categories/categorieslist';
 import datastructures from '../../assets/categoriesForeground/ds.jpg';
 import algorithms from '../../assets/categoriesForeground/dsa3.jpg';
 import cpp from '../../assets/categoriesForeground/cpp.png';
@@ -57,19 +53,6 @@ const useStyles = makeStyles((theme) => ({
 	cardGrid: {
 		paddingTop: theme.spacing(8),
 		paddingBottom: theme.spacing(8),
-	},
-	card: {
-		height: '100%',
-		display: 'flex',
-		flexDirection: 'column',
-		background: theme.palette.common.grey,
-	},
-	cardMedia: {
-		paddingTop: '56.25%', // 16:9
-	},
-	cardContent: {
-		flexGrow: 1,
-		color: theme.palette.common.white,
 	},
 }));
 
@@ -128,7 +111,7 @@ const Landing = () => {
 				</Typography>
 				<hr style={{ marginBottom: 40 }} />
 				<Grid container spacing={4}>
-					{cards.map((card, index) => (
+					{categoriesList.map((card, index) => (
 						<Grid item key={index} xs={12} sm={6} md={4}>
 							<CategoriesCard
 								imgSrc={card.imgSrc}
