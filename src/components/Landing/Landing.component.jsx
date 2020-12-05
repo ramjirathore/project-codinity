@@ -10,29 +10,6 @@ import {
 
 import CategoriesCard from '../Categories/CategoryCards/CategoryCards.component';
 import { categoriesList } from '../../components/Categories/categorieslist';
-import datastructures from '../../assets/categoriesForeground/ds.jpg';
-import algorithms from '../../assets/categoriesForeground/dsa3.jpg';
-import cpp from '../../assets/categoriesForeground/cpp.png';
-// import python from '../../assets/categoriesForeground/python.jpg';
-// import java from '../../assets/categoriesForeground/java.png';
-import nodejs from '../../assets/categoriesForeground/nodejs.jpg';
-import react from '../../assets/categoriesForeground/reactjs.png';
-import problemSolving from '../../assets/categoriesForeground/Problem_solving.png';
-import angular from '../../assets/categoriesForeground/Angular-illustrations.jpg';
-import vue from '../../assets/categoriesForeground/vuejs.png';
-
-const cards = [
-	{ field: 'Problem Solving', imgSrc: problemSolving },
-	{ field: 'Data Structures', imgSrc: datastructures },
-	{ field: 'Algorithms', imgSrc: algorithms },
-	{ field: 'C++', imgSrc: cpp },
-	{ field: 'ReactJS', imgSrc: react },
-	{ field: 'AngularJS', imgSrc: angular },
-	{ field: 'VueJS', imgSrc: vue },
-	{ field: 'NodeJS', imgSrc: nodejs },
-	// { field: 'Python', imgSrc: python },
-	// { field: 'JAVA', imgSrc: java }
-];
 
 const useStyles = makeStyles((theme) => ({
 	icon: {
@@ -111,7 +88,7 @@ const Landing = () => {
 				</Typography>
 				<hr style={{ marginBottom: 40 }} />
 				<Grid container spacing={4}>
-					{categoriesList.map((card, index) => (
+					{categoriesList.slice(0, 6).map((card, index) => (
 						<Grid item key={index} xs={12} sm={6} md={4}>
 							<CategoriesCard
 								imgSrc={card.imgSrc}

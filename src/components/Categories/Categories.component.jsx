@@ -8,11 +8,12 @@ import {
 } from '@material-ui/core';
 
 import back from '../../assets/categoriesForeground/catg3.jpg';
+import CategoriesCard from './CategoryCards/CategoryCards.component';
+import { categoriesList } from './categorieslist';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.common.black,
-		height: '100vh',
 	},
 	Header: {
 		position: 'relative',
@@ -51,38 +52,50 @@ const Categories = () => {
 	// const { post } = props;
 
 	return (
-		<Container maxWidth='xl' className={classes.root}>
-			<Paper
-				className={classes.Header}
-				style={{ backgroundImage: `url(${post.image})` }}
-			>
-				{/* Increase the priority of the hero background image */}
-				{
-					<img
-						style={{ display: 'none' }}
-						src={post.image}
-						alt={post.imageText}
-					/>
-				}
-				<div className={classes.overlay} />
-				<Grid container>
-					<Grid item md={12}>
-						<div className={classes.HeaderContent}>
-							<Typography
-								component='h1'
-								variant='h2'
-								color='inherit'
-								gutterBottom
-								elevation={10}
-								style={{ fontWeight: 600 }}
-							>
-								CATEGORIES
-							</Typography>
-						</div>
+		<div className={classes.root}>
+			<Container maxWidth='xl'>
+				<Paper
+					className={classes.Header}
+					style={{ backgroundImage: `url(${post.image})` }}
+				>
+					{/* Increase the priority of the hero background image */}
+					{
+						<img
+							style={{ display: 'none' }}
+							src={post.image}
+							alt={post.imageText}
+						/>
+					}
+					<div className={classes.overlay} />
+					<Grid container>
+						<Grid item md={12}>
+							<div className={classes.HeaderContent}>
+								<Typography
+									component='h1'
+									variant='h2'
+									color='inherit'
+									gutterBottom
+									elevation={10}
+									style={{ fontWeight: 600 }}
+								>
+									CATEGORIES
+								</Typography>
+							</div>
+						</Grid>
 					</Grid>
+				</Paper>
+				<Grid container spacing={4}>
+					{categoriesList.map((card, index) => (
+						<Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+							<CategoriesCard
+								imgSrc={card.imgSrc}
+								field={card.field}
+							/>
+						</Grid>
+					))}
 				</Grid>
-			</Paper>
-		</Container>
+			</Container>
+		</div>
 	);
 };
 
