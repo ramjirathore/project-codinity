@@ -47,7 +47,17 @@ const App = (props) => {
 						)}
 					/>
 					<Route exact path='/practice' component={Practice} />
-					<Route exact path='/categories' component={Categories} />
+					<Route
+						exact
+						path='/categories'
+						render={() => (
+							<>
+								<Header />
+								<Categories />
+								<Footer />
+							</>
+						)}
+					/>
 					<Route
 						exact
 						path='/events'

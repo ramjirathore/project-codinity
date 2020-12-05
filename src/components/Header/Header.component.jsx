@@ -102,6 +102,13 @@ export const Header = (props) => {
 	const { currentUser, logout } = useAuth();
 	const [error, setError] = useState('');
 
+	// const CurrentPage = (e) => {
+	// 	const currRoute = window.location.pathname;
+	// 	const index = routes.findIndex((route) => route.link === currRoute);
+	// 	console.log(index, currRoute);
+	// 	setValue(index);
+	// };
+
 	console.log(currentUser);
 
 	async function handleLogout() {
@@ -150,7 +157,7 @@ export const Header = (props) => {
 						<Tabs
 							indicatorColor='primary'
 							value={value}
-							onChange={(e, val) => setValue(val)}
+							onChange={(e, v) => setValue(v)}
 							className={classes.tabContainer}
 						>
 							{routes.map((route, index) => (

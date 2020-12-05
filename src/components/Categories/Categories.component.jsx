@@ -13,6 +13,7 @@ import { categoriesList } from './categorieslist';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
+		paddingBottom: '3rem',
 		backgroundColor: theme.palette.common.black,
 	},
 	Header: {
@@ -49,11 +50,10 @@ const post = {
 
 const Categories = () => {
 	const classes = useStyles();
-	// const { post } = props;
 
 	return (
 		<div className={classes.root}>
-			<Container maxWidth='xl'>
+			<Container maxWidth='lg'>
 				<Paper
 					className={classes.Header}
 					style={{ backgroundImage: `url(${post.image})` }}
@@ -86,7 +86,7 @@ const Categories = () => {
 				</Paper>
 				<Grid container spacing={4}>
 					{categoriesList.map((card, index) => (
-						<Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+						<Grid item key={index} xs={12} sm={6} md={4} lg={4}>
 							<CategoriesCard
 								imgSrc={card.imgSrc}
 								field={card.field}
