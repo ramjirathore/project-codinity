@@ -1,22 +1,20 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from './store/actions/index';
+import { AuthProvider } from './contexts/AuthContext';
+
+import AdminController from './containers/admin/Controller.component';
+
 import Header from './components/Header/Header.component';
 import Landing from './components/Landing/Landing.component';
 import Practice from './containers/practice/practice.component';
 import Footer from './components/Footer/Footer.component';
-
-import { connect } from 'react-redux';
-import * as actions from './store/actions/index';
-
-import AdminController from './containers/admin/Controller.component';
-
 import SignUp from './components/SignUp/SignUp.component';
 import SignIn from './components/SignIn/SignIn.component';
 import SimpleHeader from './components/VideoPage/SimpleHeader/SimpleHeader.component';
-
 import Video from './components/VideoPage/VideoPage.component';
-
-import { AuthProvider } from './contexts/AuthContext';
+import Categories from './components/Categories/Categories.component';
 
 const App = (props) => {
 	// added on temp basis
@@ -49,11 +47,7 @@ const App = (props) => {
 						)}
 					/>
 					<Route exact path='/practice' component={Practice} />
-					<Route
-						exact
-						path='/categories'
-						component={() => <div>All categories here</div>}
-					/>
+					<Route exact path='/categories' component={Categories} />
 					<Route
 						exact
 						path='/events'
