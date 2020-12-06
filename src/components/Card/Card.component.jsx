@@ -14,21 +14,33 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
 	card: {
-		maxWidth: 345,
-		margin: theme.spacing(2),
+		maxWidth: 390,
+		// margin: theme.spacing(2),
 		background: '#303030',
 		color: 'white',
+		'&hover': {
+			cursor: 'pointer',
+		},
 	},
 	media: {
-		height: 190,
+		height: 150,
 	},
 }));
 
-const VideoCard = ({ creator, title, loading, vSrc }) => {
+const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 	const classes = useStyles();
 
+	const handleVideoClick = (videoId) => {
+		const path = window.location.origin + '/video/' + videoId;
+		window.open(path, '_blank');
+	};
+
 	return (
-		<Card className={classes.card} elevation={4}>
+		<Card
+			className={classes.card}
+			elevation={4}
+			onClick={() => handleVideoClick(id)}
+		>
 			<CardHeader
 				style={{ color: 'white' }}
 				avatar={

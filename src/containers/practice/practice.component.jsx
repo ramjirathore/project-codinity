@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
 	Grid,
-	Button,
+	// Button,
 	makeStyles,
 	Drawer,
 	CssBaseline,
-	AppBar,
-	Toolbar,
+	// AppBar,
+	// Toolbar,
 	List,
 	Typography,
 	Divider,
@@ -16,7 +16,7 @@ import {
 	ListItemText,
 } from '@material-ui/core';
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import ds from '../../assets/icons/data.svg';
 import algo from '../../assets/icons/algorithm.svg';
@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
 	content: {
 		flexGrow: 1,
 		backgroundColor: theme.palette.common.black,
-		// padding: `0 ${theme.spacing(4)}`,
-		minHeight: '100vh',
+		padding: theme.spacing(3),
+		minHeight: '93.5vh',
 	},
 	title: {
 		display: 'flex',
@@ -168,14 +168,15 @@ const Practice = ({ categories, loading }) => {
 						Go back to home then Practice...
 					</Typography>
 				) : (
-					<Grid container>
+					<Grid container spacing={2}>
 						{categories[1].videos.map((video, index) => (
-							<Grid item lg={3} key={index}>
+							<Grid item lg={2} key={index}>
 								<SearchCard
 									creator={video.creator}
 									title={video.title}
 									loading={false}
 									vSrc={path + video.id}
+									id={video.id}
 								/>
 							</Grid>
 						))}

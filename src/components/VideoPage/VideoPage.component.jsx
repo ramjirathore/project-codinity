@@ -79,6 +79,8 @@ const VideoPage = () => {
 		setValue(newValue);
 	};
 
+	const id = window.location.pathname.split('/')[2];
+
 	const tabsSection = (
 		<React.Fragment>
 			<AppBar position='static'>
@@ -114,7 +116,7 @@ const VideoPage = () => {
 								controls
 								width='75vw'
 								height='75vh'
-								url='https://www.youtube.com/watch?v=ysz5S6PUM-U'
+								url={`https://www.youtube.com/watch?v=${id}`}
 							/>
 						</Paper>
 					</Grid>
