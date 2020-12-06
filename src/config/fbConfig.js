@@ -18,4 +18,5 @@ const fireDb = firebase.initializeApp(firebaseConfig);
   
 export default fireDb.database().ref(); // https://firebase.google.com/docs/reference/js/firebase.database.Reference (Hemant's comment)
 
+export const db = fireDb.database();
 export const auth = fireDb.auth();
