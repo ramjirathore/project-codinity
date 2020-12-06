@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
 	Grid,
-	Button,
+	// Button,
 	makeStyles,
 	Drawer,
 	CssBaseline,
-	AppBar,
-	Toolbar,
+	// AppBar,
+	// Toolbar,
 	List,
 	Typography,
 	Divider,
@@ -16,7 +16,7 @@ import {
 	ListItemText,
 } from '@material-ui/core';
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import ds from '../../assets/icons/data.svg';
 import algo from '../../assets/icons/algorithm.svg';
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		width: drawerWidth,
 		flexShrink: 0,
 		color: 'white',
+		zIndex: 0,
 	},
 	drawerPaper: {
 		width: drawerWidth,
@@ -53,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
 	content: {
 		flexGrow: 1,
 		backgroundColor: theme.palette.common.black,
-		padding: theme.spacing(2),
-		minHeight: '100vh',
+		padding: theme.spacing(3),
+		minHeight: '93.5vh',
 	},
 	title: {
 		display: 'flex',
@@ -95,7 +96,7 @@ const Practice = ({ categories, loading }) => {
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			<AppBar position='fixed' className={classes.appBar}>
+			{/* <AppBar position='fixed' className={classes.appBar}>
 				<Toolbar>
 					<Typography
 						variant='h5'
@@ -120,7 +121,7 @@ const Practice = ({ categories, loading }) => {
 						</Link>
 					</Button>
 				</Toolbar>
-			</AppBar>
+			</AppBar> */}
 			<Drawer
 				className={classes.drawer}
 				variant='permanent'
@@ -129,7 +130,9 @@ const Practice = ({ categories, loading }) => {
 				}}
 				anchor='left'
 			>
-				<div className={classes.toolbar}>
+				<div className={classes.toolbar} />
+
+				{/* <div className={classes.toolbar}>
 					<Typography
 						className={classes.title}
 						variant='h4'
@@ -139,7 +142,7 @@ const Practice = ({ categories, loading }) => {
 					>
 						Codinity
 					</Typography>
-				</div>
+				</div> */}
 				<Divider />
 				<List>
 					{topicsList.map((topic, index) => (
@@ -159,21 +162,21 @@ const Practice = ({ categories, loading }) => {
 				</List>
 			</Drawer>
 			<main className={classes.content}>
-				<div className={classes.toolbar} />
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
 				{loading === true ? (
 					<Typography variant='h4' style={{ color: 'white' }}>
 						Go back to home then Practice...
 					</Typography>
 				) : (
-					<Grid container>
+					<Grid container spacing={2}>
 						{categories[1].videos.map((video, index) => (
-							<Grid item lg={3} key={index}>
+							<Grid item lg={2} key={index}>
 								<SearchCard
 									creator={video.creator}
 									title={video.title}
 									loading={false}
 									vSrc={path + video.id}
+									id={video.id}
 								/>
 							</Grid>
 						))}
