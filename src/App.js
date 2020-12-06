@@ -46,7 +46,16 @@ const App = (props) => {
 							</>
 						)}
 					/>
-					<Route exact path='/practice' component={Practice} />
+					<Route
+						exact
+						path='/practice'
+						render={() => (
+							<>
+								<Header />
+								<Practice />
+							</>
+						)}
+					/>
 					<Route
 						exact
 						path='/categories'

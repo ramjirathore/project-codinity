@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		width: drawerWidth,
 		flexShrink: 0,
 		color: 'white',
+		zIndex: 0,
 	},
 	drawerPaper: {
 		width: drawerWidth,
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 	content: {
 		flexGrow: 1,
 		backgroundColor: theme.palette.common.black,
-		padding: theme.spacing(2),
+		// padding: `0 ${theme.spacing(4)}`,
 		minHeight: '100vh',
 	},
 	title: {
@@ -95,7 +96,7 @@ const Practice = ({ categories, loading }) => {
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			<AppBar position='fixed' className={classes.appBar}>
+			{/* <AppBar position='fixed' className={classes.appBar}>
 				<Toolbar>
 					<Typography
 						variant='h5'
@@ -120,7 +121,7 @@ const Practice = ({ categories, loading }) => {
 						</Link>
 					</Button>
 				</Toolbar>
-			</AppBar>
+			</AppBar> */}
 			<Drawer
 				className={classes.drawer}
 				variant='permanent'
@@ -129,7 +130,9 @@ const Practice = ({ categories, loading }) => {
 				}}
 				anchor='left'
 			>
-				<div className={classes.toolbar}>
+				<div className={classes.toolbar} />
+
+				{/* <div className={classes.toolbar}>
 					<Typography
 						className={classes.title}
 						variant='h4'
@@ -139,7 +142,7 @@ const Practice = ({ categories, loading }) => {
 					>
 						Codinity
 					</Typography>
-				</div>
+				</div> */}
 				<Divider />
 				<List>
 					{topicsList.map((topic, index) => (
@@ -159,7 +162,6 @@ const Practice = ({ categories, loading }) => {
 				</List>
 			</Drawer>
 			<main className={classes.content}>
-				<div className={classes.toolbar} />
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
 				{loading === true ? (
 					<Typography variant='h4' style={{ color: 'white' }}>
