@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: theme.spacing(2),
 	},
 	title: {
+		textDecoration: 'none',
+		color: 'white',
 		display: 'none',
 		[theme.breakpoints.up('sm')]: {
 			display: 'block',
@@ -143,7 +145,14 @@ export const Header = (props) => {
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography className={classes.title} variant='h4' noWrap>
+					<Typography
+						className={classes.title}
+						variant='h4'
+						noWrap
+						component={Link}
+						to='/'
+						onClick={() => setValue(0)}
+					>
 						Codinity
 					</Typography>
 					<div className={classes.search}>
