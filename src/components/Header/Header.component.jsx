@@ -17,6 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { useAuth } from '../../contexts/AuthContext';
+import { SideDrawer } from "../SideDrawer/SideDrawer.component"
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -109,7 +110,7 @@ export const Header = (props) => {
 	// 	setValue(index);
 	// };
 
-	console.log(currentUser);
+	console.log("user:", currentUser);
 
 	async function handleLogout() {
 		setError('');
@@ -122,7 +123,7 @@ export const Header = (props) => {
 		}
 
 		console.log(error);
-	}
+    }
 
 	return (
 		<>
@@ -133,9 +134,10 @@ export const Header = (props) => {
 						edge='start'
 						className={classes.menuButton}
 						color='inherit'
-						aria-label='open drawer'
+                        aria-label='open drawer'
 					>
-						<MenuIcon />
+                        <MenuIcon />
+                        {currentUser!=null ? <SideDrawer /> : null}
 					</IconButton>
 					<Typography className={classes.title} variant='h4' noWrap>
 						Codinity
