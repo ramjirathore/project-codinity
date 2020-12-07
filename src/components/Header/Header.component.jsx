@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { deepOrange } from '@material-ui/core/colors';
 
 import {
 	Tab,
@@ -16,6 +17,7 @@ import {
 	ListItem,
 	ListItemText,
 	SwipeableDrawer,
+	Avatar,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -28,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	nav: {
 		background: theme.palette.common.black,
-		// zIndex: 100,
 		zIndex: theme.zIndex.modal + 1,
 	},
 	menuButton: {
@@ -90,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	log: {
 		marginLeft: 'auto',
+		display: 'flex',
 	},
 	drawerIcon: {
 		height: '30px',
@@ -116,6 +118,12 @@ const useStyles = makeStyles((theme) => ({
 	drawerItemSelected: {
 		opacity: 1,
 		color: '#fc4445',
+	},
+	orange: {
+		color: theme.palette.getContrastText(deepOrange[500]),
+		backgroundColor: deepOrange[500],
+		marginRight: 15,
+		cursor: 'pointer',
 	},
 }));
 
@@ -191,8 +199,6 @@ export const Header = (props) => {
 	const drawer = (
 		<React.Fragment>
 			<SwipeableDrawer
-				// disableBackdropTransition={!iOS}
-				// disableDiscovery={iOS}
 				open={openDrawer}
 				onClose={() => setOpenDrawer(false)}
 				onOpen={() => setOpenDrawer(true)}
@@ -206,7 +212,6 @@ export const Header = (props) => {
 							divider
 							button
 							onClick={() => {
-								// setOpenDrawer(false);
 								setUserFacility(facility.activeIndex);
 							}}
 							selected={userFacility === facility.activeIndex}
@@ -230,7 +235,6 @@ export const Header = (props) => {
 						divider
 						button
 						onClick={() => {
-							// setOpenDrawer(false);
 							setUserFacility(5);
 						}}
 						selected={userFacility === 5}
@@ -267,15 +271,17 @@ export const Header = (props) => {
 			<AppBar position='fixed' className={classes.nav}>
 				{/* {console.log(currentUser.email)} */}
 				<Toolbar>
-					<IconButton
-						edge='start'
-						className={classes.menuButton}
-						onClick={() => setOpenDrawer(!openDrawer)}
-						color='inherit'
-						aria-label='open drawer'
-					>
-						<MenuIcon />
-					</IconButton>
+					{currentUser ? (
+						<IconButton
+							edge='start'
+							className={classes.menuButton}
+							onClick={() => setOpenDrawer(!openDrawer)}
+							color='inherit'
+							aria-label='open drawer'
+						>
+							<MenuIcon />
+						</IconButton>
+					) : null}
 					<Typography
 						className={classes.title}
 						variant='h4'
@@ -319,6 +325,15 @@ export const Header = (props) => {
 						</Tabs>
 					</div>
 					<div className={classes.log}>
+						{currentUser ? (
+							<Avatar
+								size
+								alt='Hemant Panwar'
+								// src='/static/images/avatar/1.jpg'
+								className={classes.orange}
+								onClick={() => setOpenDrawer(true)}
+							/>
+						) : null}
 						<Button
 							component={Link}
 							to={currentUser ? '/' : '/login'}
