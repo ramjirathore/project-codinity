@@ -98,7 +98,6 @@ const routes = [
 export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
-
 	const { currentUser, logout } = useAuth();
 	const [error, setError] = useState('');
 
