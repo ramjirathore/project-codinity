@@ -117,7 +117,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerItemSelected: {
 		opacity: 1,
-		color: '#fc4445',
+		// color: '#fc4445',
+		color: deepOrange[500],
 	},
 	orange: {
 		color: theme.palette.getContrastText(deepOrange[500]),
