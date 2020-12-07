@@ -15,6 +15,7 @@ import SignIn from './components/SignIn/SignIn.component';
 import SimpleHeader from './components/VideoPage/SimpleHeader/SimpleHeader.component';
 import Video from './components/VideoPage/VideoPage.component';
 import Categories from './components/Categories/Categories.component';
+import About from './components/About/About.component';
 
 const App = (props) => {
 	// added on temp basis
@@ -77,13 +78,18 @@ const App = (props) => {
 						path='/blogs'
 						component={() => <div>All blogs here</div>}
 					/>
+					<Route exact path='/login' component={SignIn} />
+					<Route exact path='/signup' component={SignUp} />
 					<Route
 						exact
 						path='/about'
-						component={() => <div>About page</div>}
+						render={() => (
+							<>
+								<Header />
+								<About />
+							</>
+						)}
 					/>
-					<Route exact path='/login' component={SignIn} />
-					<Route exact path='/signup' component={SignUp} />
 					<Route exact path='/admin' component={AdminController} />
 					<Route
 						exact
