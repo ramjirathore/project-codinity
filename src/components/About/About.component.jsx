@@ -286,7 +286,7 @@ const Landing = () => {
 									className={classes.info}
 									variant='h2'
 								>
-									CORE CONCEPTS
+									Core Concepts
 								</Typography>
 								<Typography
 									variant='h6'
