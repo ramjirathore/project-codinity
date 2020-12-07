@@ -329,7 +329,7 @@ export const Header = (props) => {
 							<Avatar
 								size
 								alt='Hemant Panwar'
-								// src='/static/images/avatar/1.jpg'
+								src='/static/images/avatar/1.jpg'
 								className={classes.orange}
 								onClick={() => setOpenDrawer(true)}
 							/>
