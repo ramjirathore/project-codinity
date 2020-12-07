@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
 	useTheme,
 	makeStyles,
@@ -6,21 +7,13 @@ import {
 	Button,
 	Typography,
 	useMediaQuery,
-	Card,
-	CardContent,
 	Container,
 } from '@material-ui/core';
 
 import arrow from '../../assets/forwardArrow.svg';
-import customSoftwareIcon from '../../assets/Custom Software Icon.svg';
-import mobileAppIcon from '../../assets/mobileIcon.svg';
-import websiteIcon from '../../assets/websiteIcon.svg';
-import revolutionBackground from '../../assets/repeatingBackground.svg';
-import infoBackground from '../../assets/infoBackground.svg';
-import CallToAction from '../UI/CallToAction/CallToAction';
-
 import back from '../../assets/log/dark2.jpg';
 import start from '../../assets/log/shade.jpg';
+import info from '../../assets/log/smoke.jpg';
 
 const useStyles = makeStyles((theme) => ({
 	background: {
@@ -85,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 		// height: '100%',
 		width: '100%',
 		backgroundAttachment: 'fixed',
-		// height: '80em',
+		height: '60em',
 	},
 	specialText: {
 		fontFamily: 'Pacifico',
@@ -123,46 +116,17 @@ const useStyles = makeStyles((theme) => ({
 			textAlign: 'center',
 		},
 	},
-	revolutionContainer: {
-		height: '100em',
-		marginTop: '12em',
-		[theme.breakpoints.down('sm')]: {
-			height: '90em',
-		},
-	},
-	revolutionBody: {
-		textAlign: 'center',
-	},
-	revolutionBack: {
-		backgroundImage: `url(${revolutionBackground})`,
-		backgroundPosition: 'center',
-		backgroundSize: 'cover',
-		backgroundRepeat: 'no-repeat',
-		height: '100%',
-		width: '100%',
-	},
-	revolutionCard: {
-		position: 'absolute',
-		boxShadow: theme.shadows[10],
-		borderRadius: 15,
-		padding: '10em',
-		[theme.breakpoints.down('sm')]: {
-			padding: '8em 0',
-			borderRadius: 0,
-			width: '100%',
-		},
-	},
 	info: {
-		color: 'white',
+		color: '#d1e8e2',
 	},
 	infoContainer: {
-		height: '80em',
+		height: '60em',
 		[theme.breakpoints.down('sm')]: {
 			height: '70em',
 		},
 	},
 	infoBack: {
-		backgroundImage: `url(${infoBackground})`,
+		backgroundImage: `url(${info})`,
 		backgroundPosition: 'center',
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
@@ -175,6 +139,7 @@ const useStyles = makeStyles((theme) => ({
 		color: 'white',
 		fontSize: '.7rem',
 		height: 35,
+		marginTop: 10,
 		padding: 5,
 		[theme.breakpoints.down('sm')]: {
 			marginBottom: '2em',
@@ -218,6 +183,8 @@ const Landing = () => {
 								<Button
 									className={classes.estimateButton}
 									variant='contained'
+									component={Link}
+									to='/categories'
 								>
 									Explore Categories
 								</Button>
@@ -226,6 +193,8 @@ const Landing = () => {
 								<Button
 									className={classes.learnButtonHero}
 									variant='outlined'
+									component={Link}
+									to='/practice'
 								>
 									Start Practice
 									<img
@@ -283,53 +252,8 @@ const Landing = () => {
 						</Container>
 					</Grid>
 				</Grid>
-				{/*-----Website Block-----*/}
 			</Grid>
 			<Grid item>
-				<Grid
-					container
-					className={classes.revolutionContainer}
-					justify='center'
-					alignItems='center'
-				>
-					<Card className={classes.revolutionCard}>
-						<CardContent>
-							<Grid
-								container
-								direction='column'
-								className={classes.revolutionBody}
-							>
-								<Grid item>
-									<Typography variant='h3' gutterBottom>
-										The Revolution
-									</Typography>
-								</Grid>
-								<Grid item>
-									<Typography variant='subtitle1'>
-										Visionary insights coupled with
-										cutting-edge technology is a recipe for
-										revolution.
-									</Typography>
-									<Button
-										variant='outlined'
-										className={classes.learnButton}
-									>
-										Learn More
-										<img
-											className={classes.arrow}
-											src={arrow}
-											alt='arrow icon'
-										/>
-									</Button>
-								</Grid>
-							</Grid>
-						</CardContent>
-					</Card>
-					<div className={classes.revolutionBack} />
-				</Grid>
-			</Grid>
-			<Grid item>
-				{/*-----Information Block-----*/}
 				<Grid
 					className={classes.infoContainer}
 					container
@@ -344,7 +268,6 @@ const Landing = () => {
 							textAlign: matchesXS ? 'center' : 'inherit',
 						}}
 						direction={matchesXS ? 'column' : 'row'}
-						// spacing={matchesXS ? 10 : 0}
 					>
 						<Grid
 							style={{
@@ -363,15 +286,22 @@ const Landing = () => {
 									className={classes.info}
 									variant='h2'
 								>
-									About Us
+									CORE CONCEPTS
 								</Typography>
-								<Typography variant='subtitle2'>
-									Let's get personal
+								<Typography
+									variant='h6'
+									style={{ color: 'white', margin: '10px 0' }}
+								>
+									- DSA | ML | WEBDEV | AI | APPDEV
+									<br />- C++ | JAVA | PYTHON
+									<br />- DMBS | COA | OS
 								</Typography>
 								<Grid item>
 									<Button
 										variant='outlined'
 										className={classes.learnInfoButton}
+										component={Link}
+										to='/blogs'
 									>
 										Learn More
 										<img
@@ -402,30 +332,19 @@ const Landing = () => {
 								>
 									Contact Us
 								</Typography>
-								<Typography variant='subtitle2'>
-									Say hello!
-								</Typography>
 								<Grid item>
-									<Button
-										variant='outlined'
-										className={classes.learnInfoButton}
+									<Typography
+										variant='h5'
+										style={{ color: 'white' }}
 									>
-										Learn More
-										<img
-											className={classes.arrowInfo}
-											src={arrow}
-											alt='arrow icon'
-										/>
-									</Button>
+										codinityhelp@gmail.com
+									</Typography>
 								</Grid>
 							</Grid>
 						</Grid>
 					</Grid>
 					<div className={classes.infoBack} />
 				</Grid>
-			</Grid>
-			<Grid item>
-				<CallToAction />
 			</Grid>
 		</Grid>
 	);
