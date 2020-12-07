@@ -89,21 +89,21 @@ const SignUp = () => {
 	};
 
     const [user, setUser] = useState(initialState);
-    const { signup } = useAuth();
+    const { currentUser, signup } = useAuth();
     const [loading, setLoading] = useState(false);
 
     const handleSignUp = (event) => {
         event.preventDefault();
 
         signup(user.email, user.password)
-        .then(function(_){
+        .then(function(){
 
-            const ref = db.ref("users");
+            /* const ref = db.ref('users/' + );
             ref.push({
                 email: user.email,
                 name: user.name,
                 college: user.college
-            });
+            }); */
 
             setLoading(true);
             window.location.assign('/');
@@ -112,6 +112,20 @@ const SignUp = () => {
         })
 
         setLoading(false);
+    }
+
+    const [pushAllowed, setPushAllowed] = useState(true);
+
+    const userToDatabase = () => {
+        // console.log(currentUser.uid);
+        const ref = db.ref(`users/${currentUser.uid}`);
+        ref.set({
+            email: user.email,
+            name: user.name,
+            college: user.college
+        });
+
+        setPushAllowed(false);
         setUser(initialState);
     }
 
@@ -258,6 +272,7 @@ const SignUp = () => {
 					</form>
 				</div>
 			</Grid>
+            {pushAllowed && currentUser!=null ? userToDatabase() : null}
 		</Grid>
 	);
 };
