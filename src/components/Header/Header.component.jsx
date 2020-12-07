@@ -12,6 +12,10 @@ import {
 	Button,
 	fade,
 	makeStyles,
+	List,
+	ListItem,
+	ListItemText,
+	SwipeableDrawer,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -24,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	nav: {
 		background: theme.palette.common.black,
-		zIndex: 10,
+		// zIndex: 100,
+		zIndex: theme.zIndex.modal + 1,
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
@@ -86,6 +91,32 @@ const useStyles = makeStyles((theme) => ({
 	log: {
 		marginLeft: 'auto',
 	},
+	drawerIcon: {
+		height: '30px',
+		width: '70px',
+	},
+	drawerIconContainer: {
+		marginLeft: 'auto',
+		'&:hover': {
+			backgroundColor: 'transparent',
+		},
+	},
+	drawer: {
+		backgroundColor: theme.palette.common.black,
+		width: 220,
+	},
+	drawerItem: {
+		...theme.typography.tab,
+		opacity: 0.7,
+		color: 'white',
+	},
+	drawerItemEstimate: {
+		backgroundColor: theme.palette.common.grey,
+	},
+	drawerItemSelected: {
+		opacity: 1,
+		color: '#fc4445',
+	},
 }));
 
 const routes = [
@@ -97,10 +128,35 @@ const routes = [
 	{ name: 'About', link: '/about' },
 ];
 
+const facilities = [
+	{
+		name: 'Profile',
+		activeIndex: 0,
+	},
+	{
+		name: 'My Playlists',
+		activeIndex: 1,
+	},
+	{
+		name: 'Upload Video',
+		activeIndex: 2,
+	},
+	{
+		name: 'Create an Event',
+		activeIndex: 3,
+	},
+	{
+		name: 'Write Blog',
+		activeIndex: 4,
+	},
+];
+
 export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
+	const [userFacility, setUserFacility] = useState(0);
 	const { currentUser, logout } = useAuth();
+	const [openDrawer, setOpenDrawer] = useState(false);
 	const [error, setError] = useState('');
 
 	console.log(currentUser);
@@ -132,6 +188,80 @@ export const Header = (props) => {
 		});
 	}, [value]);
 
+	const drawer = (
+		<React.Fragment>
+			<SwipeableDrawer
+				// disableBackdropTransition={!iOS}
+				// disableDiscovery={iOS}
+				open={openDrawer}
+				onClose={() => setOpenDrawer(false)}
+				onOpen={() => setOpenDrawer(true)}
+				classes={{ paper: classes.drawer }}
+			>
+				<div className={classes.toolbar} />
+				<List disablePadding>
+					{facilities.map((facility, index) => (
+						<ListItem
+							key={`${facility}${index}`}
+							divider
+							button
+							onClick={() => {
+								// setOpenDrawer(false);
+								setUserFacility(facility.activeIndex);
+							}}
+							selected={userFacility === facility.activeIndex}
+						>
+							<ListItemText
+								className={
+									userFacility === facility.activeIndex
+										? [
+												classes.drawerItem,
+												classes.drawerItemSelected,
+										  ].join(' ')
+										: classes.drawerItem
+								}
+								disableTypography
+							>
+								{facility.name}
+							</ListItemText>
+						</ListItem>
+					))}
+					<ListItem
+						divider
+						button
+						onClick={() => {
+							// setOpenDrawer(false);
+							setUserFacility(5);
+						}}
+						selected={userFacility === 5}
+						className={classes.drawerItemEstimate}
+					>
+						<ListItemText
+							className={
+								userFacility === 5
+									? [
+											classes.drawerItem,
+											classes.drawerItemSelected,
+									  ].join(' ')
+									: classes.drawerItem
+							}
+							disableTypography
+						>
+							FAQ
+						</ListItemText>
+					</ListItem>
+				</List>
+			</SwipeableDrawer>
+			{/* <IconButton
+				className={classes.drawerIconContainer}
+				onClick={() => setOpenDrawer(!openDrawer)}
+				disableRipple
+			>
+				<MenuIcon className={classes.drawerIcon} />
+			</IconButton> */}
+		</React.Fragment>
+	);
+
 	return (
 		<>
 			<AppBar position='fixed' className={classes.nav}>
@@ -140,6 +270,7 @@ export const Header = (props) => {
 					<IconButton
 						edge='start'
 						className={classes.menuButton}
+						onClick={() => setOpenDrawer(!openDrawer)}
 						color='inherit'
 						aria-label='open drawer'
 					>
@@ -197,6 +328,7 @@ export const Header = (props) => {
 							{currentUser ? 'Logout' : 'Login'}
 						</Button>
 					</div>
+					{drawer}
 				</Toolbar>
 			</AppBar>
 			<div className={classes.toolbar} />
