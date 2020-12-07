@@ -39,7 +39,8 @@ const Dashboard = ({ categories, blogs, loading }) => {
 	const allCategories = categories
 		? categories.map((item) => ({ key: item.key, len: item.count }))
 		: [];
-
+	console.log(categories);
+	
 	return (
 		<>
 			{!loading ? (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -101,13 +101,6 @@ export const Header = (props) => {
 	const { currentUser, logout } = useAuth();
 	const [error, setError] = useState('');
 
-	// const CurrentPage = (e) => {
-	// 	const currRoute = window.location.pathname;
-	// 	const index = routes.findIndex((route) => route.link === currRoute);
-	// 	console.log(index, currRoute);
-	// 	setValue(index);
-	// };
-
 	console.log(currentUser);
 
 	async function handleLogout() {
@@ -122,6 +115,20 @@ export const Header = (props) => {
 
 		console.log(error);
 	}
+
+	useEffect(() => {
+		routes.forEach((route, index) => {
+			switch (window.location.pathname) {
+				case `${route.link}`:
+					if (value !== index) {
+						setValue(index);
+					}
+					break;
+				default:
+					break;
+			}
+		});
+	}, [value]);
 
 	return (
 		<>
