@@ -22,6 +22,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import UploadVideo from '../../containers/user/uploadVideo.component';
+
 import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -347,6 +349,9 @@ export const Header = (props) => {
 					{drawer}
 				</Toolbar>
 			</AppBar>
+			{/* {userFacility === 2 ? <UploadVideo /> : null}
+			 */}
+			<UploadVideo />
 			<div className={classes.toolbar} />
 		</>
 	);
