@@ -22,6 +22,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import Profile from '../../containers/user/profile.component';
 import UploadVideo from '../../containers/user/uploadVideo.component';
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -349,6 +350,7 @@ export const Header = (props) => {
 				</Toolbar>
 			</AppBar>
 			{userFacility === 2 ? <UploadVideo /> : null}
+			{userFacility === 0 ? <Profile /> : null}
 			<div className={classes.toolbar} />
 		</>
 	);

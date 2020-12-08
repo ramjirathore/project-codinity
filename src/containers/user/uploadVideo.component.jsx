@@ -15,7 +15,6 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import { TrendingUpTwoTone } from '@material-ui/icons';
 
 const styles = (theme) => ({
 	root: {
@@ -118,7 +117,7 @@ const UploadVideo = () => {
 		file: null,
 	});
 
-	const [open, setOpen] = useState(TrendingUpTwoTone);
+	const [open, setOpen] = useState(false);
 	console.log(video);
 	// const handleClickOpen = () => {
 	// 	setOpen(true);
