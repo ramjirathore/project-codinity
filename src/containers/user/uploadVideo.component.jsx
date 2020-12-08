@@ -108,7 +108,7 @@ const videoTypes = [
 	},
 ];
 
-const UploadVideo = () => {
+const UploadVideo = ({ upload }) => {
 	const classes = useStyles();
 	const [video, setVideo] = useState({
 		title: '',
@@ -117,7 +117,7 @@ const UploadVideo = () => {
 		file: null,
 	});
 
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(upload);
 	console.log(video);
 	// const handleClickOpen = () => {
 	// 	setOpen(true);
