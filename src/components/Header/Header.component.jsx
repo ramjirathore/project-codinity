@@ -349,9 +349,7 @@ export const Header = (props) => {
 					{drawer}
 				</Toolbar>
 			</AppBar>
-			{/* {userFacility === 2 ? <UploadVideo /> : null}
-			 */}
-			<UploadVideo />
+			{userFacility === 2 ? <UploadVideo /> : null}
 			<div className={classes.toolbar} />
 		</>
 	);

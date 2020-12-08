@@ -6,6 +6,9 @@ import {
 	Dialog,
 	IconButton,
 	TextField,
+	FormControl,
+	InputLabel,
+	Select,
 } from '@material-ui/core';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -67,6 +70,45 @@ const DialogActions = withStyles((theme) => ({
 	},
 }))(MuiDialogActions);
 
+const videoTypes = [
+	{
+		name: 'Data Structure',
+		tag: 'dataStructure',
+	},
+	{
+		name: 'Algorithms',
+		tag: 'algorithms',
+	},
+	{
+		name: 'C++',
+		tag: 'cpp',
+	},
+	{
+		name: 'Python',
+		tag: 'python',
+	},
+	{
+		name: 'JAVA',
+		tag: 'java',
+	},
+	{
+		name: 'ReactJS',
+		tag: 'reactJS',
+	},
+	{
+		name: 'AngularJS',
+		tag: 'angularJS',
+	},
+	{
+		name: 'VueJS',
+		tag: 'vueJS',
+	},
+	{
+		name: 'NodeJS',
+		tag: 'nodeJS',
+	},
+];
+
 const UploadVideo = () => {
 	const classes = useStyles();
 	const [video, setVideo] = useState({
@@ -77,7 +119,7 @@ const UploadVideo = () => {
 	});
 
 	const [open, setOpen] = useState(TrendingUpTwoTone);
-	// console.log(video);
+	console.log(video);
 	// const handleClickOpen = () => {
 	// 	setOpen(true);
 	// };
@@ -144,7 +186,55 @@ const UploadVideo = () => {
 								})
 							}
 						/>
+						<FormControl
+							variant='outlined'
+							style={{ marginTop: 18, width: '100%' }}
+						>
+							<InputLabel htmlFor='outlined-age-native-simple'>
+								Category
+							</InputLabel>
+							<Select
+								native
+								required
+								fullWidth
+								value={video.tag}
+								onChange={(e) =>
+									setVideo({
+										...video,
+										tag: e.target.value,
+									})
+								}
+								label='Category'
+								inputProps={{
+									name: 'tag',
+									id: 'outlined-age-native-simple',
+								}}
+							>
+								<option aria-label='None' value='' />
+								{videoTypes.map((item) => (
+									<option key={item.name} value={item.tag}>
+										{item.name}
+									</option>
+								))}
+							</Select>
+						</FormControl>
 					</form>
+					<div style={{ marginTop: 18 }}>
+						<Button variant='contained' component='label'>
+							Choose File
+							<input
+								type='file'
+								hidden
+								onChange={(e) =>
+									setVideo({
+										...video,
+										file: e.target.files[0],
+									})
+								}
+							/>
+						</Button>
+					</div>
+					{/* {video.file !== null ? 'video.file.name' : 'null'} */}
 				</DialogContent>
 				<DialogActions>
 					<Button
