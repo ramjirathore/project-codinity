@@ -167,7 +167,7 @@ const Controller = () => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
 	const [activeIndex, setActiveIndex] = useState({
-		name: 'Requests',
+		name: 'Dashboard',
 		index: 0,
 	});
 	const handleDrawerOpen = () => {

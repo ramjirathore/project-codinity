@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { deepOrange } from '@material-ui/core/colors';
 
 import {
 	Tab,
@@ -12,6 +13,11 @@ import {
 	Button,
 	fade,
 	makeStyles,
+	List,
+	ListItem,
+	ListItemText,
+	SwipeableDrawer,
+	Avatar,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -25,12 +31,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	nav: {
 		background: theme.palette.common.black,
-		zIndex: 10,
+		zIndex: theme.zIndex.modal + 1,
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
 	},
 	title: {
+		textDecoration: 'none',
+		color: 'white',
 		display: 'none',
 		[theme.breakpoints.up('sm')]: {
 			display: 'block',
@@ -84,6 +92,40 @@ const useStyles = makeStyles((theme) => ({
 	},
 	log: {
 		marginLeft: 'auto',
+		display: 'flex',
+	},
+	drawerIcon: {
+		height: '30px',
+		width: '70px',
+	},
+	drawerIconContainer: {
+		marginLeft: 'auto',
+		'&:hover': {
+			backgroundColor: 'transparent',
+		},
+	},
+	drawer: {
+		backgroundColor: theme.palette.common.black,
+		width: 220,
+	},
+	drawerItem: {
+		...theme.typography.tab,
+		opacity: 0.7,
+		color: 'white',
+	},
+	drawerItemEstimate: {
+		backgroundColor: theme.palette.common.grey,
+	},
+	drawerItemSelected: {
+		opacity: 1,
+		// color: '#fc4445',
+		color: deepOrange[500],
+	},
+	orange: {
+		color: theme.palette.getContrastText(deepOrange[500]),
+		backgroundColor: deepOrange[500],
+		marginRight: 15,
+		cursor: 'pointer',
 	},
 }));
 
@@ -96,20 +138,38 @@ const routes = [
 	{ name: 'About', link: '/about' },
 ];
 
+const facilities = [
+	{
+		name: 'Profile',
+		activeIndex: 0,
+	},
+	{
+		name: 'My Playlists',
+		activeIndex: 1,
+	},
+	{
+		name: 'Upload Video',
+		activeIndex: 2,
+	},
+	{
+		name: 'Create an Event',
+		activeIndex: 3,
+	},
+	{
+		name: 'Write Blog',
+		activeIndex: 4,
+	},
+];
+
 export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
+	const [userFacility, setUserFacility] = useState(0);
 	const { currentUser, logout } = useAuth();
+	const [openDrawer, setOpenDrawer] = useState(false);
 	const [error, setError] = useState('');
 
-	// const CurrentPage = (e) => {
-	// 	const currRoute = window.location.pathname;
-	// 	const index = routes.findIndex((route) => route.link === currRoute);
-	// 	console.log(index, currRoute);
-	// 	setValue(index);
-	// };
-
-	console.log("user:", currentUser);
+	console.log(currentUser);
 
 	async function handleLogout() {
 		setError('');
@@ -124,21 +184,115 @@ export const Header = (props) => {
 		console.log(error);
     }
 
+	useEffect(() => {
+		routes.forEach((route, index) => {
+			switch (window.location.pathname) {
+				case `${route.link}`:
+					if (value !== index) {
+						setValue(index);
+					}
+					break;
+				default:
+					break;
+			}
+		});
+	}, [value]);
+
+	const drawer = (
+		<React.Fragment>
+			<SwipeableDrawer
+				open={openDrawer}
+				onClose={() => setOpenDrawer(false)}
+				onOpen={() => setOpenDrawer(true)}
+				classes={{ paper: classes.drawer }}
+			>
+				<div className={classes.toolbar} />
+				<List disablePadding>
+					{facilities.map((facility, index) => (
+						<ListItem
+							key={`${facility}${index}`}
+							divider
+							button
+							onClick={() => {
+								setUserFacility(facility.activeIndex);
+							}}
+							selected={userFacility === facility.activeIndex}
+						>
+							<ListItemText
+								className={
+									userFacility === facility.activeIndex
+										? [
+												classes.drawerItem,
+												classes.drawerItemSelected,
+										  ].join(' ')
+										: classes.drawerItem
+								}
+								disableTypography
+							>
+								{facility.name}
+							</ListItemText>
+						</ListItem>
+					))}
+					<ListItem
+						divider
+						button
+						onClick={() => {
+							setUserFacility(5);
+						}}
+						selected={userFacility === 5}
+						className={classes.drawerItemEstimate}
+					>
+						<ListItemText
+							className={
+								userFacility === 5
+									? [
+											classes.drawerItem,
+											classes.drawerItemSelected,
+									  ].join(' ')
+									: classes.drawerItem
+							}
+							disableTypography
+						>
+							FAQ
+						</ListItemText>
+					</ListItem>
+				</List>
+			</SwipeableDrawer>
+			{/* <IconButton
+				className={classes.drawerIconContainer}
+				onClick={() => setOpenDrawer(!openDrawer)}
+				disableRipple
+			>
+				<MenuIcon className={classes.drawerIcon} />
+			</IconButton> */}
+		</React.Fragment>
+	);
+
 	return (
 		<>
 			<AppBar position='fixed' className={classes.nav}>
 				{/* {console.log(currentUser.email)} */}
 				<Toolbar>
-					<IconButton
-						edge='start'
-						className={classes.menuButton}
-						color='inherit'
-                        aria-label='open drawer'
+					{currentUser ? (
+						<IconButton
+							edge='start'
+							className={classes.menuButton}
+							onClick={() => setOpenDrawer(!openDrawer)}
+							color='inherit'
+							aria-label='open drawer'
+						>
+							<MenuIcon />
+                            <SideDrawer />
+						</IconButton>
+					) : null}
+					<Typography
+						className={classes.title}
+						variant='h4'
+						noWrap
+						component={Link}
+						to='/'
+						onClick={() => setValue(0)}
 					>
-                        <MenuIcon />
-                        {currentUser!=null ? <SideDrawer /> : null}
-					</IconButton>
-					<Typography className={classes.title} variant='h4' noWrap>
 						Codinity
 					</Typography>
 					<div className={classes.search}>
@@ -174,6 +328,15 @@ export const Header = (props) => {
 						</Tabs>
 					</div>
 					<div className={classes.log}>
+						{currentUser ? (
+							<Avatar
+								size
+								alt='Hemant Panwar'
+								src='/static/images/avatar/1.jpg'
+								className={classes.orange}
+								onClick={() => setOpenDrawer(true)}
+							/>
+						) : null}
 						<Button
 							component={Link}
 							to={currentUser ? '/' : '/login'}
@@ -183,6 +346,7 @@ export const Header = (props) => {
 							{currentUser ? 'Logout' : 'Login'}
 						</Button>
 					</div>
+					{drawer}
 				</Toolbar>
 			</AppBar>
 			<div className={classes.toolbar} />
