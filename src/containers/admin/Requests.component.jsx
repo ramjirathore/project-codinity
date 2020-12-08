@@ -390,7 +390,7 @@ export default function EnhancedTable() {
 											>
 												{row.email}
 											</TableCell>
-											<TableCell>{row.name}</TableCell>{' '}
+											<TableCell>{row.name}</TableCell>
 											{/**THIS WILL HAVE VIDEO LINK */}
 											<TableCell>{row.title}</TableCell>
 											<TableCell>{row.college}</TableCell>
