@@ -22,6 +22,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import UploadVideo from '../../containers/user/uploadVideo.component';
+
 import { useAuth } from '../../contexts/AuthContext';
 import { SideDrawer } from "../SideDrawer/SideDrawer.component"
 
@@ -330,7 +332,6 @@ export const Header = (props) => {
 					<div className={classes.log}>
 						{currentUser ? (
 							<Avatar
-								size
 								alt='Hemant Panwar'
 								src='/static/images/avatar/1.jpg'
 								className={classes.orange}
@@ -349,6 +350,7 @@ export const Header = (props) => {
 					{drawer}
 				</Toolbar>
 			</AppBar>
+			{userFacility === 2 ? <UploadVideo /> : null}
 			<div className={classes.toolbar} />
 		</>
 	);
