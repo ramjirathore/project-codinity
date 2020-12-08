@@ -23,7 +23,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { SideDrawer } from "../SideDrawer/SideDrawer.component"
+import { SideDrawer } from '../SideDrawer/SideDrawer.component';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -182,7 +182,7 @@ export const Header = (props) => {
 		}
 
 		console.log(error);
-    }
+	}
 
 	useEffect(() => {
 		routes.forEach((route, index) => {
@@ -282,7 +282,7 @@ export const Header = (props) => {
 							aria-label='open drawer'
 						>
 							<MenuIcon />
-                            <SideDrawer />
+							<SideDrawer />
 						</IconButton>
 					) : null}
 					<Typography
@@ -330,7 +330,6 @@ export const Header = (props) => {
 					<div className={classes.log}>
 						{currentUser ? (
 							<Avatar
-								size
 								alt='Hemant Panwar'
 								src='/static/images/avatar/1.jpg'
 								className={classes.orange}
