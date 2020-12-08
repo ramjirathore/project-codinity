@@ -330,7 +330,6 @@ export const Header = (props) => {
 					<div className={classes.log}>
 						{currentUser ? (
 							<Avatar
-								size
 								alt='Hemant Panwar'
 								src='/static/images/avatar/1.jpg'
 								className={classes.orange}
