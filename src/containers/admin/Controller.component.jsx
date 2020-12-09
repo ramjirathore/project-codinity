@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import {
@@ -26,6 +26,8 @@ import AccountBalanceWalletSharpIcon from '@material-ui/icons/AccountBalanceWall
 import BugReportSharpIcon from '@material-ui/icons/BugReportSharp';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
+
+import { db } from '../../config/fbConfig';
 
 import { secondaryListItems } from '../../components/AdminParts/ListItems.component';
 
@@ -170,6 +172,25 @@ const Controller = () => {
 		name: 'Dashboard',
 		index: 0,
 	});
+
+	let unapproved = [];
+
+	const pullUnapproved = () => {
+		const usersRef = db.ref().child('unapproved videos');
+		// console.log(usersRef);
+
+		usersRef
+			.once('value', (snapshot) => {
+				snapshot.forEach((childSnapshot) => {
+					// console.log(childSnapshot.key, childSnapshot.val());
+					// console.log('requests', childSnapshot.val());
+					unapproved.push(childSnapshot.val());
+				});
+			})
+			.catch((err) => console.log(err));
+		console.log('PULLED', unapproved);
+	};
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -263,6 +284,9 @@ const Controller = () => {
 							// component={Link}
 							// to={'/admin'}
 							onClick={() => {
+								if (item.value === 1) {
+									pullUnapproved();
+								}
 								setActiveIndex({
 									...activeIndex,
 									name: item.name,
@@ -300,7 +324,7 @@ const Controller = () => {
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='xl' className={classes.container}>
 					{Render ? (
-						<Render.comp />
+						<Render.comp unapproved />
 					) : (
 						<div className={classes.comingsoon}>Coming soon!</div>
 					)}

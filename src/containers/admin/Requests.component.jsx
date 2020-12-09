@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
@@ -21,30 +21,36 @@ import {
 	Switch,
 } from '@material-ui/core';
 
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { db } from '../../config/fbConfig';
+
 function createData(email, name, title, college) {
 	return { email, name, college, title };
 }
 
-const rows = [
-	createData(
-		'hemantpanwar91@gmail.com',
-		'Hemant Panwar',
-		'Introduction to Dynamic Programming',
-		'Jaypee Institute of Information Technology'
-	),
-	createData(
-		'prernasingh14@gmail.com',
-		'Prena Singh',
-		'Graphs, BFS, DFS',
-		'Jaypee Institute of Information Technology'
-	),
-	createData(
-		'rmjrathore@gmail.com',
-		'Ramji Rathore',
-		'Linked List Problems',
-		'Jaypee Institute of Information Technology'
-	),
-];
+// const rows = [
+// 	createData(
+// 		'hemantpanwar91@gmail.com',
+// 		'Hemant Panwar',
+// 		'Introduction to Dynamic Programming',
+// 		'Jaypee Institute of Information Technology'
+// 	),
+// 	createData(
+// 		'prernasingh14@gmail.com',
+// 		'Prena Singh',
+// 		'Graphs, BFS, DFS',
+// 		'Jaypee Institute of Information Technology'
+// 	),
+// 	createData(
+// 		'rmjrathore@gmail.com',
+// 		'Ramji Rathore',
+// 		'Linked List Problems',
+// 		'Jaypee Institute of Information Technology'
+// 	),
+// ];
 
 function descendingComparator(a, b, orderBy) {
 	if (b[orderBy] < a[orderBy]) {
@@ -266,7 +272,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function EnhancedTable() {
+const EnhancedTable = (props) => {
 	const classes = useStyles();
 	const [order, setOrder] = React.useState('asc');
 	const [orderBy, setOrderBy] = React.useState('calories');
@@ -275,7 +281,21 @@ export default function EnhancedTable() {
 	const [dense, setDense] = React.useState(false);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-	console.log(selected);
+	// useEffect(() => {
+	props.InitRequest(db);
+	// }, [props]);
+
+	console.log(props.videos);
+	const rows = [];
+	// const rows = unapproved.map((item) => {
+	// 	console.log(item);
+	// 	return createData(
+	// 		'hemantpanwar91@gmail.com',
+	// 		'Hemant Panwar',
+	// 		'Introduction to Dynamic Programming',
+	// 		'Jaypee Institute of Information Technology'
+	// 	);
+	// });
 
 	const handleRequestSort = (event, property) => {
 		const isAsc = orderBy === property && order === 'asc';
@@ -428,4 +448,19 @@ export default function EnhancedTable() {
 			/>
 		</div>
 	);
-}
+};
+
+const mapStateToProps = (state) => {
+	return {
+		videos: state.req.unapproved,
+		laoding: state.req.loading,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		InitRequest: (database) => dispatch(actions.initRequest(database)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EnhancedTable);

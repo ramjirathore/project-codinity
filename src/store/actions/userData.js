@@ -37,7 +37,7 @@ export const initUserData = (db, userToken) => {
 				snapshot.forEach((childSnapshot) => {
 					// console.log(childSnapshot.key, childSnapshot.val());
 					if (childSnapshot.key === String(userToken)) {
-						console.log('userData', childSnapshot.val());
+						// console.log('userData', childSnapshot.val());
 						dispatch(setUserData(childSnapshot.val()));
 					}
 				});
