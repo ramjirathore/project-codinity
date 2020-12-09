@@ -36,7 +36,7 @@ export const initRequest = (db) => {
 		usersRef
 			.once('value', (snapshot) => {
 				snapshot.forEach((childSnapshot) => {
-					console.log(childSnapshot.key, childSnapshot.val());
+					// console.log(childSnapshot.key, childSnapshot.val());
 					// console.log('requests', childSnapshot.val());
 					unapproved.push(childSnapshot.val());
 				});

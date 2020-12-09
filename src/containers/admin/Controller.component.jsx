@@ -18,6 +18,7 @@ import {
 	CssBaseline,
 	Container,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -27,6 +28,8 @@ import BugReportSharpIcon from '@material-ui/icons/BugReportSharp';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 
+import * as actions from '../../store/actions/index';
+import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../config/fbConfig';
 
 import { secondaryListItems } from '../../components/AdminParts/ListItems.component';
@@ -165,31 +168,13 @@ const list = [
 	{ name: 'Reports', link: '/reports', value: 4, icon: BarChartIcon },
 ];
 
-const Controller = () => {
+const Controller = (props) => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
 	const [activeIndex, setActiveIndex] = useState({
 		name: 'Dashboard',
 		index: 0,
 	});
-
-	let unapproved = [];
-
-	const pullUnapproved = () => {
-		const usersRef = db.ref().child('unapproved videos');
-		// console.log(usersRef);
-
-		usersRef
-			.once('value', (snapshot) => {
-				snapshot.forEach((childSnapshot) => {
-					// console.log(childSnapshot.key, childSnapshot.val());
-					// console.log('requests', childSnapshot.val());
-					unapproved.push(childSnapshot.val());
-				});
-			})
-			.catch((err) => console.log(err));
-		console.log('PULLED', unapproved);
-	};
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -285,7 +270,7 @@ const Controller = () => {
 							// to={'/admin'}
 							onClick={() => {
 								if (item.value === 1) {
-									pullUnapproved();
+									props.InitRequest(db);
 								}
 								setActiveIndex({
 									...activeIndex,
@@ -323,8 +308,15 @@ const Controller = () => {
 			<main className={classes.content}>
 				<div className={classes.appBarSpacer} />
 				<Container maxWidth='xl' className={classes.container}>
-					{Render ? (
+					{/* {Render ? (
 						<Render.comp unapproved />
+					) : (
+						<div className={classes.comingsoon}>Coming soon!</div>
+					)} */}{' '}
+					{activeIndex.index === 0 ? (
+						<Dashboard />
+					) : activeIndex.index === 1 ? (
+						<Requests />
 					) : (
 						<div className={classes.comingsoon}>Coming soon!</div>
 					)}
@@ -334,4 +326,10 @@ const Controller = () => {
 	);
 };
 
-export default Controller;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		InitRequest: (database) => dispatch(actions.initRequest(database)),
+	};
+};
+
+export default connect(null, mapDispatchToProps)(Controller);

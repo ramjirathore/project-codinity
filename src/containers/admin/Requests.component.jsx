@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
@@ -22,35 +22,13 @@ import {
 } from '@material-ui/core';
 
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../config/fbConfig';
+// import { useAuth } from '../../contexts/AuthContext';
+// import { db } from '../../config/fbConfig';
 
-function createData(email, name, title, college) {
-	return { email, name, college, title };
+function createData(email, name, title, college, uid, url) {
+	return { email, name, college, title, uid, url };
 }
-
-// const rows = [
-// 	createData(
-// 		'hemantpanwar91@gmail.com',
-// 		'Hemant Panwar',
-// 		'Introduction to Dynamic Programming',
-// 		'Jaypee Institute of Information Technology'
-// 	),
-// 	createData(
-// 		'prernasingh14@gmail.com',
-// 		'Prena Singh',
-// 		'Graphs, BFS, DFS',
-// 		'Jaypee Institute of Information Technology'
-// 	),
-// 	createData(
-// 		'rmjrathore@gmail.com',
-// 		'Ramji Rathore',
-// 		'Linked List Problems',
-// 		'Jaypee Institute of Information Technology'
-// 	),
-// ];
 
 function descendingComparator(a, b, orderBy) {
 	if (b[orderBy] < a[orderBy]) {
@@ -270,6 +248,14 @@ const useStyles = makeStyles((theme) => ({
 		top: 20,
 		width: 1,
 	},
+	laoding: {
+		display: 'flex',
+		height: '80vh',
+		color: 'white',
+		fontSize: '2rem',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 }));
 
 const EnhancedTable = (props) => {
@@ -281,21 +267,21 @@ const EnhancedTable = (props) => {
 	const [dense, setDense] = React.useState(false);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-	// useEffect(() => {
-	props.InitRequest(db);
-	// }, [props]);
-
-	console.log(props.videos);
-	const rows = [];
-	// const rows = unapproved.map((item) => {
-	// 	console.log(item);
-	// 	return createData(
-	// 		'hemantpanwar91@gmail.com',
-	// 		'Hemant Panwar',
-	// 		'Introduction to Dynamic Programming',
-	// 		'Jaypee Institute of Information Technology'
-	// 	);
-	// });
+	// console.log(props.videos);
+	let rows = [];
+	console.log(selected);
+	if (!props.loading) {
+		rows = props.videos.map((item) => {
+			return createData(
+				item.email,
+				item.name,
+				item.title,
+				item.college,
+				item.uid,
+				item.url
+			);
+		});
+	}
 
 	const handleRequestSort = (event, property) => {
 		const isAsc = orderBy === property && order === 'asc';
@@ -305,7 +291,7 @@ const EnhancedTable = (props) => {
 
 	const handleSelectAllClick = (event) => {
 		if (event.target.checked) {
-			const newSelecteds = rows.map((n) => n.email);
+			const newSelecteds = rows.map((n) => n.uid);
 			setSelected(newSelecteds);
 			return;
 		}
@@ -352,100 +338,133 @@ const EnhancedTable = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<Paper className={classes.paper}>
-				<EnhancedTableToolbar numSelected={selected.length} />
-				<TableContainer>
-					<Table
-						className={classes.table}
-						aria-labelledby='tableTitle'
-						size={dense ? 'small' : 'medium'}
-						aria-label='enhanced table'
-					>
-						<EnhancedTableHead
-							classes={classes}
-							numSelected={selected.length}
-							order={order}
-							orderBy={orderBy}
-							onSelectAllClick={handleSelectAllClick}
-							onRequestSort={handleRequestSort}
-							rowCount={rows.length}
-						/>
-						<TableBody>
-							{stableSort(rows, getComparator(order, orderBy))
-								.slice(
-									page * rowsPerPage,
-									page * rowsPerPage + rowsPerPage
-								)
-								.map((row, index) => {
-									const isItemSelected = isSelected(
-										row.email
-									);
-									const labelId = `enhanced-table-checkbox-${index}`;
+			{!props.loading ? (
+				<>
+					<Paper className={classes.paper}>
+						<EnhancedTableToolbar numSelected={selected.length} />
+						<TableContainer>
+							<Table
+								className={classes.table}
+								aria-labelledby='tableTitle'
+								size={dense ? 'small' : 'medium'}
+								aria-label='enhanced table'
+							>
+								<EnhancedTableHead
+									classes={classes}
+									numSelected={selected.length}
+									order={order}
+									orderBy={orderBy}
+									onSelectAllClick={handleSelectAllClick}
+									onRequestSort={handleRequestSort}
+									rowCount={rows.length}
+								/>
+								<TableBody>
+									{stableSort(
+										rows,
+										getComparator(order, orderBy)
+									)
+										.slice(
+											page * rowsPerPage,
+											page * rowsPerPage + rowsPerPage
+										)
+										.map((row, index) => {
+											const isItemSelected = isSelected(
+												row.uid
+											);
+											const labelId = `enhanced-table-checkbox-${index}`;
 
-									return (
+											return (
+												<TableRow
+													hover
+													onClick={(event) =>
+														handleClick(
+															event,
+															row.uid
+														)
+													}
+													role='checkbox'
+													aria-checked={
+														isItemSelected
+													}
+													tabIndex={-1}
+													key={row.email}
+													selected={isItemSelected}
+												>
+													<TableCell padding='checkbox'>
+														<Checkbox
+															checked={
+																isItemSelected
+															}
+															inputProps={{
+																'aria-labelledby': labelId,
+															}}
+														/>
+													</TableCell>
+													<TableCell
+														component='th'
+														id={labelId}
+														scope='row'
+														padding='none'
+													>
+														{row.email}
+													</TableCell>
+													<TableCell>
+														{row.name}
+													</TableCell>
+													{/**THIS WILL HAVE VIDEO LINK */}
+													<TableCell>
+														<a
+															href={row.url}
+															target='_blank'
+															rel='noopener noreferrer'
+														>
+															{row.title}
+														</a>
+													</TableCell>
+													<TableCell>
+														{row.college}
+													</TableCell>
+												</TableRow>
+											);
+										})}
+									{emptyRows > 0 && (
 										<TableRow
-											hover
-											onClick={(event) =>
-												handleClick(event, row.email)
-											}
-											role='checkbox'
-											aria-checked={isItemSelected}
-											tabIndex={-1}
-											key={row.email}
-											selected={isItemSelected}
+											style={{
+												height:
+													(dense ? 33 : 53) *
+													emptyRows,
+											}}
 										>
-											<TableCell padding='checkbox'>
-												<Checkbox
-													checked={isItemSelected}
-													inputProps={{
-														'aria-labelledby': labelId,
-													}}
-												/>
-											</TableCell>
-											<TableCell
-												component='th'
-												id={labelId}
-												scope='row'
-												padding='none'
-											>
-												{row.email}
-											</TableCell>
-											<TableCell>{row.name}</TableCell>
-											{/**THIS WILL HAVE VIDEO LINK */}
-											<TableCell>{row.title}</TableCell>
-											<TableCell>{row.college}</TableCell>
+											<TableCell colSpan={6} />
 										</TableRow>
-									);
-								})}
-							{emptyRows > 0 && (
-								<TableRow
-									style={{
-										height: (dense ? 33 : 53) * emptyRows,
-									}}
-								>
-									<TableCell colSpan={6} />
-								</TableRow>
-							)}
-						</TableBody>
-					</Table>
-				</TableContainer>
-				<TablePagination
-					rowsPerPageOptions={[10, 20]}
-					component='div'
-					count={rows.length}
-					rowsPerPage={rowsPerPage}
-					page={page}
-					onChangePage={handleChangePage}
-					onChangeRowsPerPage={handleChangeRowsPerPage}
-				/>
-			</Paper>
-			<FormControlLabel
-				control={
-					<Switch checked={dense} onChange={handleChangeDense} />
-				}
-				style={{ color: 'white' }}
-				label='Dense Padding'
-			/>
+									)}
+								</TableBody>
+							</Table>
+						</TableContainer>
+						<TablePagination
+							rowsPerPageOptions={[10, 20]}
+							component='div'
+							count={rows.length}
+							rowsPerPage={rowsPerPage}
+							page={page}
+							onChangePage={handleChangePage}
+							onChangeRowsPerPage={handleChangeRowsPerPage}
+						/>
+					</Paper>
+					<FormControlLabel
+						control={
+							<Switch
+								checked={dense}
+								onChange={handleChangeDense}
+							/>
+						}
+						style={{ color: 'white' }}
+						label='Dense Padding'
+					/>
+				</>
+			) : (
+				<div className={classes.loading}>Loading...</div>
+			)}
 		</div>
 	);
 };
@@ -457,10 +476,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		InitRequest: (database) => dispatch(actions.initRequest(database)),
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EnhancedTable);
+export default React.memo(connect(mapStateToProps)(EnhancedTable));
