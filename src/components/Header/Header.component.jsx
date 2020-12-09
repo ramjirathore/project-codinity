@@ -22,6 +22,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import Profile from '../../containers/user/profile.component';
 import UploadVideo from '../../containers/user/uploadVideo.component';
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -165,7 +166,7 @@ const facilities = [
 export const Header = (props) => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
-	const [userFacility, setUserFacility] = useState(0);
+	const [userFacility, setUserFacility] = useState(-1);
 	const { currentUser, logout } = useAuth();
 	const [openDrawer, setOpenDrawer] = useState(false);
 	const [error, setError] = useState('');
@@ -197,13 +198,16 @@ export const Header = (props) => {
 					break;
 			}
 		});
-	}, [value]);
+	}, [value, userFacility]);
 
 	const drawer = (
 		<React.Fragment>
 			<SwipeableDrawer
 				open={openDrawer}
-				onClose={() => setOpenDrawer(false)}
+				onClose={() => {
+					setOpenDrawer(false);
+					setUserFacility(-1);
+				}}
 				onOpen={() => setOpenDrawer(true)}
 				classes={{ paper: classes.drawer }}
 			>
@@ -278,7 +282,9 @@ export const Header = (props) => {
 						<IconButton
 							edge='start'
 							className={classes.menuButton}
-							onClick={() => setOpenDrawer(!openDrawer)}
+							onClick={() => {
+								setOpenDrawer(!openDrawer);
+							}}
 							color='inherit'
 							aria-label='open drawer'
 						>
@@ -333,7 +339,9 @@ export const Header = (props) => {
 								alt='Hemant Panwar'
 								src='/static/images/avatar/1.jpg'
 								className={classes.orange}
-								onClick={() => setOpenDrawer(true)}
+								onClick={() => {
+									setOpenDrawer(true);
+								}}
 							/>
 						) : null}
 						<Button
@@ -348,7 +356,8 @@ export const Header = (props) => {
 					{drawer}
 				</Toolbar>
 			</AppBar>
-			{userFacility === 2 ? <UploadVideo /> : null}
+			{userFacility === 2 ? <UploadVideo upload={true} /> : null}
+			{userFacility === 0 ? <Profile profile={true} /> : null}
 			<div className={classes.toolbar} />
 		</>
 	);

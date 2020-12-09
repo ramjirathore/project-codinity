@@ -15,7 +15,6 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import { TrendingUpTwoTone } from '@material-ui/icons';
 
 import { useAuth } from '../../contexts/AuthContext'
 import { db, storage } from '../../config/fbConfig'
@@ -112,7 +111,7 @@ const videoTypes = [
 	},
 ];
 
-const UploadVideo = () => {
+const UploadVideo = ({ upload }) => {
 	const classes = useStyles();
 	const [video, setVideo] = useState({
 		title: '',
@@ -121,7 +120,7 @@ const UploadVideo = () => {
 		file: null,
 	});
 
-	const [open, setOpen] = useState(TrendingUpTwoTone);
+	const [open, setOpen] = useState(upload);
 	console.log(video);
 	// const handleClickOpen = () => {
 	// 	setOpen(true);
