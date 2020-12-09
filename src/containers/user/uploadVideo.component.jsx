@@ -10,11 +10,15 @@ import {
 	InputLabel,
 	Select,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+
+import { useAuth } from '../../contexts/AuthContext';
+import { db, storage } from '../../config/fbConfig';
 
 const styles = (theme) => ({
 	root: {
@@ -108,7 +112,7 @@ const videoTypes = [
 	},
 ];
 
-const UploadVideo = ({ upload }) => {
+const UploadVideo = ({ upload, name, email, college }) => {
 	const classes = useStyles();
 	const [video, setVideo] = useState({
 		title: '',
@@ -118,17 +122,66 @@ const UploadVideo = ({ upload }) => {
 	});
 
 	const [open, setOpen] = useState(upload);
-	console.log(video);
+
 	// const handleClickOpen = () => {
 	// 	setOpen(true);
 	// };
+
 	const handleClose = () => {
 		setOpen(false);
 	};
 
+	const { currentUser } = useAuth();
+
+	const getCurrentDate = () => {
+		let today = new Date();
+		let dd = String(today.getDate()).padStart(2, '0');
+		let mm = String(today.getMonth() + 1).padStart(2, '0');
+		let yyyy = today.getFullYear();
+
+		today = dd + '/' + mm + '/' + yyyy;
+		return today;
+	};
+
+	const videoToDatabase = (URL) => {
+		const ref = db.ref(`unapproved videos/${currentUser.uid}`);
+
+		// console.log(ref);
+		// console.log(getCurrentDate());
+
+		ref.set({
+			uid: currentUser.uid,
+			...video,
+			url: URL,
+			name,
+			email,
+			college,
+			views: 0,
+			uploadedOn: getCurrentDate(),
+		});
+	};
+
+	const videoToStorage = (file) => {
+		const storageRef = storage.ref();
+		const videoRef = storageRef.child(
+			'videos/' + currentUser.uid + '/' + file.name
+		);
+
+		videoRef.put(file).then(function (snapshot) {
+			// console.log(snapshot);
+			snapshot.ref
+				.getDownloadURL()
+				.then(function (URL) {
+					console.log(URL);
+					videoToDatabase(String(URL));
+				})
+				.catch((error) => console.log('error:', error));
+		});
+	};
+
 	const handleUpload = (event) => {
 		event.preventDefault();
-		/// handle Upload of video here
+		videoToStorage(video.file);
 	};
 
 	return (
@@ -233,12 +286,11 @@ const UploadVideo = ({ upload }) => {
 							/>
 						</Button>
 					</div>
-					{/* {video.file !== null ? 'video.file.name' : 'null'} */}
 				</DialogContent>
 				<DialogActions>
 					<Button
 						autoFocus
-						onClick={handleClose}
+						onClick={handleUpload}
 						variant='contained'
 						style={{ backgroundColor: 'blue', color: 'white' }}
 					>
@@ -250,4 +302,13 @@ const UploadVideo = ({ upload }) => {
 	);
 };
 
-export default UploadVideo;
+const mapStateToProps = (state) => {
+	return {
+		name: state.usr.name,
+		email: state.usr.email,
+		college: state.usr.college,
+		laoding: state.usr.loading,
+	};
+};
+
+export default connect(mapStateToProps)(UploadVideo);

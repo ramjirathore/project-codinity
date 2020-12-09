@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 
 import categoriesReducer from './store/reducers/categories';
 import blogsReducer from './store/reducers/blogs';
+import userDataReducer from './store/reducers/userData';
 
 import theme from './components/UI/theme';
 import App from './App';
@@ -21,6 +22,7 @@ const composeEnhancers =
 const rootReducer = combineReducers({
 	ctgr: categoriesReducer,
 	blg: blogsReducer,
+	usr: userDataReducer,
 });
 const store = createStore(
 	rootReducer,

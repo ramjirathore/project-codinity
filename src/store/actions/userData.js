@@ -1,25 +1,21 @@
-import * as actionTypes from "./actionTypes";
-import axios from "axios";
-
-// *******UNDER CONSTRUCTION******** //
+import * as actionTypes from './actionTypes';
 
 export const fetchUserDataStart = () => {
 	return {
-        type: actionTypes.FETCH_USER_DATA_START,
+		type: actionTypes.FETCH_USER_DATA_START,
 	};
 };
 
-
 export const fetchUserDataSuccess = () => {
 	return {
-        type: actionTypes.FETCH_USER_DATA_SUCCESS,
+		type: actionTypes.FETCH_USER_DATA_SUCCESS,
 	};
 };
 
 export const fetchUserDataFailed = (error) => {
 	return {
-        type: actionTypes.FETCH_USER_DATA_FAILED,
-        err: error
+		type: actionTypes.FETCH_USER_DATA_FAILED,
+		err: error,
 	};
 };
 
@@ -30,19 +26,22 @@ export const setUserData = (userData) => {
 	};
 };
 
-export const initUserData = (userToken) => {
-    return (dispatch) => {
+export const initUserData = (db, userToken) => {
+	return (dispatch) => {
 		dispatch(fetchUserDataStart());
-		
-		// we need this userToken 
-		axios
-			.get("https://codinity-6ab53.firebaseio.com/users.json")
-			.then((response) => {
-                dispatch(setUserData(response.data));
-                dispatch(fetchUserDataSuccess());
+		const usersRef = db.ref().child('users');
+		// console.log(usersRef);
+
+		usersRef
+			.once('value', (snapshot) => {
+				snapshot.forEach((childSnapshot) => {
+					// console.log(childSnapshot.key, childSnapshot.val());
+					if (childSnapshot.key === String(userToken)) {
+						console.log('userData', childSnapshot.val());
+						dispatch(setUserData(childSnapshot.val()));
+					}
+				});
 			})
-			.catch((error) => {
-				dispatch(fetchUserDataFailed(error));
-            });
+			.catch((err) => fetchUserDataFailed(err));
 	};
 };

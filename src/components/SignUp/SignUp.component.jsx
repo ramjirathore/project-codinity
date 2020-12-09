@@ -18,6 +18,7 @@ import list from './collegeslist.json';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { useAuth } from '../../contexts/AuthContext'
+import { db } from '../../config/fbConfig'
 
 const Copyright = () => {
 	return (
@@ -88,29 +89,45 @@ const SignUp = () => {
 	};
 
     const [user, setUser] = useState(initialState);
-    const { signup } = useAuth();
-    const [error, setError] = useState("");
+    const { currentUser, signup } = useAuth();
     const [loading, setLoading] = useState(false);
 
-	async function handleSignUp(event) {
+    const handleSignUp = (event) => {
         event.preventDefault();
-        
-        console.log(user);
-        
-        try {
-            setError("");
-            setLoading(true);
-            await signup(user.email, user.password);
-            window.location.assign('/');
-        } catch {
-            setError("Failed to sign up");
-        }
 
-        console.log("error:", error);
-      
+        signup(user.email, user.password)
+        .then(function(){
+
+            /* const ref = db.ref('users/' + );
+            ref.push({
+                email: user.email,
+                name: user.name,
+                college: user.college
+            }); */
+
+            setLoading(true);
+            window.location.assign('/');
+        },function(error){
+            console.log("error:", error.code, error.message);
+        })
+
         setLoading(false);
+    }
+
+    const [pushAllowed, setPushAllowed] = useState(true);
+
+    const userToDatabase = () => {
+        // console.log(currentUser.uid);
+        const ref = db.ref(`users/${currentUser.uid}`);
+        ref.set({
+            email: user.email,
+            name: user.name,
+            college: user.college
+        });
+
+        setPushAllowed(false);
         setUser(initialState);
-	};
+    }
 
 	return (
 		<Grid container component='main' className={classes.root}>
@@ -255,6 +272,7 @@ const SignUp = () => {
 					</form>
 				</div>
 			</Grid>
+            {pushAllowed && currentUser!=null ? userToDatabase() : null}
 		</Grid>
 	);
 };

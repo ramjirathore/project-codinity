@@ -17,6 +17,8 @@ import Video from './components/VideoPage/VideoPage.component';
 import Categories from './components/Categories/Categories.component';
 import About from './components/About/About.component';
 
+import Testing from './Testing.component'
+
 const App = (props) => {
 	// added on temp basis
 	// const addVideo = () => {
@@ -101,6 +103,8 @@ const App = (props) => {
 							</>
 						)}
 					/>
+                    {/* Testing Component */}
+                    <Route exact path='/testing' component={Testing} />
 				</Switch>
 				{/* <Footer /> */}
 			</AuthProvider>
