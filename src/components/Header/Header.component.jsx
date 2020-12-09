@@ -25,7 +25,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import UploadVideo from '../../containers/user/uploadVideo.component';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { SideDrawer } from '../SideDrawer/SideDrawer.component';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -284,7 +283,6 @@ export const Header = (props) => {
 							aria-label='open drawer'
 						>
 							<MenuIcon />
-							<SideDrawer />
 						</IconButton>
 					) : null}
 					<Typography

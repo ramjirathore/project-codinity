@@ -40,7 +40,7 @@ export const Testing = () => {
 						.listAll()
 						.then(function (userRes) {
 							userRes.items.forEach(function (videoRef) {
-								console.log(videoRef);
+								// console.log(videoRef);
 								videoRef
 									.getDownloadURL()
 									.then(function (url) {

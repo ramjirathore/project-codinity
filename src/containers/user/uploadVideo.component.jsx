@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	withStyles,
 	makeStyles,
@@ -16,6 +16,9 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import { TrendingUpTwoTone } from '@material-ui/icons';
+
+import { useAuth } from '../../contexts/AuthContext'
+import { db, storage } from '../../config/fbConfig'
 
 const styles = (theme) => ({
 	root: {
@@ -125,11 +128,113 @@ const UploadVideo = () => {
 	// };
 	const handleClose = () => {
 		setOpen(false);
-	};
+    };
+    
+    const [videoObj, setVideoObj] = useState({
+        college: '',
+        name: '',
+        email: ''
+    }); 
+
+    const [URL, setURL] = useState('');
+    const [dataArrived, setDataArrived] = useState({
+        storage: false,
+        users: false
+    })
+
+    const { currentUser } = useAuth();
+
+    const getCurrentDate = () => {
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let yyyy = today.getFullYear();
+
+        today = dd + '/' + mm + '/' + yyyy;
+        return today;
+    }
+
+    const videoToDatabase = () => {
+        const ref = db.ref(`unapproved videos/${currentUser.uid}`);
+
+        // console.log(ref);
+        // console.log(getCurrentDate());
+        console.log(videoObj, URL);
+
+        ref.set({
+            uid: currentUser.uid,
+            ...video,
+            ...videoObj,
+            url: URL,
+            views: 0,
+            uploadedOn: getCurrentDate()
+        })
+    }
+
+    const batao = dataArrived.storage && dataArrived.users;
+
+    useEffect(() => {   
+        return () => {
+            videoToDatabase();
+        }     
+    }, [batao])
+
+    const fetchUserInfo = () => {
+        const usersRef = db.ref().child('users');
+		// console.log(usersRef);
+
+		usersRef.once('value', (snapshot) => {
+			snapshot.forEach((childSnapshot) => {
+				// console.log(childSnapshot.key, childSnapshot.val());
+
+                if(childSnapshot.key === String(currentUser.uid))
+                {
+                    console.log(childSnapshot.val());
+                    setVideoObj({
+                        ...videoObj,
+                        ...Object(childSnapshot.val())
+                    });
+
+                    setDataArrived({
+                        ...dataArrived,
+                        users: true
+                    })
+
+                    return;
+                }
+            });
+        });
+    }
+
+    const videoToStorage = (file) => {
+        const storageRef = storage.ref();
+        const videoRef = storageRef.child('videos/' + currentUser.uid + '/' + file.name);
+        
+        videoRef
+        .put(file)
+            .then(function(snapshot) {
+                // console.log(snapshot);
+                snapshot.ref
+                .getDownloadURL()
+                    .then(function (URL) {
+                        console.log(URL);
+                        setURL(String(URL));
+                        setDataArrived({
+                            ...dataArrived,
+                            storage: true
+                        })
+                    })
+                    .catch((error) =>
+                        console.log('error:', error)
+                    );
+            })
+    }
 
 	const handleUpload = (event) => {
-		event.preventDefault();
-		/// handle Upload of video here
+        event.preventDefault();
+ 
+        videoToStorage(video.file);
+        fetchUserInfo();
 	};
 
 	return (
@@ -239,7 +344,7 @@ const UploadVideo = () => {
 				<DialogActions>
 					<Button
 						autoFocus
-						onClick={handleClose}
+						onClick={handleUpload}
 						variant='contained'
 						style={{ backgroundColor: 'blue', color: 'white' }}
 					>
