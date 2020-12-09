@@ -204,7 +204,7 @@ export const Header = (props) => {
 		if (currentUser !== null) {
 			props.InitUserData(db, currentUser.uid);
 		}
-	}, [value, userFacility, currentUser]);
+	}, [props, value, userFacility, currentUser]);
 
 	const drawer = (
 		<React.Fragment>

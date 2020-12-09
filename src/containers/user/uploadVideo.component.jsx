@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
 	withStyles,
 	makeStyles,
@@ -10,6 +10,7 @@ import {
 	InputLabel,
 	Select,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
@@ -111,7 +112,7 @@ const videoTypes = [
 	},
 ];
 
-const UploadVideo = ({ upload }) => {
+const UploadVideo = ({ upload, name, email, college }) => {
 	const classes = useStyles();
 	const [video, setVideo] = useState({
 		title: '',
@@ -121,119 +122,66 @@ const UploadVideo = ({ upload }) => {
 	});
 
 	const [open, setOpen] = useState(upload);
-	console.log(video);
+
 	// const handleClickOpen = () => {
 	// 	setOpen(true);
 	// };
+
 	const handleClose = () => {
 		setOpen(false);
-    };
-    
-    const [videoObj, setVideoObj] = useState({
-        college: '',
-        name: '',
-        email: ''
-    }); 
-
-    const [URL, setURL] = useState('');
-    const [dataArrived, setDataArrived] = useState({
-        storage: false,
-        users: false
-    })
+	};
 
 	const { currentUser } = useAuth();
 
-    const getCurrentDate = () => {
-        let today = new Date();
-        let dd = String(today.getDate()).padStart(2, '0');
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let yyyy = today.getFullYear();
+	const getCurrentDate = () => {
+		let today = new Date();
+		let dd = String(today.getDate()).padStart(2, '0');
+		let mm = String(today.getMonth() + 1).padStart(2, '0');
+		let yyyy = today.getFullYear();
 
-        today = dd + '/' + mm + '/' + yyyy;
-        return today;
-    }
+		today = dd + '/' + mm + '/' + yyyy;
+		return today;
+	};
 
-    const videoToDatabase = () => {
-        const ref = db.ref(`unapproved videos/${currentUser.uid}`);
+	const videoToDatabase = (URL) => {
+		const ref = db.ref(`unapproved videos/${currentUser.uid}`);
 
-        // console.log(ref);
-        // console.log(getCurrentDate());
-        console.log(videoObj, URL);
+		// console.log(ref);
+		// console.log(getCurrentDate());
 
-        ref.set({
-            uid: currentUser.uid,
-            ...video,
-            ...videoObj,
-            url: URL,
-            views: 0,
-            uploadedOn: getCurrentDate()
-        })
-    }
+		ref.set({
+			uid: currentUser.uid,
+			...video,
+			url: URL,
+			name,
+			email,
+			college,
+			views: 0,
+			uploadedOn: getCurrentDate(),
+		});
+	};
 
-    const batao = dataArrived.storage && dataArrived.users;
+	const videoToStorage = (file) => {
+		const storageRef = storage.ref();
+		const videoRef = storageRef.child(
+			'videos/' + currentUser.uid + '/' + file.name
+		);
 
-    useEffect(() => {   
-        return () => {
-            videoToDatabase();
-        }     
-    }, [batao])
-
-    const fetchUserInfo = () => {
-        const usersRef = db.ref().child('users');
-		// console.log(usersRef);
-
-		usersRef.once('value', (snapshot) => {
-			snapshot.forEach((childSnapshot) => {
-				// console.log(childSnapshot.key, childSnapshot.val());
-
-                if(childSnapshot.key === String(currentUser.uid))
-                {
-                    console.log(childSnapshot.val());
-                    setVideoObj({
-                        ...videoObj,
-                        ...Object(childSnapshot.val())
-                    });
-
-                    setDataArrived({
-                        ...dataArrived,
-                        users: true
-                    })
-
-                    return;
-                }
-            });
-        });
-    }
-
-    const videoToStorage = (file) => {
-        const storageRef = storage.ref();
-        const videoRef = storageRef.child('videos/' + currentUser.uid + '/' + file.name);
-        
-        videoRef
-        .put(file)
-            .then(function(snapshot) {
-                // console.log(snapshot);
-                snapshot.ref
-                .getDownloadURL()
-                    .then(function (URL) {
-                        console.log(URL);
-                        setURL(String(URL));
-                        setDataArrived({
-                            ...dataArrived,
-                            storage: true
-                        })
-                    })
-                    .catch((error) =>
-                        console.log('error:', error)
-                    );
-            })
-    }
+		videoRef.put(file).then(function (snapshot) {
+			// console.log(snapshot);
+			snapshot.ref
+				.getDownloadURL()
+				.then(function (URL) {
+					console.log(URL);
+					videoToDatabase(String(URL));
+				})
+				.catch((error) => console.log('error:', error));
+		});
+	};
 
 	const handleUpload = (event) => {
-        event.preventDefault();
- 
-        videoToStorage(video.file);
-        fetchUserInfo();
+		event.preventDefault();
+		videoToStorage(video.file);
 	};
 
 	return (
@@ -338,7 +286,6 @@ const UploadVideo = ({ upload }) => {
 							/>
 						</Button>
 					</div>
-					{/* {video.file !== null ? 'video.file.name' : 'null'} */}
 				</DialogContent>
 				<DialogActions>
 					<Button
@@ -355,4 +302,13 @@ const UploadVideo = ({ upload }) => {
 	);
 };
 
-export default UploadVideo;
+const mapStateToProps = (state) => {
+	return {
+		name: state.usr.name,
+		email: state.usr.email,
+		college: state.usr.college,
+		laoding: state.usr.loading,
+	};
+};
+
+export default connect(mapStateToProps)(UploadVideo);
