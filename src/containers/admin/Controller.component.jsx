@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import {
@@ -29,7 +29,6 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 
 import * as actions from '../../store/actions/index';
-import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../config/fbConfig';
 
 import { secondaryListItems } from '../../components/AdminParts/ListItems.component';
@@ -183,11 +182,11 @@ const Controller = (props) => {
 		setOpen(false);
 	};
 
-	const imports = [
-		{ comp: Dashboard, name: 'Dashboard' },
-		{ comp: Requests, name: 'Requests' },
-	];
-	const Render = imports.find((val) => val.name === activeIndex.name);
+	// const imports = [
+	// 	{ comp: Dashboard, name: 'Dashboard' },
+	// 	{ comp: Requests, name: 'Requests' },
+	// ];
+	// const Render = imports.find((val) => val.name === activeIndex.name);
 	// const parts = window.location.pathname.split('/');
 	// let lastSegment = parts.pop();
 	return (
