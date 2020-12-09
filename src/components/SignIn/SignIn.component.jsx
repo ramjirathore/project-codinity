@@ -16,7 +16,8 @@ import {
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import { useAuth } from '../../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext';
+import { connect } from 'react-redux';
 
 const Copyright = () => {
 	return (
@@ -83,30 +84,30 @@ const SignIn = () => {
 		password: '',
 	};
 
-    const [user, setUser] = useState(initialState);
-    const { login } = useAuth();
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+	const [user, setUser] = useState(initialState);
+	const { login } = useAuth();
+	const [error, setError] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	async function handleSignIn(event) {
 		event.preventDefault();
-        console.log(user);
-        
-        try {
-            setError("")
-            setLoading(true)
-            await login(user.email, user.password)
-            window.location.assign('/');
-        } catch {
-            setError("Failed to log in")
-        }
+		console.log(user);
 
-        console.log(error);
-	};
+		try {
+			setError('');
+			setLoading(true);
+			await login(user.email, user.password);
+			window.location.assign('/');
+		} catch {
+			setError('Failed to log in');
+		}
+
+		console.log(error);
+	}
 
 	return (
 		<Grid container component='main' className={classes.root}>
-            {/* {console.log(user.email)} */}
+			{/* {console.log(user.email)} */}
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={8} className={classes.image}>
 				<Typography
@@ -180,8 +181,8 @@ const SignIn = () => {
 							fullWidth
 							variant='contained'
 							color='primary'
-                            className={classes.submit}
-                            disabled={loading}
+							className={classes.submit}
+							disabled={loading}
 						>
 							Sign In
 						</Button>
@@ -216,4 +217,13 @@ const SignIn = () => {
 	);
 };
 
-export default SignIn;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		addVideoObject: (video) =>
+			dispatch(actions.addVideo('dataStructure', video)),
+		InitCategories: () => dispatch(actions.initCategories()),
+		InitBlogs: () => dispatch(actions.initBlogs()),
+	};
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);
