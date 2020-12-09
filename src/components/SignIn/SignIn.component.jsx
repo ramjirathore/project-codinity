@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
 	Avatar,
@@ -17,7 +17,6 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { connect } from 'react-redux';
 
 const Copyright = () => {
 	return (
@@ -76,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SignIn = () => {
+const SignIn = (props) => {
 	const classes = useStyles();
 
 	const initialState = {
@@ -217,13 +216,4 @@ const SignIn = () => {
 	);
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		addVideoObject: (video) =>
-			dispatch(actions.addVideo('dataStructure', video)),
-		InitCategories: () => dispatch(actions.initCategories()),
-		InitBlogs: () => dispatch(actions.initBlogs()),
-	};
-};
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

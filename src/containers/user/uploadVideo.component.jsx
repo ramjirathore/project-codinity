@@ -16,8 +16,8 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 
-import { useAuth } from '../../contexts/AuthContext'
-import { db, storage } from '../../config/fbConfig'
+import { useAuth } from '../../contexts/AuthContext';
+import { db, storage } from '../../config/fbConfig';
 
 const styles = (theme) => ({
 	root: {
@@ -141,7 +141,7 @@ const UploadVideo = ({ upload }) => {
         users: false
     })
 
-    const { currentUser } = useAuth();
+	const { currentUser } = useAuth();
 
     const getCurrentDate = () => {
         let today = new Date();

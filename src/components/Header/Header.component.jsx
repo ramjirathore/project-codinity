@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { deepOrange } from '@material-ui/core/colors';
 
 import {
@@ -26,6 +27,8 @@ import Profile from '../../containers/user/profile.component';
 import UploadVideo from '../../containers/user/uploadVideo.component';
 
 import { useAuth } from '../../contexts/AuthContext';
+import * as actions from '../../store/actions/index';
+import { db } from '../../config/fbConfig';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -198,7 +201,10 @@ export const Header = (props) => {
 					break;
 			}
 		});
-	}, [value, userFacility]);
+		if (currentUser !== null) {
+			props.InitUserData(db, currentUser.uid);
+		}
+	}, [value, userFacility, currentUser]);
 
 	const drawer = (
 		<React.Fragment>
@@ -363,4 +369,10 @@ export const Header = (props) => {
 	);
 };
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		InitUserData: (db, token) => dispatch(actions.initUserData(db, token)),
+	};
+};
+
+export default connect(null, mapDispatchToProps)(Header);

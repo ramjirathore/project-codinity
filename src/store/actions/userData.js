@@ -1,7 +1,4 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
-
-// *******UNDER CONSTRUCTION******** //
 
 export const fetchUserDataStart = () => {
 	return {
@@ -35,14 +32,16 @@ export const initUserData = (db, userToken) => {
 		const usersRef = db.ref().child('users');
 		// console.log(usersRef);
 
-		usersRef.once('value', (snapshot) => {
-			snapshot.forEach((childSnapshot) => {
-				// console.log(childSnapshot.key, childSnapshot.val());
-				if (childSnapshot.key === String(userToken)) {
-					console.log(childSnapshot.val());
-					dispatch(setUserData(response.data));
-				}
-			});
-		});
+		usersRef
+			.once('value', (snapshot) => {
+				snapshot.forEach((childSnapshot) => {
+					// console.log(childSnapshot.key, childSnapshot.val());
+					if (childSnapshot.key === String(userToken)) {
+						console.log('userData', childSnapshot.val());
+						dispatch(setUserData(childSnapshot.val()));
+					}
+				});
+			})
+			.catch((err) => fetchUserDataFailed(err));
 	};
 };
