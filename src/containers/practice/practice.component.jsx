@@ -93,12 +93,14 @@ const Practice = ({ categories, loading }) => {
 	const classes = useStyles();
 
 	let catg = [];
-	let videos = categories.get('algorithms');
-	for (let [, video] of Object.entries(videos)) {
-		// console.log(video);
-		catg.push(video);
+	if (!loading) {
+		let videos = categories.get('dataStructure');
+		for (let [, video] of Object.entries(videos)) {
+			// console.log(video);
+			catg.push(video);
+		}
+		console.log(catg);
 	}
-	console.log(catg);
 
 	// console.log(categories[1], loading);
 	return (

@@ -36,11 +36,18 @@ const Dashboard = ({ categories, blogs, loading }) => {
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
 	const categoriesHeader = ['Category', 'Videos'];
-	const allCategories = categories
-		? categories.map((item) => ({ key: item.key, len: item.count }))
-		: [];
-	console.log(categories);
-	
+	// const allCategories = categories
+	// 	? categories.map((item) => ({ key: item.key, len: item.count }))
+	// 	: [];
+	// console.log(categories);
+
+	let allCategories = [];
+	let videos = categories.get('algorithms');
+	for (let [, video] of Object.entries(videos)) {
+		// console.log(video);
+		allCategories.push({ key: video.tag });
+	}
+	// console.log(catg);
 	return (
 		<>
 			{!loading ? (

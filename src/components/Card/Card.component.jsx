@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,10 +15,11 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 import ReactPlayer from 'react-player/lazy';
 import { deepPurple } from '@material-ui/core/colors';
+import * as actions from '../../store/actions/index';
 
 // import { Player } from 'video-react';
 
-import { db } from '../../config/fbConfig'
+import { db } from '../../config/fbConfig';
 
 const useStyles = makeStyles((theme) => ({
 	card: {
@@ -61,38 +63,40 @@ const VideoCard = ({
 	views,
 	tag,
 	uploadedOn,
+	InitCategories,
 }) => {
-    const classes = useStyles();
-    
-    const extractToken = (url) => {
-        let pos = url.indexOf('token');
-        let res = url.substring(pos+6);
-        return res;
-    }
+	const classes = useStyles();
 
-    const increaseViews = () => {
-        const videoId = extractToken(url);
-        const videoRef = db.ref(`categories/${tag}/${videoId}`);
-        
-        let video;
-        videoRef
-        .once('value', (snapshot) => {
-            video = snapshot.val();
-        })
-        .then(() => {
-            videoRef.set({
-                ...video,
-                views: views + 1
-            })
-        })
-        .then(() => {
-            const path = window.location.origin + '/video/' + videoId;
-		    window.open(path, '_blank');
-        })
-    }
+	const extractToken = (url) => {
+		let pos = url.indexOf('token');
+		let res = url.substring(pos + 6);
+		return res;
+	};
 
-	const handleVideoClick = (videoId) => {
-        increaseViews();
+	const increaseViews = (props) => {
+		const videoId = extractToken(url);
+		const videoRef = db.ref(`categories/${tag}/${videoId}`);
+
+		let video;
+		videoRef
+			.once('value', (snapshot) => {
+				video = snapshot.val();
+			})
+			.then(() => {
+				videoRef.set({
+					...video,
+					views: views + 1,
+				});
+			})
+			.then(() => {
+				InitCategories();
+				const path = window.location.origin + '/video/' + videoId;
+				window.open(path, '_blank');
+			});
+	};
+
+	const handleVideoClick = () => {
+		increaseViews();
 	};
 
 	return (
@@ -213,4 +217,10 @@ const VideoCard = ({
 	);
 };
 
-export default VideoCard;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		InitCategories: () => dispatch(actions.initCategories()),
+	};
+};
+
+export default connect(null, mapDispatchToProps)(VideoCard);
