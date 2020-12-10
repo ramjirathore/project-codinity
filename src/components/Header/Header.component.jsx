@@ -342,7 +342,7 @@ export const Header = (props) => {
 					<div className={classes.log}>
 						{currentUser ? (
 							<Avatar
-								alt='Hemant Panwar'
+								alt={props.name}
 								src='/static/images/avatar/1.jpg'
 								className={classes.orange}
 								onClick={() => {
@@ -384,5 +384,10 @@ const mapDispatchToProps = (dispatch) => {
 		InitUserData: (db, token) => dispatch(actions.initUserData(db, token)),
 	};
 };
+const mapStateToProps = (state) => {
+	return {
+		name: state.usr.name,
+	};
+};
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

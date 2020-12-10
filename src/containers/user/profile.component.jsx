@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import {
 	withStyles,
 	makeStyles,
@@ -79,7 +80,7 @@ const DialogContent = withStyles((theme) => ({
 	},
 }))(MuiDialogContent);
 
-const Profile = ({ profile, reset }) => {
+const Profile = ({ profile, reset, name, email, college }) => {
 	const classes = useStyles();
 	const [open, setOpen] = useState(profile);
 
@@ -104,7 +105,7 @@ const Profile = ({ profile, reset }) => {
 				>
 					<Avatar
 						className={classes.orange}
-						alt='Hemant Panwar'
+						alt={name}
 						src='/static/images/avatar/1.jpg'
 					/>
 				</DialogTitle>
@@ -121,7 +122,7 @@ const Profile = ({ profile, reset }) => {
 						spacing={2}
 					>
 						<Grid item>
-							<Typography variant='h4'>Hemant Panwar</Typography>
+							<Typography variant='h4'>{name}</Typography>
 						</Grid>
 						<Grid item>
 							<Grid
@@ -130,9 +131,7 @@ const Profile = ({ profile, reset }) => {
 								style={{ opacity: 0.7 }}
 							>
 								<EmailIcon style={{ marginRight: 5 }} />
-								<Typography variant='h6'>
-									hemant2132@gmail.com
-								</Typography>
+								<Typography variant='h6'>{email}</Typography>
 							</Grid>
 						</Grid>
 						<Grid item>
@@ -152,7 +151,7 @@ const Profile = ({ profile, reset }) => {
 							>
 								<SchoolIcon style={{ marginRight: 5 }} />
 								<Typography style={{ fontSize: '1em' }}>
-									Jaypee Institute of Information Technology
+									{college}
 								</Typography>
 							</Grid>
 						</Grid>
@@ -162,5 +161,12 @@ const Profile = ({ profile, reset }) => {
 		</div>
 	);
 };
-
-export default Profile;
+const mapStateToProps = (state) => {
+	return {
+		name: state.usr.name,
+		email: state.usr.email,
+		college: state.usr.college,
+		laoding: state.usr.loading,
+	};
+};
+export default connect(mapStateToProps)(Profile);
