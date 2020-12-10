@@ -7,18 +7,13 @@ import eventsImage from '../../assets/log/events.jpg';
 const useStyles = makeStyles((theme) => ({
 	back: {
 		backgroundImage: `url(${eventsImage})`,
-		// position: 'relative',
-		// backgroundColor: theme.palette.grey[800],
 		color: theme.palette.common.white,
-		// marginBottom: theme.spacing(4),
-		// backgroundSize: 'cover',
-		// backgroundRepeat: 'no-repeat',
-		// backgroundPosition: 'center',
-		padding: 40,
+		padding: 30,
+		minHeight: '100vh',
 	},
 }));
 
-const categoriesList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const categoriesList = [1, 2, 3, 4, 5, 6];
 
 const Event = () => {
 	const classes = useStyles();
@@ -45,10 +40,7 @@ const Event = () => {
 				<Grid container spacing={4}>
 					{categoriesList.map((card, index) => (
 						<Grid item key={index} xs={12} sm={6} md={6} lg={6}>
-							<EventsCard
-							// imgSrc={card.imgSrc}
-							// field={card.field}
-							/>
+							<EventsCard />
 						</Grid>
 					))}
 				</Grid>

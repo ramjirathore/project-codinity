@@ -1,22 +1,21 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
+import {
+	makeStyles,
+	Card,
+	CardMedia,
+	CardContent,
+	Typography,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 	},
 	details: {
+		background: '#f3f3f3',
 		display: 'flex',
 		flexDirection: 'column',
-		minWidth: 400,
+		minWidth: 350,
 	},
 	content: {
 		flex: '1 0 auto',
@@ -25,50 +24,71 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 	},
 	controls: {
-		display: 'flex',
-		alignItems: 'center',
-		paddingLeft: theme.spacing(1),
-		paddingBottom: theme.spacing(1),
+		// alignItems: 'center',
+		padding: '8px 15px',
+		fontFamily: 'Roboto',
+		// paddingLeft: theme.spacing(1),
+		// paddingBottom: theme.spacing(1),
 	},
 	playIcon: {
 		height: 38,
 		width: 38,
 	},
+	section: {
+		marginTop: 10,
+	},
+	views: {
+		// paddingLeft: 5,
+		fontFamily: 'Roboto',
+		opacity: 0.5,
+		fontSize: 15,
+	},
+	hastags: {
+		padding: '10px 0px 10px 15px',
+		fontFamily: 'Roboto',
+	},
 }));
 
-export default function MediaControlCard() {
+const EventsCard = () => {
 	const classes = useStyles();
-	const theme = useTheme();
 
 	return (
 		<Card className={classes.root}>
 			<div className={classes.details}>
 				<CardContent className={classes.content}>
-					<Typography component='h5' variant='h5'>
-						Live From Space
-					</Typography>
-					<Typography variant='subtitle1' color='textSecondary'>
-						Mac Miller
-					</Typography>
+					<div>
+						<Typography variant='h5'>
+							The React cook-book
+						</Typography>
+					</div>
+					<div className={classes.section}>
+						<Typography className={classes.views}>
+							Organizer
+						</Typography>
+						<Typography variant='body1'>Ramji Rathore</Typography>
+					</div>
 				</CardContent>
 				<div className={classes.controls}>
-					<IconButton aria-label='previous'>
-						{theme.direction === 'rtl' ? (
-							<SkipNextIcon />
-						) : (
-							<SkipPreviousIcon />
-						)}
-					</IconButton>
-					<IconButton aria-label='play/pause'>
-						<PlayArrowIcon className={classes.playIcon} />
-					</IconButton>
-					<IconButton aria-label='next'>
-						{theme.direction === 'rtl' ? (
-							<SkipPreviousIcon />
-						) : (
-							<SkipNextIcon />
-						)}
-					</IconButton>
+					<Typography
+						variant='body1'
+						style={{
+							color: 'blue',
+							cursor: 'pointer',
+							margin: '5px 0',
+						}}
+						onClick={() =>
+							window.open('https://meet.google.com/zys-ypms-szm')
+						}
+						//**temp link */
+					>
+						<b>Join Meet</b>
+					</Typography>
+					<Typography variant='body2'>Date: 15/12/2020</Typography>
+				</div>
+				<div className={classes.hastags}>
+					<Typography style={{ fontSize: 15, color: 'green' }}>
+						#react #redux #firebase
+					</Typography>
 				</div>
 			</div>
 			<CardMedia
@@ -81,4 +101,6 @@ export default function MediaControlCard() {
 			/>
 		</Card>
 	);
-}
+};
+
+export default EventsCard;
