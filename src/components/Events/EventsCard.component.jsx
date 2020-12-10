@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EventsCard = () => {
+const EventsCard = ({ link, title, date, name, time, hashTags, tag }) => {
 	const classes = useStyles();
 
 	return (
@@ -57,15 +57,13 @@ const EventsCard = () => {
 			<div className={classes.details}>
 				<CardContent className={classes.content}>
 					<div>
-						<Typography variant='h5'>
-							The React cook-book
-						</Typography>
+						<Typography variant='h5'>{title}</Typography>
 					</div>
 					<div className={classes.section}>
 						<Typography className={classes.views}>
 							Organizer
 						</Typography>
-						<Typography variant='body1'>Ramji Rathore</Typography>
+						<Typography variant='body1'>{name}</Typography>
 					</div>
 				</CardContent>
 				<div className={classes.controls}>
@@ -76,26 +74,33 @@ const EventsCard = () => {
 							cursor: 'pointer',
 							margin: '5px 0',
 						}}
-						onClick={() =>
-							window.open('https://meet.google.com/zys-ypms-szm')
-						}
+						onClick={() => window.open(link)}
 						//**temp link */
 					>
 						<b>Join Meet</b>
 					</Typography>
-					<Typography variant='body2'>Date: 15/12/2020</Typography>
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'space-between',
+							maxWidth: '70%',
+						}}
+					>
+						<Typography variant='body2'>Date: {date}</Typography>
+						<Typography variant='body2'>Time: {time}</Typography>
+					</div>
 				</div>
 				<div className={classes.hastags}>
 					<Typography style={{ fontSize: 15, color: 'green' }}>
-						#react #redux #firebase
+						{hashTags}
 					</Typography>
 				</div>
 			</div>
 			<CardMedia
 				className={classes.cover}
+				src='https://source.unsplash.com/random/?abstract'
 				style={{
-					backgroundImage:
-						'url(https://source.unsplash.com/random/?abstract)',
+					backgroundImage: `url(https://source.unsplash.com/random/?${'dataStructure'})`,
 				}}
 				title='Live from space album cover'
 			/>

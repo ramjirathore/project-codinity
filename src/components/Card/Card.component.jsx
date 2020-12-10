@@ -50,7 +50,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const VideoCard = ({ creator, title, loading, vSrc, id }) => {
+const VideoCard = ({
+	name,
+	title,
+	loading,
+	url,
+	id,
+	views,
+	tag,
+	uploadedOn,
+}) => {
 	const classes = useStyles();
 
 	const handleVideoClick = (videoId) => {
@@ -100,7 +109,7 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 						/>
 					) : (
 						<div style={{ color: 'white', fontSize: '1.3em' }}>
-							{creator}
+							{name}
 						</div>
 					)
 				}
@@ -131,7 +140,7 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 						// controls
 						width='13.5vw'
 						height='15vh'
-						url='https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/videos%2FqUjH70lBJaVBsRklImEqgJR9qSj1%2FWhatsApp%20Video%202020-12-02%20at%2017.01.17.mp4?alt=media&token=f0a4f58c-77fd-4d6f-b773-f98d16e0e13a'
+						url={url}
 					/>
 					<PlayArrowIcon className={classes.playIcon} />
 				</CardMedia>
@@ -167,7 +176,7 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 								fontFamily: 'raleway',
 							}}
 						>
-							3.2M views - 5 days ago
+							{views} views - {uploadedOn}
 						</Typography>
 					</>
 				)}

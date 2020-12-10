@@ -9,7 +9,6 @@ import {
 	// AppBar,
 	// Toolbar,
 	List,
-	Typography,
 	Divider,
 	ListItem,
 	ListItemIcon,
@@ -89,9 +88,18 @@ const topicsList = [
 ];
 
 const Practice = ({ categories, loading }) => {
-	const path = 'https://www.youtube.com/embed/';
+	// const path = 'https://www.youtube.com/embed/';
 
 	const classes = useStyles();
+
+	let catg = [];
+	let videos = categories.get('algorithms');
+	for (let [, video] of Object.entries(videos)) {
+		// console.log(video);
+		catg.push(video);
+	}
+	console.log(catg);
+
 	// console.log(categories[1], loading);
 	return (
 		<div className={classes.root}>
@@ -163,25 +171,14 @@ const Practice = ({ categories, loading }) => {
 			</Drawer>
 			<main className={classes.content}>
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
-				{loading === true ? (
-					<Typography variant='h4' style={{ color: 'white' }}>
-						Go back to home then Practice...
-					</Typography>
-				) : (
-					<Grid container spacing={2}>
-						{categories[1].videos.map((video, index) => (
-							<Grid item lg={2} key={index}>
-								<SearchCard
-									creator={video.creator}
-									title={video.title}
-									loading={false}
-									vSrc={path + video.id}
-									id={video.id}
-								/>
-							</Grid>
-						))}
-					</Grid>
-				)}
+				<Grid container spacing={2}>
+					{catg.map((video, index) => (
+						<Grid item lg={2} key={index}>
+							<SearchCard {...video} loading={loading} />
+						</Grid>
+					))}
+					{console.log(categories)}
+				</Grid>
 			</main>
 		</div>
 	);

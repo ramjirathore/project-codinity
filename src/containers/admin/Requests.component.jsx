@@ -399,7 +399,8 @@ const EnhancedTable = (props) => {
             })
             .then( () => {
                 // console.log("in remove 2");
-                vidRef.remove();
+				vidRef.remove();
+				props.InitRequest();
             })
         }
     };
