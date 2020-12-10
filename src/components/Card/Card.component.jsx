@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Skeleton from '@material-ui/lab/Skeleton';
 
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+
 import ReactPlayer from 'react-player/lazy';
 
 // import { Player } from 'video-react';
@@ -20,12 +22,24 @@ const useStyles = makeStyles((theme) => ({
 		// margin: theme.spacing(2),
 		background: '#303030',
 		color: 'white',
-		'&hover': {
+		'&:hover': {
 			cursor: 'pointer',
 		},
 	},
 	media: {
 		height: 150,
+	},
+	cover: {
+		height: 150,
+		// width: 201,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	playIcon: {
+		position: 'absolute',
+		height: 58,
+		width: 58,
 	},
 }));
 
@@ -89,7 +103,7 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 				/>
 			) : (
 				<CardMedia
-					className={classes.media}
+					className={classes.cover}
 					// image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
 					title='Ted talk'
 				>
@@ -109,6 +123,7 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 						height='15vh'
 						url='https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/videos%2FqUjH70lBJaVBsRklImEqgJR9qSj1%2FWhatsApp%20Video%202020-12-02%20at%2017.01.17.mp4?alt=media&token=f0a4f58c-77fd-4d6f-b773-f98d16e0e13a'
 					/>
+					<PlayArrowIcon className={classes.playIcon} />
 				</CardMedia>
 			)}
 

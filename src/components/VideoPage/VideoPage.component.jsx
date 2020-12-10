@@ -79,7 +79,7 @@ const VideoPage = () => {
 		setValue(newValue);
 	};
 
-	const id = window.location.pathname.split('/')[2];
+	// const id = window.location.pathname.split('/')[2];
 
 	const tabsSection = (
 		<React.Fragment>

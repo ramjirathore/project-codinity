@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawer: {
 		backgroundColor: theme.palette.common.black,
-		width: 220,
+		width: 250,
 	},
 	drawerItem: {
 		...theme.typography.tab,
@@ -130,7 +130,6 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.getContrastText(deepOrange[500]),
 		backgroundColor: deepOrange[500],
 		marginRight: 15,
-		cursor: 'pointer',
 	},
 }));
 
