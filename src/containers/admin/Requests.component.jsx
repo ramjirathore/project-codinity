@@ -24,7 +24,8 @@ import {
 import { connect } from 'react-redux';
 
 // import { useAuth } from '../../contexts/AuthContext';
-// import { db } from '../../config/fbConfig';
+import { db } from '../../config/fbConfig';
+import * as actions from '../../store/actions/index';
 
 function createData(email, name, title, college, uid, url) {
 	return { email, name, college, title, uid, url };
@@ -205,13 +206,15 @@ const EnhancedTableToolbar = (props) => {
 							color: 'white',
 							fontWeight: 500,
 							marginRight: 10,
-						}}
+                        }}
+                        onClick={props.accept}
 					>
 						Accept
 					</Button>
 					<Button
 						variant='contained'
-						style={{ background: '#f44336', color: 'white' }}
+                        style={{ background: '#f44336', color: 'white' }}
+                        onClick={props.reject}
 					>
 						Reject
 					</Button>
@@ -334,14 +337,72 @@ const EnhancedTable = (props) => {
 	const isSelected = (name) => selected.indexOf(name) !== -1;
 
 	const emptyRows =
-		rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+        rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+        
+    const acceptVideos = () => {
+        console.log("accept clicked");
+        const videosRef = db.ref().child('unapproved videos');
+        
+        for(let index in selected)
+        {
+            let uid = selected[index];
+            const vidRef = videosRef.child(`${uid}`);
+            let video;
+            vidRef.once('value', (snapshot) => {
+                video = snapshot.val();
+
+                video = {
+                    ...video,
+                    uid
+                }
+            })
+            .then( () => {
+                // console.log(uid, video);
+                const ref = db.ref(`categories/${video.tag}/${uid}`);
+                // console.log("in push 1");
+                ref.set(video);
+            })
+            .then( () => {
+                // console.log("in remove 1");
+                vidRef.remove();
+            })
+        }
+    };
+
+    const rejectVideos = () => {
+        console.log("reject clicked");
+        const videosRef = db.ref().child('unapproved videos');
+        
+        for(let index in selected)
+        {
+            let uid = selected[index];
+            const vidRef = videosRef.child(`${uid}`);
+            let video;
+            vidRef.once('value', (snapshot) => {
+                video = snapshot.val();
+
+                video = {
+                    ...video,
+                    uid
+                }
+            })
+            .then( () => {
+                console.log("in remove 2");
+                vidRef.remove();
+            })
+        }
+    };
 
 	return (
 		<div className={classes.root}>
 			{!props.loading ? (
 				<>
 					<Paper className={classes.paper}>
-						<EnhancedTableToolbar numSelected={selected.length} />
+                        <EnhancedTableToolbar 
+                            numSelected={selected.length} 
+                            accept={acceptVideos} 
+                            reject={rejectVideos}
+                        />
 						<TableContainer>
 							<Table
 								className={classes.table}
@@ -476,4 +537,11 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default React.memo(connect(mapStateToProps)(EnhancedTable));
+const mapDispatchToProps = (dispatch) => {
+	return {
+		InitRequest: (database) => dispatch(actions.initRequest(database)),
+	};
+};
+
+
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(EnhancedTable));
