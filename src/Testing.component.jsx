@@ -3,20 +3,14 @@ import { db } from './config/fbConfig';
 
 /*
 in db, unapproved videos -> nodes 
-Visit the nodes -> insert the videos according to their tag and uid to Categories -> Delete node
+Visit the nodes -> Delete from storage -> Delete node
 */
 
 export const Testing = () => {
 
     const uidArr = ['2AuiUKiYNqcmqA0gpoW5EMcVFs62', 'qUjH70lBJaVBsRklImEqgJR9qSj1'];      // list of user ids received
 
-    const extractToken = (url) => {
-        let pos = url.indexOf('token');
-        let res = url.substring(pos+6);
-        return res;
-    }
-
-	const approvingVideos = () => {
+	const rejectingVideos = () => {
         console.log("clicked");
         const videosRef = db.ref().child('unapproved videos');
         
@@ -24,8 +18,13 @@ export const Testing = () => {
         {
             let uid = uidArr[index];
             const vidRef = videosRef.child(`${uid}`);
-            let video, videoId;
+            let video;
             vidRef.once('value', (snapshot) => {
+                if(snapshot.val() === null)
+                    return;
+
+                // console.log(snapshot.val().file); (not available)
+
                 video = snapshot.val();
 
                 video = {
@@ -34,14 +33,8 @@ export const Testing = () => {
                 }
             })
             .then( () => {
-                videoId = extractToken(video.url);
-                // console.log(videoId);
-            })
-            .then( () => {
-                // console.log(uid, video);
-                const ref = db.ref(`categories/${video.tag}/${videoId}`);
-                console.log("pushing", ref.toString());
-                // ref.set(video);
+                
+                // removing from storage (incomplete)
             })
             .then( () => {
                 console.log("deleting");
@@ -52,7 +45,7 @@ export const Testing = () => {
 
 	return (
 		<div>
-			<button onClick={approvingVideos}>Manage approved videos</button>
+			<button onClick={rejectingVideos}>Manage approved videos</button>
 		</div>
 	);
 };
