@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		height: '100%',
 		background: theme.palette.common.black,
 		color: 'white',
-		borderLeft: '1px solid lightgray',
+		// borderLeft: '1px solid lightgray',
 	},
 	recomndHead: {
 		fontSize: '1.5em',
@@ -116,7 +116,8 @@ const VideoPage = () => {
 								controls
 								width='75vw'
 								height='75vh'
-								url={`https://www.youtube.com/watch?v=${id}`}
+								url='https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/videos%2FqUjH70lBJaVBsRklImEqgJR9qSj1%2FWhatsApp%20Video%202020-12-02%20at%2017.01.17.mp4?alt=media&token=f0a4f58c-77fd-4d6f-b773-f98d16e0e13a'
+								// url={`https://www.youtube.com/watch?v=${id}`}
 							/>
 						</Paper>
 					</Grid>

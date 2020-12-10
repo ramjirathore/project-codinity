@@ -6,9 +6,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import IconButton from '@material-ui/core/IconButton';
+// import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Skeleton from '@material-ui/lab/Skeleton';
+
+import ReactPlayer from 'react-player/lazy';
 
 // import { Player } from 'video-react';
 
@@ -94,12 +96,19 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 					{/* <Player>
 						<source src={vSrc} />
 					</Player> */}
-					<iframe
+					{/* <iframe
 						width='100%'
 						height='100%'
 						title={vSrc}
 						src={vSrc}
-					></iframe>
+					></iframe> */}
+
+					<ReactPlayer
+						// controls
+						width='13.5vw'
+						height='15vh'
+						url='https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/videos%2FqUjH70lBJaVBsRklImEqgJR9qSj1%2FWhatsApp%20Video%202020-12-02%20at%2017.01.17.mp4?alt=media&token=f0a4f58c-77fd-4d6f-b773-f98d16e0e13a'
+					/>
 				</CardMedia>
 			)}
 
