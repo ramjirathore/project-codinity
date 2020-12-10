@@ -14,11 +14,12 @@ import {
 	InputLabel,
 	Select,
 } from '@material-ui/core';
-import list from './collegeslist.json';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import list from './collegeslist.json';
+import darkBack from '../../assets/log/dark1.jpg';
 
-import { useAuth } from '../../contexts/AuthContext'
-import { db } from '../../config/fbConfig'
+import { useAuth } from '../../contexts/AuthContext';
+import { db } from '../../config/fbConfig';
 
 const Copyright = () => {
 	return (
@@ -38,8 +39,7 @@ const useStyles = makeStyles((theme) => ({
 		height: '100vh',
 	},
 	image: {
-		backgroundImage:
-			'url(https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/background%2Fdark1.jpg?alt=media&token=28f9dcda-a575-490c-8c6b-363251e03861)',
+		background: `url(${darkBack})`,
 		backgroundRepeat: 'no-repeat',
 		backgroundColor:
 			theme.palette.type === 'light'
@@ -88,46 +88,47 @@ const SignUp = () => {
 		college: '',
 	};
 
-    const [user, setUser] = useState(initialState);
-    const { currentUser, signup } = useAuth();
-    const [loading, setLoading] = useState(false);
+	const [user, setUser] = useState(initialState);
+	const { currentUser, signup } = useAuth();
+	const [loading, setLoading] = useState(false);
 
-    const handleSignUp = (event) => {
-        event.preventDefault();
+	const handleSignUp = (event) => {
+		event.preventDefault();
 
-        signup(user.email, user.password)
-        .then(function(){
-
-            /* const ref = db.ref('users/' + );
+		signup(user.email, user.password).then(
+			function () {
+				/* const ref = db.ref('users/' + );
             ref.push({
                 email: user.email,
                 name: user.name,
                 college: user.college
             }); */
 
-            setLoading(true);
-            window.location.assign('/');
-        },function(error){
-            console.log("error:", error.code, error.message);
-        })
+				setLoading(true);
+				window.location.assign('/');
+			},
+			function (error) {
+				console.log('error:', error.code, error.message);
+			}
+		);
 
-        setLoading(false);
-    }
+		setLoading(false);
+	};
 
-    const [pushAllowed, setPushAllowed] = useState(true);
+	const [pushAllowed, setPushAllowed] = useState(true);
 
-    const userToDatabase = () => {
-        // console.log(currentUser.uid);
-        const ref = db.ref(`users/${currentUser.uid}`);
-        ref.set({
-            email: user.email,
-            name: user.name,
-            college: user.college
-        });
+	const userToDatabase = () => {
+		// console.log(currentUser.uid);
+		const ref = db.ref(`users/${currentUser.uid}`);
+		ref.set({
+			email: user.email,
+			name: user.name,
+			college: user.college,
+		});
 
-        setPushAllowed(false);
-        setUser(initialState);
-    }
+		setPushAllowed(false);
+		setUser(initialState);
+	};
 
 	return (
 		<Grid container component='main' className={classes.root}>
@@ -248,8 +249,8 @@ const SignUp = () => {
 							fullWidth
 							variant='contained'
 							color='primary'
-                            className={classes.submit}
-                            disabled={loading}
+							className={classes.submit}
+							disabled={loading}
 						>
 							Sign Up
 						</Button>
@@ -272,7 +273,7 @@ const SignUp = () => {
 					</form>
 				</div>
 			</Grid>
-            {pushAllowed && currentUser!=null ? userToDatabase() : null}
+			{pushAllowed && currentUser != null ? userToDatabase() : null}
 		</Grid>
 	);
 };

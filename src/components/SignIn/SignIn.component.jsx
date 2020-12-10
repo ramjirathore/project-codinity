@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
+import darkBack from '../../assets/log/dark1.jpg';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Copyright = () => {
@@ -36,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
 		height: '100vh',
 	},
 	image: {
-		backgroundImage:
-			'url(https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/background%2Fdark1.jpg?alt=media&token=28f9dcda-a575-490c-8c6b-363251e03861)',
+		background: `url(${darkBack})`,
 		backgroundRepeat: 'no-repeat',
 		backgroundColor:
 			theme.palette.type === 'light'

@@ -16,8 +16,9 @@ import SimpleHeader from './components/VideoPage/SimpleHeader/SimpleHeader.compo
 import Video from './components/VideoPage/VideoPage.component';
 import Categories from './components/Categories/Categories.component';
 import About from './components/About/About.component';
+import Events from './components/Events/Events.component';
 
-import Testing from './Testing.component'
+import Testing from './Testing.component';
 
 const App = (props) => {
 	// added on temp basis
@@ -73,7 +74,12 @@ const App = (props) => {
 					<Route
 						exact
 						path='/events'
-						component={() => <div>All events</div>}
+						render={() => (
+							<>
+								<Header />
+								<Events />
+							</>
+						)}
 					/>
 					<Route
 						exact
@@ -103,8 +109,8 @@ const App = (props) => {
 							</>
 						)}
 					/>
-                    {/* Testing Component */}
-                    <Route exact path='/testing' component={Testing} />
+					{/* Testing Component */}
+					<Route exact path='/testing' component={Testing} />
 				</Switch>
 				{/* <Footer /> */}
 			</AuthProvider>
