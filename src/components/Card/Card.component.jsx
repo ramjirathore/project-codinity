@@ -13,6 +13,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 import ReactPlayer from 'react-player/lazy';
+import { deepPurple } from '@material-ui/core/colors';
 
 // import { Player } from 'video-react';
 
@@ -41,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
 		height: 58,
 		width: 58,
 	},
+	purple: {
+		color: theme.palette.getContrastText(deepPurple[500]),
+		backgroundColor: deepPurple[500],
+	},
 }));
 
 const VideoCard = ({ creator, title, loading, vSrc, id }) => {
@@ -68,8 +73,11 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 						/>
 					) : (
 						<Avatar
-							alt='Ted talk'
-							src='https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg'
+							alt='Ramji Rathore'
+							className={classes.purple}
+							// src='/static/images/avatar/1.jpg'
+
+							// src='https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg'
 						/>
 					)
 				}
