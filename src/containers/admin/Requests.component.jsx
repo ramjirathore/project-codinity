@@ -338,16 +338,22 @@ const EnhancedTable = (props) => {
 
 	const emptyRows =
         rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-        
+
     const acceptVideos = () => {
         console.log("accept clicked");
         const videosRef = db.ref().child('unapproved videos');
+
+        const extractToken = (url) => {
+            let pos = url.indexOf('token');
+            let res = url.substring(pos+6);
+            return res;
+        }
         
         for(let index in selected)
         {
             let uid = selected[index];
             const vidRef = videosRef.child(`${uid}`);
-            let video;
+            let video, videoId;
             vidRef.once('value', (snapshot) => {
                 video = snapshot.val();
 
@@ -357,9 +363,14 @@ const EnhancedTable = (props) => {
                 }
             })
             .then( () => {
+                videoId = extractToken(video.url);
+                // console.log(videoId);
+            })
+            .then( () => {
+                // console.log("in push 1")
                 // console.log(uid, video);
-                const ref = db.ref(`categories/${video.tag}/${uid}`);
-                // console.log("in push 1");
+                const ref = db.ref(`categories/${video.tag}/${videoId}`);
+                // console.log("pushing", ref.toString());
                 ref.set(video);
             })
             .then( () => {
@@ -387,7 +398,7 @@ const EnhancedTable = (props) => {
                 }
             })
             .then( () => {
-                console.log("in remove 2");
+                // console.log("in remove 2");
 				vidRef.remove();
 				props.InitRequest();
             })

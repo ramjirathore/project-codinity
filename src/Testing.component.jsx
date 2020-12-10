@@ -3,14 +3,14 @@ import { db } from './config/fbConfig';
 
 /*
 in db, unapproved videos -> nodes 
-Visit the nodes -> insert the videos according to their tag and uid to Categories -> Delete node
+Visit the nodes -> Delete from storage -> Delete node
 */
 
 export const Testing = () => {
 
     const uidArr = ['2AuiUKiYNqcmqA0gpoW5EMcVFs62', 'qUjH70lBJaVBsRklImEqgJR9qSj1'];      // list of user ids received
 
-	const approvingVideos = () => {
+	const rejectingVideos = () => {
         console.log("clicked");
         const videosRef = db.ref().child('unapproved videos');
         
@@ -20,6 +20,11 @@ export const Testing = () => {
             const vidRef = videosRef.child(`${uid}`);
             let video;
             vidRef.once('value', (snapshot) => {
+                if(snapshot.val() === null)
+                    return;
+
+                // console.log(snapshot.val().file); (not available)
+
                 video = snapshot.val();
 
                 video = {
@@ -28,19 +33,19 @@ export const Testing = () => {
                 }
             })
             .then( () => {
-                // console.log(uid, video);
-                const ref = db.ref(`categories/${video.tag}/${uid}`);
-                ref.set(video);
+                
+                // removing from storage (incomplete)
             })
             .then( () => {
-                vidRef.remove();
+                console.log("deleting");
+                // vidRef.remove();
             })
         }
 	};
 
 	return (
 		<div>
-			<button onClick={approvingVideos}>Manage approved videos</button>
+			<button onClick={rejectingVideos}>Manage approved videos</button>
 		</div>
 	);
 };

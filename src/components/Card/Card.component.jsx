@@ -17,6 +17,8 @@ import { deepPurple } from '@material-ui/core/colors';
 
 // import { Player } from 'video-react';
 
+import { db } from '../../config/fbConfig'
+
 const useStyles = makeStyles((theme) => ({
 	card: {
 		maxWidth: 390,
@@ -60,11 +62,37 @@ const VideoCard = ({
 	tag,
 	uploadedOn,
 }) => {
-	const classes = useStyles();
+    const classes = useStyles();
+    
+    const extractToken = (url) => {
+        let pos = url.indexOf('token');
+        let res = url.substring(pos+6);
+        return res;
+    }
+
+    const increaseViews = () => {
+        const videoId = extractToken(url);
+        const videoRef = db.ref(`categories/${tag}/${videoId}`);
+        
+        let video;
+        videoRef
+        .once('value', (snapshot) => {
+            video = snapshot.val();
+        })
+        .then(() => {
+            videoRef.set({
+                ...video,
+                views: views + 1
+            })
+        })
+        .then(() => {
+            const path = window.location.origin + '/video/' + videoId;
+		    window.open(path, '_blank');
+        })
+    }
 
 	const handleVideoClick = (videoId) => {
-		const path = window.location.origin + '/video/' + videoId;
-		window.open(path, '_blank');
+        increaseViews();
 	};
 
 	return (
