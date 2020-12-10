@@ -25,6 +25,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import Profile from '../../containers/user/profile.component';
 import UploadVideo from '../../containers/user/uploadVideo.component';
+import CreateEvent from '../../containers/user/createEvent.component';
 
 import { useAuth } from '../../contexts/AuthContext';
 import * as actions from '../../store/actions/index';
@@ -363,6 +364,7 @@ export const Header = (props) => {
 			</AppBar>
 			{userFacility === 2 ? <UploadVideo upload={true} /> : null}
 			{userFacility === 0 ? <Profile profile={true} /> : null}
+			{userFacility === 3 ? <CreateEvent eventReady={true} /> : null}
 			<div className={classes.toolbar} />
 		</>
 	);
