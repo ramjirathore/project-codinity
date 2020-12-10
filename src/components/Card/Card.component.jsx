@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
 		color: 'white',
 		'&:hover': {
 			cursor: 'pointer',
+			boxShadow:
+				'0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
 		},
 	},
 	media: {
@@ -75,7 +77,7 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 						<Avatar
 							alt='Ramji Rathore'
 							className={classes.purple}
-							// src='/static/images/avatar/1.jpg'
+							src='/static/images/avatar/1.jpg'
 
 							// src='https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg'
 						/>
