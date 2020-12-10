@@ -42,7 +42,6 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 			onClick={() => handleVideoClick(id)}
 		>
 			<CardHeader
-				style={{ color: 'white' }}
 				avatar={
 					loading ? (
 						<Skeleton
@@ -58,13 +57,13 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 						/>
 					)
 				}
-				action={
-					loading ? null : (
-						<IconButton aria-label='settings'>
-							<MoreVertIcon />
-						</IconButton>
-					)
-				}
+				// action={
+				// 	loading ? null : (
+				// 		<IconButton aria-label='settings'>
+				// 			<MoreVertIcon />
+				// 		</IconButton>
+				// 	)
+				// }
 				title={
 					loading ? (
 						<Skeleton
@@ -74,14 +73,9 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 							style={{ marginBottom: 6 }}
 						/>
 					) : (
-						creator
-					)
-				}
-				subheader={
-					loading ? (
-						<Skeleton animation='wave' height={10} width='40%' />
-					) : (
-						'5 hours ago'
+						<div style={{ color: 'white', fontSize: '1.3em' }}>
+							{creator}
+						</div>
 					)
 				}
 			/>
@@ -120,14 +114,28 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 						<Skeleton animation='wave' height={10} width='80%' />
 					</React.Fragment>
 				) : (
-					<Typography
-						variant='body2'
-						color='textSecondary'
-						component='p'
-						style={{ color: 'white', fontFamily: 'roboto' }}
-					>
-						{title}
-					</Typography>
+					<>
+						<Typography
+							style={{
+								color: 'white',
+								fontFamily: 'roboto',
+								fontSize: '1.2em',
+							}}
+						>
+							{title}
+						</Typography>
+						<Typography
+							variant='body2'
+							color='textSecondary'
+							component='p'
+							style={{
+								color: 'lightgray',
+								fontFamily: 'raleway',
+							}}
+						>
+							3.2M views - 5 days ago
+						</Typography>
+					</>
 				)}
 			</CardContent>
 		</Card>

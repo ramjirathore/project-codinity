@@ -189,6 +189,7 @@ const Controller = (props) => {
 	// const Render = imports.find((val) => val.name === activeIndex.name);
 	// const parts = window.location.pathname.split('/');
 	// let lastSegment = parts.pop();
+
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
