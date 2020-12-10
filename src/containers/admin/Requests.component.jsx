@@ -206,15 +206,15 @@ const EnhancedTableToolbar = (props) => {
 							color: 'white',
 							fontWeight: 500,
 							marginRight: 10,
-                        }}
-                        onClick={props.accept}
+						}}
+						onClick={props.accept}
 					>
 						Accept
 					</Button>
 					<Button
 						variant='contained'
-                        style={{ background: '#f44336', color: 'white' }}
-                        onClick={props.reject}
+						style={{ background: '#f44336', color: 'white' }}
+						onClick={props.reject}
 					>
 						Reject
 					</Button>
@@ -337,84 +337,84 @@ const EnhancedTable = (props) => {
 	const isSelected = (name) => selected.indexOf(name) !== -1;
 
 	const emptyRows =
-        rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+		rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-    const acceptVideos = () => {
-        console.log("accept clicked");
-        const videosRef = db.ref().child('unapproved videos');
+	const acceptVideos = () => {
+		console.log('accept clicked');
+		const videosRef = db.ref().child('unapproved videos');
 
-        const extractToken = (url) => {
-            let pos = url.indexOf('token');
-            let res = url.substring(pos+6);
-            return res;
-        }
-        
-        for(let index in selected)
-        {
-            let uid = selected[index];
-            const vidRef = videosRef.child(`${uid}`);
-            let video, videoId;
-            vidRef.once('value', (snapshot) => {
-                video = snapshot.val();
+		const extractToken = (url) => {
+			let pos = url.indexOf('token');
+			let res = url.substring(pos + 6);
+			return res;
+		};
 
-                video = {
-                    ...video,
-                    uid
-                }
-            })
-            .then( () => {
-                videoId = extractToken(video.url);
-                // console.log(videoId);
-            })
-            .then( () => {
-                // console.log("in push 1")
-                // console.log(uid, video);
-                const ref = db.ref(`categories/${video.tag}/${videoId}`);
-                // console.log("pushing", ref.toString());
-                ref.set(video);
-            })
-            .then( () => {
-                // console.log("in remove 1");
-                vidRef.remove();
-            })
-        }
-    };
+		for (let index in selected) {
+			let uid = selected[index];
+			const vidRef = videosRef.child(`${uid}`);
+			let video, videoId;
+			vidRef
+				.once('value', (snapshot) => {
+					video = snapshot.val();
 
-    const rejectVideos = () => {
-        console.log("reject clicked");
-        const videosRef = db.ref().child('unapproved videos');
-        
-        for(let index in selected)
-        {
-            let uid = selected[index];
-            const vidRef = videosRef.child(`${uid}`);
-            let video;
-            vidRef.once('value', (snapshot) => {
-                video = snapshot.val();
+					video = {
+						...video,
+						uid,
+					};
+				})
+				.then(() => {
+					videoId = extractToken(video.url);
+					// console.log(videoId);
+				})
+				.then(() => {
+					// console.log("in push 1")
+					// console.log(uid, video);
+					const ref = db.ref(`categories/${video.tag}/${videoId}`);
+					// console.log("pushing", ref.toString());
+					ref.set(video);
+				})
+				.then(() => {
+					// console.log("in remove 1");
+					vidRef.remove();
+				});
+		}
+	};
 
-                video = {
-                    ...video,
-                    uid
-                }
-            })
-            .then( () => {
-                // console.log("in remove 2");
-				vidRef.remove();
-				props.InitRequest();
-            })
-        }
-    };
+	const rejectVideos = () => {
+		console.log('reject clicked');
+		const videosRef = db.ref().child('unapproved videos');
+
+		for (let index in selected) {
+			let uid = selected[index];
+			const vidRef = videosRef.child(`${uid}`);
+			let video;
+			vidRef
+				.once('value', (snapshot) => {
+					video = snapshot.val();
+
+					video = {
+						...video,
+						uid,
+					};
+				})
+				.then(() => {
+					// console.log("in remove 2");
+					vidRef.remove();
+					props.reFetch();
+				});
+		}
+	};
 
 	return (
 		<div className={classes.root}>
 			{!props.loading ? (
 				<>
 					<Paper className={classes.paper}>
-                        <EnhancedTableToolbar 
-                            numSelected={selected.length} 
-                            accept={acceptVideos} 
-                            reject={rejectVideos}
-                        />
+						<EnhancedTableToolbar
+							numSelected={selected.length}
+							accept={acceptVideos}
+							reject={rejectVideos}
+						/>
 						<TableContainer>
 							<Table
 								className={classes.table}
@@ -508,7 +508,19 @@ const EnhancedTable = (props) => {
 													emptyRows,
 											}}
 										>
-											<TableCell colSpan={6} />
+											<TableCell colSpan={6}>
+												<Typography
+													variant='h5'
+													style={{
+														display: 'flex',
+														justifyContent:
+															'center',
+														fontFamily: 'Roboto',
+													}}
+												>
+													No Requests
+												</Typography>
+											</TableCell>
 										</TableRow>
 									)}
 								</TableBody>
@@ -555,5 +567,6 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-
-export default React.memo(connect(mapStateToProps, mapDispatchToProps)(EnhancedTable));
+export default React.memo(
+	connect(mapStateToProps, mapDispatchToProps)(EnhancedTable)
+);

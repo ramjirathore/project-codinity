@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { makeStyles, Grid, Paper } from '@material-ui/core';
 
@@ -32,22 +33,47 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = ({ categories, blogs, loading }) => {
 	const classes = useStyles();
+	const [users, setUsers] = useState(0);
+	const [events, setEvents] = useState(0);
 
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
 	const categoriesHeader = ['Category', 'Videos'];
-	// const allCategories = categories
-	// 	? categories.map((item) => ({ key: item.key, len: item.count }))
-	// 	: [];
-	// console.log(categories);
+
+	useEffect(() => {
+		axios
+			.get('https://codinity-6ab53.firebaseio.com/users.json')
+			.then((response) => {
+				setUsers(Object.keys(response.data).length);
+			});
+		axios
+			.get('https://codinity-6ab53.firebaseio.com/events.json')
+			.then((response) => {
+				setEvents(Object.keys(response.data).length);
+			});
+	}, []);
 
 	let allCategories = [];
-	let videos = categories.get('algorithms');
-	for (let [, video] of Object.entries(videos)) {
-		// console.log(video);
-		allCategories.push({ key: video.tag });
+	let totalVideos = 0;
+	if (!loading) {
+		for (let [key, video] of categories) {
+			const len = Object.keys(video).length;
+			// console.log(key, video);
+			allCategories.push({ key, len });
+			totalVideos += len;
+		}
 	}
-	// console.log(catg);
+
+	const getCurrentDate = () => {
+		let today = new Date();
+		let dd = String(today.getDate()).padStart(2, '0');
+		let mm = String(today.getMonth() + 1).padStart(2, '0');
+		let yyyy = today.getFullYear();
+
+		today = dd + '/' + mm + '/' + yyyy;
+		return today;
+	};
+
 	return (
 		<>
 			{!loading ? (
@@ -62,8 +88,8 @@ const Dashboard = ({ categories, blogs, loading }) => {
 								<DataCard
 									heading='Total Users'
 									headColor='cyan'
-									mainData='208'
-									currentDate='1 December, 2020'
+									mainData={users}
+									currentDate={getCurrentDate()}
 								/>
 							</Paper>
 						</Grid>
@@ -77,7 +103,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 									heading='Blogs Posted'
 									headColor='yellow'
 									mainData={blogs.length}
-									currentDate='1 December, 2020'
+									currentDate={getCurrentDate()}
 								/>
 							</Paper>
 						</Grid>
@@ -89,9 +115,9 @@ const Dashboard = ({ categories, blogs, loading }) => {
 							>
 								<DataCard
 									heading='Events Scheduled'
-									mainData='20'
+									mainData={events}
 									headColor='lightgreen'
-									currentDate='1 December, 2020'
+									currentDate={getCurrentDate()}
 								/>
 							</Paper>
 						</Grid>
@@ -103,9 +129,9 @@ const Dashboard = ({ categories, blogs, loading }) => {
 							>
 								<DataCard
 									heading='Total Videos'
-									mainData='208'
+									mainData={totalVideos}
 									headColor='orange'
-									currentDate='1 December, 2020'
+									currentDate={getCurrentDate()}
 								/>
 							</Paper>
 						</Grid>

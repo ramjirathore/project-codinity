@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 const initialState = {
+	users: 0,
 	name: '',
 	email: '',
 	college: '',
@@ -31,6 +32,11 @@ const reducer = (state = initialState, action) => {
 				name: action.userData.name,
 				email: action.userData.email,
 				college: action.userData.college,
+			};
+		case actionTypes.SET_TOTAL_USERS:
+			return {
+				...state,
+				users: action.users,
 			};
 		default:
 			return state;

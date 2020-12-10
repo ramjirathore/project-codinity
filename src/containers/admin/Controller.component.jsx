@@ -316,7 +316,7 @@ const Controller = (props) => {
 					{activeIndex.index === 0 ? (
 						<Dashboard />
 					) : activeIndex.index === 1 ? (
-						<Requests />
+						<Requests reFetch={() => props.InitRequest()} />
 					) : (
 						<div className={classes.comingsoon}>Coming soon!</div>
 					)}
