@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Container, Grid, Typography } from '@material-ui/core';
 import EventsCard from './EventsCard.component';
-
+import axios from 'axios';
 import eventsImage from '../../assets/log/events.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,10 +13,21 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const categoriesList = [1, 2, 3, 4, 5, 6];
-
 const Event = () => {
 	const classes = useStyles();
+	const [events, setEvents] = useState({ event: [], loading: true });
+	if (events.loading) {
+		axios
+			.get('https://codinity-6ab53.firebaseio.com/events.json')
+			.then((response) => {
+				let ev = [];
+				for (let [, value] of Object.entries(response.data)) {
+					ev.push(value);
+				}
+				setEvents({ event: ev, loading: false });
+			});
+	}
+	console.log(events.event);
 
 	return (
 		<div className={classes.back}>
@@ -38,11 +49,20 @@ const Event = () => {
 					</Grid>
 				</Grid>
 				<Grid container spacing={4}>
-					{categoriesList.map((card, index) => (
-						<Grid item key={index} xs={12} sm={6} md={6} lg={6}>
-							<EventsCard />
-						</Grid>
-					))}
+					{!events.loading
+						? events.event.map((card, index) => (
+								<Grid
+									item
+									key={index}
+									xs={12}
+									sm={6}
+									md={6}
+									lg={6}
+								>
+									<EventsCard {...card} />
+								</Grid>
+						  ))
+						: null}
 				</Grid>
 			</Container>
 		</div>

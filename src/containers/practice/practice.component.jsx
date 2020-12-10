@@ -90,12 +90,12 @@ const topicsList = [
 
 const Practice = ({ categories, loading }) => {
 	const path = 'https://www.youtube.com/embed/';
-	
+
 	const classes = useStyles();
 
 	let catg = [];
 	let videos = categories.get('dataStructure');
-	for (let [key, video] of Object.entries(videos)) {
+	for (let [, video] of Object.entries(videos)) {
 		// console.log(video);
 		catg.push(video);
 	}

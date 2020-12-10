@@ -25,6 +25,7 @@ const App = (props) => {
 		props.InitCategories();
 		props.InitBlogs();
 	});
+
 	return (
 		<React.Fragment>
 			<AuthProvider>
