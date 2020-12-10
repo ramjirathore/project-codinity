@@ -362,9 +362,18 @@ export const Header = (props) => {
 					{drawer}
 				</Toolbar>
 			</AppBar>
-			{userFacility === 2 ? <UploadVideo upload={true} /> : null}
-			{userFacility === 0 ? <Profile profile={true} /> : null}
-			{userFacility === 3 ? <CreateEvent eventReady={true} /> : null}
+			{userFacility === 2 ? (
+				<UploadVideo upload={true} reset={() => setUserFacility(-1)} />
+			) : null}
+			{userFacility === 0 ? (
+				<Profile profile={true} reset={() => setUserFacility(-1)} />
+			) : null}
+			{userFacility === 3 ? (
+				<CreateEvent
+					eventReady={true}
+					reset={() => setUserFacility(-1)}
+				/>
+			) : null}
 			<div className={classes.toolbar} />
 		</>
 	);

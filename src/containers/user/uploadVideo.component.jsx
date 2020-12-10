@@ -112,23 +112,21 @@ const videoTypes = [
 	},
 ];
 
-const UploadVideo = ({ upload, name, email, college }) => {
+const UploadVideo = ({ upload, name, email, college, reset }) => {
 	const classes = useStyles();
-	const [video, setVideo] = useState({
+	const initialState = {
 		title: '',
 		description: '',
 		tag: '',
 		file: null,
-	});
+	};
+	const [video, setVideo] = useState(initialState);
 
 	const [open, setOpen] = useState(upload);
 
-	// const handleClickOpen = () => {
-	// 	setOpen(true);
-	// };
-
 	const handleClose = () => {
 		setOpen(false);
+		reset();
 	};
 
 	const { currentUser } = useAuth();
@@ -145,9 +143,6 @@ const UploadVideo = ({ upload, name, email, college }) => {
 
 	const videoToDatabase = (URL) => {
 		const ref = db.ref(`unapproved videos/${currentUser.uid}`);
-
-		// console.log(ref);
-		// console.log(getCurrentDate());
 
 		ref.set({
 			uid: currentUser.uid,
@@ -182,6 +177,7 @@ const UploadVideo = ({ upload, name, email, college }) => {
 	const handleUpload = (event) => {
 		event.preventDefault();
 		videoToStorage(video.file);
+		setVideo(initialState);
 	};
 
 	return (

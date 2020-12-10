@@ -79,12 +79,13 @@ const DialogContent = withStyles((theme) => ({
 	},
 }))(MuiDialogContent);
 
-const Profile = ({ profile }) => {
+const Profile = ({ profile, reset }) => {
 	const classes = useStyles();
 	const [open, setOpen] = useState(profile);
 
 	const handleClose = () => {
 		setOpen(false);
+		reset();
 	};
 
 	return (

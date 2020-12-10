@@ -120,7 +120,7 @@ const videoTypes = [
 	},
 ];
 
-const Event = ({ eventReady, name, email, college }) => {
+const Event = ({ eventReady, name, email, college, reset }) => {
 	const classes = useStyles();
 	const [event, setEvent] = useState({
 		title: '',
@@ -134,12 +134,9 @@ const Event = ({ eventReady, name, email, college }) => {
 
 	const [open, setOpen] = useState(eventReady);
 
-	// const handleClickOpen = () => {
-	// 	setOpen(true);
-	// };
-
 	const handleClose = () => {
 		setOpen(false);
+		reset();
 	};
 
 	const { currentUser } = useAuth();
@@ -154,45 +151,18 @@ const Event = ({ eventReady, name, email, college }) => {
 		return today;
 	};
 
-	const eventToDatabase = (URL) => {
+	const handleCreate = (e) => {
+		e.preventDefault();
 		const ref = db.ref(`events/`);
-
-		// console.log(ref);
-		// console.log(getCurrentDate());
-
 		ref.push({
 			uid: currentUser.uid,
 			...event,
-			url: URL,
 			name,
 			email,
 			college,
 			uploadedOn: getCurrentDate(),
 		});
-	};
-
-	// const videoToStorage = (file) => {
-	// 	const storageRef = storage.ref();
-	// 	const videoRef = storageRef.child(
-	// 		'videos/' + currentUser.uid + '/' + file.name
-	// 	);
-
-	// 	videoRef.put(file).then(function (snapshot) {
-	// 		// console.log(snapshot);
-	// 		snapshot.ref
-	// 			.getDownloadURL()
-	// 			.then(function (URL) {
-	// 				console.log(URL);
-	// 				videoToDatabase(String(URL));
-	// 			})
-	// 			.catch((error) => console.log('error:', error));
-	// 	});
-	// };
-
-	const handleCreate = (event) => {
-		event.preventDefault();
-		// videoToStorage(video.file);
-		eventToDatabase();
+		handleClose();
 	};
 
 	return (
@@ -365,7 +335,7 @@ const mapStateToProps = (state) => {
 		name: state.usr.name,
 		email: state.usr.email,
 		college: state.usr.college,
-		laoding: state.usr.loading,
+		loading: state.usr.loading,
 	};
 };
 
