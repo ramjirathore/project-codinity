@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import DateFnsUtils from '@date-io/date-fns';
+import { connect } from 'react-redux';
+import 'date-fns';
 import {
 	withStyles,
 	makeStyles,
@@ -11,13 +14,12 @@ import {
 	Select,
 	Typography,
 } from '@material-ui/core';
-import { connect } from 'react-redux';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
-import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
+
+import Alert from '../../components/Notification-Snackbar/notification.component';
 
 import {
 	MuiPickersUtilsProvider,
@@ -132,17 +134,18 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 		hashTags: '',
 	});
 
+	const [finish, setFinish] = useState(false);
+
 	const [open, setOpen] = useState(eventReady);
 
 	const handleClose = () => {
 		setOpen(false);
-		reset();
+		// reset();
 	};
 
 	const { currentUser } = useAuth();
 
-	const getCurrentDate = () => {
-		let today = new Date();
+	const getDate = (today) => {
 		let dd = String(today.getDate()).padStart(2, '0');
 		let mm = String(today.getMonth() + 1).padStart(2, '0');
 		let yyyy = today.getFullYear();
@@ -153,20 +156,34 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 
 	const handleCreate = (e) => {
 		e.preventDefault();
+		const time = String(
+			event.time.getHours() + ':' + event.time.getMinutes()
+		);
+		const date = getDate(event.date);
 		const ref = db.ref(`events/`);
 		ref.push({
 			uid: currentUser.uid,
 			...event,
+			date,
+			time,
 			name,
 			email,
 			college,
-			uploadedOn: getCurrentDate(),
+			uploadedOn: getDate(new Date()),
 		});
+		setFinish(true);
 		handleClose();
 	};
 
 	return (
 		<div>
+			{finish ? (
+				<Alert
+					message='Event Created!'
+					title='Create an Event'
+					type='success'
+				/>
+			) : null}
 			<Dialog
 				fullWidth
 				onClose={handleClose}
@@ -256,6 +273,21 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 							margin='normal'
 							required
 							fullWidth
+							id='meetlink'
+							label='Meet Link'
+							name='meetlink'
+							autoComplete='meetlink'
+							autoFocus
+							value={event.link}
+							onChange={(e) =>
+								setEvent({ ...event, link: e.target.value })
+							}
+						/>
+						<TextField
+							variant='outlined'
+							margin='normal'
+							required
+							fullWidth
 							id='hashtags'
 							label='hashtags'
 							name='hashtags'
@@ -282,12 +314,13 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 									id='date-picker-inline'
 									label='Choose Date'
 									value={event.date}
-									onChange={(date) =>
+									onChange={(date) => {
 										setEvent({
 											...event,
 											date,
-										})
-									}
+										});
+										console.log(date);
+									}}
 									KeyboardButtonProps={{
 										'aria-label': 'change date',
 									}}
