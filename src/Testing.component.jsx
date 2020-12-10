@@ -1,70 +1,46 @@
 import React from 'react';
-import { db, storage } from './config/fbConfig';
+import { db } from './config/fbConfig';
+
+/*
+in db, unapproved videos -> nodes 
+Visit the nodes -> insert the videos according to their tag and uid to Categories -> Delete node
+*/
 
 export const Testing = () => {
-	let arr = {};
 
-	const fetchUserInfo = () => {
-		const usersRef = db.ref().child('users');
-		// console.log(usersRef);
+    const uidArr = ['2AuiUKiYNqcmqA0gpoW5EMcVFs62', 'qUjH70lBJaVBsRklImEqgJR9qSj1'];      // list of user ids received
 
-		usersRef.once('value', (snapshot) => {
-			snapshot.forEach((childSnapshot) => {
-				// console.log(childSnapshot.key, childSnapshot.val());
+	const approvingVideos = () => {
+        console.log("clicked");
+        const videosRef = db.ref().child('unapproved videos');
+        
+        for(let index in uidArr)
+        {
+            let uid = uidArr[index];
+            const vidRef = videosRef.child(`${uid}`);
+            let video;
+            vidRef.once('value', (snapshot) => {
+                video = snapshot.val();
 
-				for (let index in arr[childSnapshot.key])
-					console.log(
-						childSnapshot.val(),
-						arr[childSnapshot.key][index]
-					);
-			});
-		});
-	};
-
-	const addToArr = (key, value) => {
-		arr[key] = arr[key] || [];
-		arr[key].push(value);
-	};
-
-	const listVideos = () => {
-		const storageRef = storage.ref();
-		const listRef = storageRef.child('videos');
-
-		listRef
-			.listAll()
-			.then(function (res) {
-				// console.log(res);
-				res.prefixes.forEach(function (userRef) {
-					// console.log(userRef.name);
-					userRef
-						.listAll()
-						.then(function (userRes) {
-							userRes.items.forEach(function (videoRef) {
-								// console.log(videoRef);
-								videoRef
-									.getDownloadURL()
-									.then(function (url) {
-										// console.log(url);
-
-										addToArr(String(userRef.name), url);
-									})
-									.catch((error) =>
-										console.log('error:', error)
-									);
-							});
-						})
-						.catch((error) => console.log('error:', error));
-				});
-			})
-			.catch((error) => console.log('error:', error));
-
-		// console.log(arr);
-		fetchUserInfo();
+                video = {
+                    ...video,
+                    uid
+                }
+            })
+            .then( () => {
+                // console.log(uid, video);
+                const ref = db.ref(`categories/${video.tag}/${uid}`);
+                ref.set(video);
+            })
+            .then( () => {
+                vidRef.remove();
+            })
+        }
 	};
 
 	return (
 		<div>
-			<button onClick={listVideos}>List unapproved videos</button>
+			<button onClick={approvingVideos}>Manage approved videos</button>
 		</div>
 	);
 };
