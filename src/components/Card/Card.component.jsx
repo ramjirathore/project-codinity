@@ -84,7 +84,7 @@ const VideoCard = ({
 						/>
 					) : (
 						<Avatar
-							alt='Ramji Rathore'
+							alt={name}
 							className={classes.purple}
 							src='/static/images/avatar/1.jpg'
 
