@@ -22,7 +22,7 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
-		backgroundColor: '#F54',
+		// backgroundColor: '#',
 		color: theme.palette.common.white,
 	},
 	body: {
@@ -122,7 +122,7 @@ function TablePaginationActions(props) {
 	);
 }
 
-const CustomizedTable = ({ header, rows }) => {
+const CustomizedTable = ({ header, rows, color }) => {
 	const classes = useStyles();
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -143,7 +143,10 @@ const CustomizedTable = ({ header, rows }) => {
 				<TableHead>
 					<TableRow>
 						{header.map((head, index) => (
-							<StyledTableCell key={index}>
+							<StyledTableCell
+								key={index}
+								style={{ background: color }}
+							>
 								<b>{head}</b>
 							</StyledTableCell>
 						))}

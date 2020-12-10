@@ -7,6 +7,8 @@ import { makeStyles, Grid, Paper } from '@material-ui/core';
 import DataCard from '../../components/AdminParts/DataCard.component';
 import Table from '../../components/AdminParts/Table.component';
 
+import { db } from '../../config/fbConfig';
+
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		padding: theme.spacing(1),
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = ({ categories, blogs, loading }) => {
 	const classes = useStyles();
-	const [users, setUsers] = useState(0);
+	const [users, setUsers] = useState([]);
 	const [events, setEvents] = useState(0);
 
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -41,11 +43,22 @@ const Dashboard = ({ categories, blogs, loading }) => {
 	const categoriesHeader = ['Category', 'Videos'];
 
 	useEffect(() => {
-		axios
-			.get('https://codinity-6ab53.firebaseio.com/users.json')
-			.then((response) => {
-				setUsers(Object.keys(response.data).length);
-			});
+		const usersRef = db.ref().child('users');
+		usersRef
+			.once('value', (snapshot) => {
+				let allUsers = [];
+				snapshot.forEach((childSnapshot) => {
+					// console.log(childSnapshot.key, childSnapshot.val());
+					allUsers.push({
+						key: childSnapshot.key,
+						name: childSnapshot.val().name,
+						email: childSnapshot.val().email,
+					});
+					setUsers([...allUsers]);
+				});
+			})
+			.catch((err) => console.log(err));
+
 		axios
 			.get('https://codinity-6ab53.firebaseio.com/events.json')
 			.then((response) => {
@@ -88,7 +101,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 								<DataCard
 									heading='Total Users'
 									headColor='cyan'
-									mainData={users}
+									mainData={users.length}
 									currentDate={getCurrentDate()}
 								/>
 							</Paper>
@@ -136,20 +149,24 @@ const Dashboard = ({ categories, blogs, loading }) => {
 							</Paper>
 						</Grid>
 
-						{/* Recent Orders */}
-						<Grid item xs={12} lg={6}>
+						<Grid item xs={12} lg={8}>
+							<Paper className={classes.paper}>
+								<Table
+									header={['Token', 'UserName', 'Email']}
+									rows={users}
+									color='purple'
+								/>
+							</Paper>
+						</Grid>
+						<Grid item xs={12} lg={4}>
 							<Paper className={classes.paper}>
 								<Table
 									header={categoriesHeader}
 									rows={allCategories}
+									color='red'
 								/>
 							</Paper>
 						</Grid>
-						{/* <Grid item xs={12} lg={6}>
-							<Paper className={classes.paper}>
-								<Table />
-							</Paper>
-						</Grid> */}
 					</Grid>
 				</>
 			) : (

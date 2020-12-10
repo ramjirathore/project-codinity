@@ -26,19 +26,11 @@ export const setUserData = (userData) => {
 	};
 };
 
-export const setTotalUsers = (users) => {
-	return {
-		type: actionTypes.SET_TOTAL_USERS,
-		users,
-	};
-};
-
 export const initUserData = (db, userToken) => {
 	return (dispatch) => {
 		dispatch(fetchUserDataStart());
 		const usersRef = db.ref().child('users');
 		// console.log(usersRef);
-		let users = 0;
 		usersRef
 			.once('value', (snapshot) => {
 				snapshot.forEach((childSnapshot) => {
@@ -47,10 +39,7 @@ export const initUserData = (db, userToken) => {
 						// console.log('userData', childSnapshot.val());
 						dispatch(setUserData(childSnapshot.val()));
 					}
-					users += 1;
 				});
-				console.log(users);
-				dispatch(setTotalUsers(users));
 			})
 			.catch((err) => fetchUserDataFailed(err));
 	};
