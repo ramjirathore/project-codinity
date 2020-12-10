@@ -131,7 +131,7 @@ const VideoCard = ({ creator, title, loading, vSrc, id }) => {
 						// controls
 						width='13.5vw'
 						height='15vh'
-						url='https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/videos%2FqUjH70lBJaVBsRklImEqgJR9qSj1%2FWhatsApp%20Video%202020-12-02%20at%2017.01.17.mp4?alt=media&token=f0a4f58c-77fd-4d6f-b773-f98d16e0e13a'
+						url='https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/videos%2FegubRK4ZDYQ9BwcrMH2uOKybza43%2FWhatsApp%20Video%202020-12-09%20at%2014.09.08.mp4?alt=media&token=55efa6c0-cb4b-4985-9a46-12a847c83520'
 					/>
 					<PlayArrowIcon className={classes.playIcon} />
 				</CardMedia>

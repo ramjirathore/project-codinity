@@ -90,8 +90,17 @@ const topicsList = [
 
 const Practice = ({ categories, loading }) => {
 	const path = 'https://www.youtube.com/embed/';
-
+	
 	const classes = useStyles();
+
+	let catg = [];
+	let videos = categories.get('dataStructure');
+	for (let [key, video] of Object.entries(videos)) {
+		// console.log(video);
+		catg.push(video);
+	}
+	console.log(catg);
+
 	// console.log(categories[1], loading);
 	return (
 		<div className={classes.root}>
@@ -169,7 +178,7 @@ const Practice = ({ categories, loading }) => {
 					</Typography>
 				) : (
 					<Grid container spacing={2}>
-						{categories[1].videos.map((video, index) => (
+						{catg.map((video, index) => (
 							<Grid item lg={2} key={index}>
 								<SearchCard
 									creator={video.creator}
@@ -180,6 +189,7 @@ const Practice = ({ categories, loading }) => {
 								/>
 							</Grid>
 						))}
+						{console.log(categories)}
 					</Grid>
 				)}
 			</main>

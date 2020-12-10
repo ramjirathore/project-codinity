@@ -21,16 +21,6 @@ import Events from './components/Events/Events.component';
 import Testing from './Testing.component';
 
 const App = (props) => {
-	// added on temp basis
-	// const addVideo = () => {
-	// 	props.addVideoObject({
-	// 		creator: 'Prerna Singh',
-	// 		id: '5dRGRueKU3M',
-	// 		rating: 4.5,
-	// 		title: 'Introduction to Dynammic Programming',
-	// 		uploaded: '28-11-2020',
-	// 	});
-	// };
 	useEffect(() => {
 		props.InitCategories();
 		props.InitBlogs();

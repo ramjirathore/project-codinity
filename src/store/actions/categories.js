@@ -33,13 +33,13 @@ export const initCategories = () => {
 		axios
 			.get('https://codinity-6ab53.firebaseio.com/categories.json')
 			.then((response) => {
-				let categories = [];
+				let categories = new Map();
 				for (let [key, value] of Object.entries(response.data)) {
-					categories.push({
-						key,
-						videos: value,
-						count: value.length,
-					});
+					// categories[key].push({
+					// 	videos: value,
+					// 	count: value.length,
+					// });
+					categories.set(key, value);
 				}
 
 				dispatch(setCategories(categories));
