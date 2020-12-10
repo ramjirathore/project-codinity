@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SmallCard = ({}) => {
+const SmallCard = () => {
 	const classes = useStyles();
 	return (
 		<Card className={classes.root}>
