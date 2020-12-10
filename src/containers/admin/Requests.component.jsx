@@ -25,7 +25,6 @@ import { connect } from 'react-redux';
 
 // import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../config/fbConfig';
-import * as actions from '../../store/actions/index';
 
 function createData(email, name, title, college, uid, url) {
 	return { email, name, college, title, uid, url };
@@ -376,6 +375,7 @@ const EnhancedTable = (props) => {
 				.then(() => {
 					// console.log("in remove 1");
 					vidRef.remove();
+					window.location.reload();
 				});
 		}
 	};
@@ -400,7 +400,7 @@ const EnhancedTable = (props) => {
 				.then(() => {
 					// console.log("in remove 2");
 					vidRef.remove();
-					props.reFetch();
+					window.location.reload();
 				});
 		}
 	};
@@ -509,17 +509,20 @@ const EnhancedTable = (props) => {
 											}}
 										>
 											<TableCell colSpan={6}>
-												<Typography
-													variant='h5'
-													style={{
-														display: 'flex',
-														justifyContent:
-															'center',
-														fontFamily: 'Roboto',
-													}}
-												>
-													No Requests
-												</Typography>
+												{rows.length === 0 ? (
+													<Typography
+														variant='h5'
+														style={{
+															display: 'flex',
+															justifyContent:
+																'center',
+															fontFamily:
+																'Roboto',
+														}}
+													>
+														No Requests
+													</Typography>
+												) : null}
 											</TableCell>
 										</TableRow>
 									)}
@@ -561,12 +564,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		InitRequest: (database) => dispatch(actions.initRequest(database)),
-	};
-};
-
-export default React.memo(
-	connect(mapStateToProps, mapDispatchToProps)(EnhancedTable)
-);
+export default React.memo(connect(mapStateToProps)(EnhancedTable));

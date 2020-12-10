@@ -16,6 +16,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import Alert from '../../components/Notification-Snackbar/notification.component';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { db, storage } from '../../config/fbConfig';
@@ -121,7 +122,7 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 		file: null,
 	};
 	const [video, setVideo] = useState(initialState);
-
+	const [videoUploaded, setVideoUploaded] = useState(false);
 	const [open, setOpen] = useState(upload);
 
 	const handleClose = () => {
@@ -178,10 +179,18 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 		event.preventDefault();
 		videoToStorage(video.file);
 		setVideo(initialState);
+		setVideoUploaded(true);
 	};
 
 	return (
 		<div>
+			{videoUploaded ? (
+				<Alert
+					message='Great! Video has gone approval now.'
+					title='Upload Video'
+					type='success'
+				/>
+			) : null}
 			<Dialog
 				fullWidth
 				onClose={handleClose}

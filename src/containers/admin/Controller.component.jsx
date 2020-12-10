@@ -266,8 +266,6 @@ const Controller = (props) => {
 									? classes.active
 									: classes.inactive
 							}
-							// component={Link}
-							// to={'/admin'}
 							onClick={() => {
 								if (item.value === 1) {
 									props.InitRequest(db);
@@ -316,7 +314,7 @@ const Controller = (props) => {
 					{activeIndex.index === 0 ? (
 						<Dashboard />
 					) : activeIndex.index === 1 ? (
-						<Requests reFetch={() => props.InitRequest()} />
+						<Requests />
 					) : (
 						<div className={classes.comingsoon}>Coming soon!</div>
 					)}
