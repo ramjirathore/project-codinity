@@ -23,12 +23,13 @@ import Testing from './Testing.component';
 
 const App = (props) => {
 	const [filtered, setFiltered] = useState([]);
+
 	useEffect(() => {
 		props.InitCategories();
 		props.InitBlogs();
 	});
 
-	console.log(filtered, 'APP');
+	console.log(props.email);
 
 	let routes = null;
 
@@ -105,6 +106,7 @@ const App = (props) => {
 							<>
 								<Header {...props} />
 								<About />
+								<Footer />
 							</>
 						)}
 					/>
