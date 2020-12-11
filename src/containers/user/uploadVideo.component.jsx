@@ -115,7 +115,7 @@ const videoTypes = [
 		name: 'NodeJS',
 		tag: 'nodeJS',
 	},
-	// { name: 'Machine Learning', tag: 'machineLearning' },
+	{ name: 'Machine Learning', tag: 'machineLearning' },
 ];
 
 const UploadVideo = ({ upload, name, email, college, reset }) => {

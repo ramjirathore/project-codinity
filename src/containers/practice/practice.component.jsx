@@ -21,7 +21,11 @@ import ml from '../../assets/icons/machine-learning.svg';
 import javascript from '../../assets/icons/javascript.svg';
 import php from '../../assets/icons/php-document.svg';
 import nodejs from '../../assets/icons/nodejs.svg';
+import problemSolving from '../../assets/icons/problem-solving.svg';
 import cpp from '../../assets/icons/cpp.svg';
+import angular from '../../assets/icons/angular.svg';
+import vue from '../../assets/icons/vue.png';
+import python from '../../assets/icons/python.png';
 import VidCard from '../../components/Card/Card.component';
 
 const drawerWidth = 240;
@@ -85,18 +89,19 @@ const topicsList = [
 	{ item: 'Algorithms', icon: algo, tag: 'algorithms' },
 	{
 		item: 'Problem Solving',
-		icon: ds,
+		icon: problemSolving,
 		tag: 'problemSolving',
 	},
 	{ item: 'C++', icon: cpp, tag: 'cpp' },
+	{ item: 'Python', icon: python, tag: 'python' },
 	{ item: 'Machine Learning', icon: ml, tag: 'machineLearning' },
 	{ item: 'Javascript', icon: javascript, tag: 'javascript' },
-	{ item: 'React', icon: react, tag: 'reactJS' },
+	{ item: 'ReactJS', icon: react, tag: 'reactJS' },
 	{ item: 'NodeJS', icon: nodejs, tag: 'nodeJS' },
-	// { item: 'AngularJS', icon: <GraphicEqIcon />, tag: 'angularJS' },
+	{ item: 'AngularJS', icon: angular, tag: 'angularJS' },
 	{ item: 'JAVA', icon: java, tag: 'java' },
 	{ item: 'PHP', icon: php, tag: 'pho' },
-	// { item: 'Vue', icon: <ForumIcon />, tag: 'vueJS' },
+	{ item: 'VueJS', icon: vue, tag: 'vueJS' },
 ];
 
 const Practice = (props) => {

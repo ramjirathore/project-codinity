@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EventsCard = ({ link, title, date, name, time, hashTags, tag }) => {
+const EventsCard = ({ link, title, date, name, time, hashTags }) => {
 	const classes = useStyles();
 
 	return (
@@ -100,7 +100,7 @@ const EventsCard = ({ link, title, date, name, time, hashTags, tag }) => {
 				className={classes.cover}
 				src='https://source.unsplash.com/random/?abstract'
 				style={{
-					backgroundImage: `url(https://source.unsplash.com/random/?${'dataStructure'})`,
+					backgroundImage: `url(https://source.unsplash.com/random/?technology)`,
 				}}
 				title='Live from space album cover'
 			/>

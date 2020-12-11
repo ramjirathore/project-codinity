@@ -27,7 +27,7 @@ const Event = () => {
 				setEvents({ event: ev, loading: false });
 			});
 	}
-	console.log(events.event);
+	// console.log(events.event);
 
 	return (
 		<div className={classes.back}>
@@ -59,7 +59,9 @@ const Event = () => {
 									md={6}
 									lg={6}
 								>
-									<EventsCard {...card} />
+									<EventsCard
+										{...card}
+									/>
 								</Grid>
 						  ))
 						: null}
