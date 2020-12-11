@@ -156,6 +156,7 @@ const Practice = (props) => {
 									'tag',
 									JSON.stringify({ tag: topic.tag })
 								);
+								setFiltered([]);
 								setSelectedCatg({ tag: topic.tag });
                                 setFiltered([]);
                                 setCollege('');

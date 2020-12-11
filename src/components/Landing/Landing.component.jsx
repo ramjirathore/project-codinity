@@ -8,6 +8,8 @@ import {
 	Typography,
 } from '@material-ui/core';
 
+import { Link } from 'react-router-dom';
+
 import CategoriesCard from '../Categories/CategoryCards/CategoryCards.component';
 import { categoriesList } from '../../components/Categories/categorieslist';
 
@@ -68,7 +70,12 @@ const Landing = (props) => {
 					<div className={classes.heroButtons}>
 						<Grid container spacing={2} justify='center'>
 							<Grid item>
-								<Button variant='contained' color='primary'>
+								<Button
+									variant='contained'
+									color='primary'
+									component={Link}
+									to='/about'
+								>
 									GETTING STARTED
 								</Button>
 							</Grid>
