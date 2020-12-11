@@ -9,6 +9,8 @@ import {
 	Typography,
 } from '@material-ui/core';
 
+import { db } from '../../../config/fbConfig'
+
 const useStyles = makeStyles((theme) => ({
 	card: {
 		height: '100%',
@@ -56,7 +58,23 @@ const CategoryCards = (props) => {
 				>
 					Practice
 				</Button>
-				<Button size='small' variant='contained' color='primary'>
+                <Button 
+                    size='small' 
+                    variant='contained' 
+                    color='primary'
+                    onClick={() => {
+                        const docRef = db.ref(`docs/${tag}`);
+                        let url;
+                        docRef.once('value', (snapshot) => {
+                            url = snapshot.val();
+                            // console.log(url);
+                        })
+                        .then( () => {
+                            if(url!=null)
+                                window.open(url, '_blank');
+                        })
+                    }}
+                >
 					Explore
 				</Button>
 			</CardActions>
