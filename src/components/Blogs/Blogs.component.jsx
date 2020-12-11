@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { makeStyles, Container, Grid, Typography } from '@material-ui/core';
 import BlogsCard from './BlogsCard.component';
 import axios from 'axios';
-import eventsImage from '../../assets/log/events.jpg';
+import blogImage from '../../assets/log/blog.jpg';
 
 const useStyles = makeStyles((theme) => ({
 	back: {
-		backgroundImage: `url(${eventsImage})`,
+		backgroundImage: `url(${blogImage})`,
 		color: theme.palette.common.white,
 		padding: 30,
 		minHeight: '100vh',

@@ -28,6 +28,8 @@ const App = (props) => {
 		props.InitBlogs();
 	});
 
+	console.log(filtered, 'APP');
+
 	let routes = null;
 
 	if (process.env.REACT_APP_ADMIN_ID === props.email) {
