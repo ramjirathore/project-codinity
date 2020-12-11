@@ -29,7 +29,7 @@ const App = (props) => {
 		props.InitBlogs();
 	});
 
-	console.log(props.email);
+	// console.log(props.email);
 
 	let routes = null;
 
