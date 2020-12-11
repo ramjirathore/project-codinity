@@ -112,7 +112,8 @@ const Practice = (props) => {
 	const classes = useStyles();
 	const initialState = JSON.parse(localStorage.getItem('tag'));
 	// console.log(initialState);
-	const [selectedCatg, setSelectedCatg] = useState(initialState);
+    const [selectedCatg, setSelectedCatg] = useState(initialState);
+    const [college, setCollege] = useState('');
 
 	console.log(filtered);
 	let catg = [];
@@ -128,7 +129,8 @@ const Practice = (props) => {
 
 	const filter = (clg) => {
 		let temp = catg.filter((video) => video.college === clg);
-		setFiltered(temp);
+        setFiltered(temp);
+        // console.log("filtering...", temp);
 	};
 
 	return (
@@ -155,7 +157,9 @@ const Practice = (props) => {
 									JSON.stringify({ tag: topic.tag })
 								);
 								setSelectedCatg({ tag: topic.tag });
-							}}
+                                setFiltered([]);
+                                setCollege('');
+                            }}
 							selected={selectedCatg.tag === topic.tag}
 						>
 							<ListItemIcon>
@@ -184,7 +188,7 @@ const Practice = (props) => {
 						</ListItem>
 					))}
 				</List>
-				<Filters filter={filter} />
+				<Filters filter={filter} college={college} setCollege={setCollege}/>
 			</Drawer>
 			<main className={classes.content}>
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}

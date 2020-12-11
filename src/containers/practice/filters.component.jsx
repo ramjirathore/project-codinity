@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	Accordion,
 	AccordionSummary,
@@ -32,9 +32,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Filters = ({ filter }) => {
+const Filters = ({ filter, college, setCollege }) => {
 	const classes = useStyles();
-	const [college, setCollege] = useState('');
 
 	return (
 		<>
