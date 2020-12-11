@@ -354,8 +354,8 @@ export const Header = (props) => {
 							<Button
 								component={Link}
 								variant='contained'
-								style={{ margin: '0 10' }}
-								onClick={() => props.history('/admin')}
+								style={{ margin: '0 10px' }}
+								to='/admin'
 							>
 								Admin
 							</Button>

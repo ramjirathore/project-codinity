@@ -13,6 +13,8 @@ import {
 	ListItemText,
 } from '@material-ui/core';
 
+import Filters from './filters.component';
+
 import ds from '../../assets/icons/data.svg';
 import algo from '../../assets/icons/algorithm.svg';
 import react from '../../assets/icons/react.png';
@@ -46,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: 0,
 	},
 	drawerPaper: {
+		overflowX: 'hidden',
 		width: drawerWidth,
 		background: theme.palette.common.grey,
 	},
@@ -175,6 +178,7 @@ const Practice = (props) => {
 						</ListItem>
 					))}
 				</List>
+				<Filters />
 			</Drawer>
 			<main className={classes.content}>
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}

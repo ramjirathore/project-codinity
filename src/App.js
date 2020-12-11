@@ -110,7 +110,7 @@ const App = (props) => {
 					{routes}
 					{/* Testing Component */}
 					<Route exact path='/testing' component={Testing} />
-					<Redirect to='/' />
+					<Redirect exact to='/' />
 				</Switch>
 				{/* <Footer /> */}
 			</AuthProvider>
