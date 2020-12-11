@@ -80,7 +80,12 @@ const Landing = (props) => {
 								</Button>
 							</Grid>
 							<Grid item>
-								<Button variant='outlined' color='primary'>
+                                <Button 
+                                    variant='outlined' 
+                                    color='primary' 
+                                    onClick={() => {
+                                        window.open('https://docs.google.com/document/d/1WjnMyS648y3XQQn6EMT2jy0sPc30fzQv8wTA5QTh-LQ/edit?usp=sharing', '_blank');
+                                    }}>
 									BECOME CREATOR
 								</Button>
 							</Grid>
