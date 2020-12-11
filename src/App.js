@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
 import { AuthProvider } from './contexts/AuthContext';
@@ -36,7 +36,7 @@ const App = (props) => {
 						render={() => (
 							<>
 								<Header />
-								<Landing />
+								<Landing {...props} />
 								<Footer />
 							</>
 						)}
@@ -47,7 +47,7 @@ const App = (props) => {
 						render={() => (
 							<>
 								<Header />
-								<Practice />
+								<Practice {...props} />
 							</>
 						)}
 					/>
@@ -57,7 +57,7 @@ const App = (props) => {
 						render={() => (
 							<>
 								<Header />
-								<Categories />
+								<Categories {...props} />
 								<Footer />
 							</>
 						)}
@@ -118,4 +118,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App));

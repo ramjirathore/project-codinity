@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Landing = () => {
+const Landing = (props) => {
 	const theme = useTheme();
 	const classes = useStyles();
 
@@ -93,6 +93,8 @@ const Landing = () => {
 							<CategoriesCard
 								imgSrc={card.imgSrc}
 								field={card.field}
+								tag={card.tag}
+								history={props.history}
 							/>
 						</Grid>
 					))}

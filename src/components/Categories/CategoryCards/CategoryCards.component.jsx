@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const CategoryCards = ({ imgSrc, field }) => {
+const CategoryCards = (props) => {
+	const { imgSrc, field, history, tag } = props;
 	const classes = useStyles();
 	return (
 		<Card className={classes.card} elevation={4}>
@@ -44,7 +45,15 @@ const CategoryCards = ({ imgSrc, field }) => {
 				</Typography>
 			</CardContent>
 			<CardActions>
-				<Button size='small' variant='contained' color='primary'>
+				<Button
+					size='small'
+					variant='contained'
+					color='primary'
+					onClick={() => {
+						localStorage.setItem('tag', JSON.stringify({ tag }));
+						history.push('/practice');
+					}}
+				>
 					Practice
 				</Button>
 				<Button size='small' variant='contained' color='primary'>

@@ -48,7 +48,7 @@ const post = {
 	imgText: 'main image description',
 };
 
-const Categories = () => {
+const Categories = (props) => {
 	const classes = useStyles();
 
 	return (
@@ -90,6 +90,8 @@ const Categories = () => {
 							<CategoriesCard
 								imgSrc={card.imgSrc}
 								field={card.field}
+								tag={card.tag}
+								history={props.history}
 							/>
 						</Grid>
 					))}

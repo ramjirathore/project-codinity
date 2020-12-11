@@ -76,6 +76,10 @@ const DialogActions = withStyles((theme) => ({
 
 const videoTypes = [
 	{
+		name: 'Problem Solving',
+		tag: 'problemSolving',
+	},
+	{
 		name: 'Data Structure',
 		tag: 'dataStructure',
 	},
@@ -111,6 +115,7 @@ const videoTypes = [
 		name: 'NodeJS',
 		tag: 'nodeJS',
 	},
+	// { name: 'Machine Learning', tag: 'machineLearning' },
 ];
 
 const UploadVideo = ({ upload, name, email, college, reset }) => {

@@ -10,6 +10,7 @@ import categoriesReducer from './store/reducers/categories';
 import blogsReducer from './store/reducers/blogs';
 import userDataReducer from './store/reducers/userData';
 import requestReducer from './store/reducers/requests';
+import currentTag from './store/reducers/currentTag';
 
 import theme from './components/UI/theme';
 import App from './App';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
 	blg: blogsReducer,
 	usr: userDataReducer,
 	req: requestReducer,
+	cTag: currentTag,
 });
 const store = createStore(
 	rootReducer,

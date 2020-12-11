@@ -1,21 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {
 	Grid,
-	// Button,
 	makeStyles,
 	Drawer,
 	CssBaseline,
-	// AppBar,
-	// Toolbar,
+	Typography,
 	List,
 	Divider,
 	ListItem,
 	ListItemIcon,
 	ListItemText,
 } from '@material-ui/core';
-
-// import { Link } from 'react-router-dom';
 
 import ds from '../../assets/icons/data.svg';
 import algo from '../../assets/icons/algorithm.svg';
@@ -27,7 +23,6 @@ import php from '../../assets/icons/php-document.svg';
 import nodejs from '../../assets/icons/nodejs.svg';
 import cpp from '../../assets/icons/cpp.svg';
 import SearchCard from '../../components/Card/Card.component';
-// import SearchCard from '../../components/SearchCards/searchCard.component';
 
 const drawerWidth = 240;
 
@@ -64,6 +59,14 @@ const useStyles = makeStyles((theme) => ({
 		color: 'white',
 		textDecoration: 'none',
 	},
+	item: {
+		...theme.typography.tab,
+		opacity: 0.6,
+		color: 'white',
+	},
+	selectedItem: {
+		opacity: 1,
+	},
 	icon: {
 		height: 28,
 		width: 28,
@@ -73,65 +76,54 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+// {
+// 	name: 'Python',
+// 	tag: 'python',
+// },
 const topicsList = [
-	{ item: 'Data Structures', icon: ds },
-	{ item: 'Algorithms', icon: algo },
-	{ item: 'C++', icon: cpp },
-	{ item: 'Machine Learning', icon: ml },
-	{ item: 'Javascript', icon: javascript },
-	{ item: 'React', icon: react },
-	{ item: 'NodeJS', icon: nodejs },
-	// { item: 'Angular', icon: <GraphicEqIcon /> },
-	{ item: 'JAVA', icon: java },
-	{ item: 'PHP', icon: php },
-	// { item: 'Vue', icon: <ForumIcon /> },
+	{
+		item: 'Data Structures',
+		icon: ds,
+		tag: 'dataStructure',
+	},
+	{ item: 'Algorithms', icon: algo, tag: 'algorithms' },
+	{
+		item: 'Problem Solving',
+		icon: ds,
+		tag: 'problemSolving',
+	},
+	{ item: 'C++', icon: cpp, tag: 'cpp' },
+	{ item: 'Machine Learning', icon: ml, tag: 'machineLearning' },
+	{ item: 'Javascript', icon: javascript, tag: 'javascript' },
+	{ item: 'React', icon: react, tag: 'reactJS' },
+	{ item: 'NodeJS', icon: nodejs, tag: 'nodeJS' },
+	// { item: 'AngularJS', icon: <GraphicEqIcon />, tag: 'angularJS' },
+	{ item: 'JAVA', icon: java, tag: 'java' },
+	{ item: 'PHP', icon: php, tag: 'pho' },
+	// { item: 'Vue', icon: <ForumIcon />, tag: 'vueJS' },
 ];
 
-const Practice = ({ categories, loading }) => {
-	// const path = 'https://www.youtube.com/embed/';
-
+const Practice = (props) => {
+	const { categories, loading } = props;
+	const initialState = JSON.parse(localStorage.getItem('tag'));
+	console.log(initialState);
 	const classes = useStyles();
+	const [selectedCatg, setSelectedCatg] = useState(initialState);
 
 	let catg = [];
 	if (!loading) {
-		let videos = categories.get('dataStructure');
-		for (let [, video] of Object.entries(videos)) {
-			// console.log(video);
-			catg.push(video);
+		let videos = categories.get(selectedCatg.tag);
+		if (videos) {
+			for (let [, video] of Object.entries(videos)) {
+				// console.log(video);
+				catg.push(video);
+			}
 		}
-		console.log(catg);
 	}
 
-	// console.log(categories[1], loading);
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			{/* <AppBar position='fixed' className={classes.appBar}>
-				<Toolbar>
-					<Typography
-						variant='h5'
-						noWrap
-						style={{ fontFamily: 'Roboto' }}
-					>
-						Practice
-					</Typography>
-					<Button
-						variant='contained'
-						color='primary'
-						style={{ marginLeft: 'auto', color: 'white' }}
-					>
-						<Link
-							to='/video/test'
-							style={{
-								textDecoration: 'none',
-								color: 'white',
-							}}
-						>
-							Video Page
-						</Link>
-					</Button>
-				</Toolbar>
-			</AppBar> */}
 			<Drawer
 				className={classes.drawer}
 				variant='permanent'
@@ -141,22 +133,21 @@ const Practice = ({ categories, loading }) => {
 				anchor='left'
 			>
 				<div className={classes.toolbar} />
-
-				{/* <div className={classes.toolbar}>
-					<Typography
-						className={classes.title}
-						variant='h4'
-						noWrap
-						component={Link}
-						to='/'
-					>
-						Codinity
-					</Typography>
-				</div> */}
 				<Divider />
 				<List>
 					{topicsList.map((topic, index) => (
-						<ListItem button key={topic.item}>
+						<ListItem
+							button
+							key={topic.item}
+							onClick={() => {
+								localStorage.setItem(
+									'tag',
+									JSON.stringify({ tag: topic.tag })
+								);
+								setSelectedCatg({ tag: topic.tag });
+							}}
+							selected={selectedCatg.tag === topic.tag}
+						>
 							<ListItemIcon>
 								<img
 									src={topic.icon}
@@ -164,8 +155,21 @@ const Practice = ({ categories, loading }) => {
 									alt='data-structure'
 								/>
 							</ListItemIcon>
-							<ListItemText style={{ color: 'lightgray' }}>
-								{topic.item}
+							<ListItemText
+								className={
+									selectedCatg.tag === topic.tag
+										? [
+												classes.item,
+												classes.selectedItem,
+										  ].join(' ')
+										: classes.item
+								}
+							>
+								{selectedCatg.tag === topic.tag ? (
+									<b>{topic.item}</b>
+								) : (
+									topic.item
+								)}
 							</ListItemText>
 						</ListItem>
 					))}
@@ -173,14 +177,27 @@ const Practice = ({ categories, loading }) => {
 			</Drawer>
 			<main className={classes.content}>
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
-				<Grid container spacing={2}>
-					{catg.map((video, index) => (
-						<Grid item lg={2} key={index}>
-							<SearchCard {...video} loading={loading} />
-						</Grid>
-					))}
-					{console.log(categories)}
-				</Grid>
+				{catg.length ? (
+					<Grid container spacing={2}>
+						{catg.map((video, index) => (
+							<Grid item lg={2} key={index}>
+								<SearchCard {...video} loading={loading} />
+							</Grid>
+						))}
+					</Grid>
+				) : (
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							color: 'white',
+							alignItems: 'center',
+							height: '80vh',
+						}}
+					>
+						<Typography variant='h5'>No videos yet :(</Typography>
+					</div>
+				)}
 			</main>
 		</div>
 	);

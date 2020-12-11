@@ -1,4 +1,5 @@
 export { initCategories } from '../actions/categories';
+export { setCurrentTag } from '../actions/currentTag';
 export { initUserData } from '../actions/userData';
 export { initRequest } from '../actions/requests';
 export { initBlogs } from '../actions/blogs';
