@@ -111,7 +111,7 @@ const Practice = (props) => {
 	const { categories, loading, filtered, setFiltered } = props;
 	const classes = useStyles();
 	const initialState = JSON.parse(localStorage.getItem('tag'));
-	console.log(initialState);
+	// console.log(initialState);
 	const [selectedCatg, setSelectedCatg] = useState(initialState);
 
 	console.log(filtered);

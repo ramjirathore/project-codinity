@@ -174,7 +174,7 @@ export const Header = (props) => {
 	const [openDrawer, setOpenDrawer] = useState(false);
 	const [error, setError] = useState('');
 
-	console.log(currentUser);
+	// console.log(currentUser);
 
 	async function handleLogout() {
 		setError('');
@@ -201,6 +201,8 @@ export const Header = (props) => {
 					break;
 			}
 		});
+		localStorage.setItem('tag', JSON.stringify({ tag: 'dataStructure' }));
+
 		if (currentUser !== null) {
 			props.InitUserData(db, currentUser.uid);
 		}

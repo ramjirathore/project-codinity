@@ -51,10 +51,12 @@ const Filters = ({ filter }) => {
 				<AccordionDetails className={classes.details}>
 					<FormControl variant='outlined' style={{ marginTop: 18 }}>
 						<InputLabel htmlFor='outlined-age-native-simple'>
-							<b style={{ color: 'white' }}>College</b>
+							<Typography style={{ color: 'white' }}>
+								College
+							</Typography>
 						</InputLabel>
 						<Select
-							// classes={{ outlined: { color: 'white' } }}
+							// classes={{ nativeInput: { color: 'white' } }}
 							native
 							required
 							autoWidth

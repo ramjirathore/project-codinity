@@ -25,8 +25,7 @@ const App = (props) => {
 	useEffect(() => {
 		props.InitCategories();
 		props.InitBlogs();
-	}, []);
-	console.log('hell');
+	});
 
 	let routes = null;
 
