@@ -49,7 +49,12 @@ const Filters = ({ filter }) => {
 					</Typography>
 				</AccordionSummary>
 				<AccordionDetails className={classes.details}>
-					<FormControl variant='outlined' style={{ marginTop: 18 }}>
+					<FormControl
+						variant='outlined'
+						style={{
+							marginTop: 18,
+						}}
+					>
 						<InputLabel htmlFor='outlined-age-native-simple'>
 							<Typography style={{ color: 'white' }}>
 								College

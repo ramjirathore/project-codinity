@@ -26,6 +26,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Profile from '../../containers/user/profile.component';
 import UploadVideo from '../../containers/user/uploadVideo.component';
 import CreateEvent from '../../containers/user/createEvent.component';
+import WriteBlog from '../../containers/user/blogs.component';
 
 import { useAuth } from '../../contexts/AuthContext';
 import * as actions from '../../store/actions/index';
@@ -149,7 +150,7 @@ const facilities = [
 		activeIndex: 0,
 	},
 	{
-		name: 'My Playlists',
+		name: 'My Videos',
 		activeIndex: 1,
 	},
 	{
@@ -161,7 +162,7 @@ const facilities = [
 		activeIndex: 3,
 	},
 	{
-		name: 'Write Blog',
+		name: 'Write a Blog',
 		activeIndex: 4,
 	},
 ];
@@ -374,17 +375,20 @@ export const Header = (props) => {
 					{drawer}
 				</Toolbar>
 			</AppBar>
-			{userFacility === 2 ? (
-				<UploadVideo upload={true} reset={() => setUserFacility(-1)} />
-			) : null}
 			{userFacility === 0 ? (
 				<Profile profile={true} reset={() => setUserFacility(-1)} />
+			) : null}
+			{userFacility === 2 ? (
+				<UploadVideo upload={true} reset={() => setUserFacility(-1)} />
 			) : null}
 			{userFacility === 3 ? (
 				<CreateEvent
 					eventReady={true}
 					reset={() => setUserFacility(-1)}
 				/>
+			) : null}
+			{userFacility === 4 ? (
+				<WriteBlog blogReady={true} reset={() => setUserFacility(-1)} />
 			) : null}
 			<div className={classes.toolbar} />
 		</>
