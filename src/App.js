@@ -17,6 +17,7 @@ import Video from './components/VideoPage/VideoPage.component';
 import Categories from './components/Categories/Categories.component';
 import About from './components/About/About.component';
 import Events from './components/Events/Events.component';
+import Blogs from './components/Blogs/Blogs.component';
 
 import Testing from './Testing.component';
 
@@ -86,7 +87,12 @@ const App = (props) => {
 					<Route
 						exact
 						path='/blogs'
-						component={() => <div>All blogs here</div>}
+						render={() => (
+							<>
+								<Header {...props} />
+								<Blogs />
+							</>
+						)}
 					/>
 					<Route exact path='/login' component={SignIn} />
 					<Route exact path='/signup' component={SignUp} />
