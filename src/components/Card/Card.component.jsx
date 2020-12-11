@@ -54,18 +54,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const VideoCard = ({
-	name,
-	title,
-	loading,
-	url,
-	id,
-	views,
-	tag,
-	uploadedOn,
-	InitCategories,
-}) => {
+const VideoCard = (props) => {
 	const classes = useStyles();
+	const {
+		name,
+		title,
+		loading,
+		url,
+		views,
+		tag,
+		uploadedOn,
+		description,
+		InitCategories,
+	} = props;
 
 	const extractToken = (url) => {
 		let pos = url.indexOf('token');
@@ -90,6 +91,18 @@ const VideoCard = ({
 			})
 			.then(() => {
 				InitCategories();
+				localStorage.setItem(
+					'currentVid',
+					JSON.stringify({
+						url,
+						views,
+						title,
+						name,
+						tag,
+						description,
+						videoId,
+					})
+				);
 				const path = window.location.origin + '/video/' + videoId;
 				window.open(path, '_blank');
 			});
@@ -103,7 +116,7 @@ const VideoCard = ({
 		<Card
 			className={classes.card}
 			elevation={4}
-			onClick={() => handleVideoClick(id)}
+			onClick={() => handleVideoClick()}
 		>
 			<CardHeader
 				avatar={

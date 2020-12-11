@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		color: 'white',
-		fontSize: '1.2em',
 		fontFamily: 'Roboto',
+		textTransform: 'capitalize',
 	},
 	orange: {
 		color: theme.palette.getContrastText(deepOrange[500]),
@@ -44,6 +44,7 @@ export const Header = () => {
 	const classes = useStyles();
 	const [error, setError] = useState('');
 	const { currentUser, logout } = useAuth();
+	const video = JSON.parse(localStorage.getItem('currentVid'));
 
 	async function handleLogout() {
 		setError('');
@@ -70,8 +71,8 @@ export const Header = () => {
 					Codinity
 				</Typography>
 				<hr size='2' style={{ height: '40%', margin: '0 20px' }} />
-				<Typography className={classes.title}>
-					CHILLED SERENITY
+				<Typography className={classes.title} variant='h5'>
+					{video.title}
 				</Typography>
 				<div
 					style={{ marginLeft: 'auto', display: 'flex', padding: 20 }}

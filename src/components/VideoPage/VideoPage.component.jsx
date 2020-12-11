@@ -8,8 +8,10 @@ import {
 	Tabs,
 	Box,
 	AppBar,
+	Typography,
 } from '@material-ui/core';
 import ReactPlayer from 'react-player/lazy';
+import { connect } from 'react-redux';
 
 import SmallCard from './SmallCard/SmallCard.component';
 
@@ -34,9 +36,14 @@ const useStyles = makeStyles((theme) => ({
 		fontFamily: 'Raleway',
 	},
 	videos: {
-		maxHeight: '95vh',
-		overflowY: 'scroll',
+		maxHeight: '100%',
+		// overflowY: 'scroll',
 		flex: 1,
+	},
+	desc: {
+		color: 'white',
+		fontSize: '1em',
+		fontFamily: 'Roboto',
 	},
 }));
 
@@ -62,46 +69,75 @@ function a11yProps(index) {
 	};
 }
 
-const videos = [
-	{ path: 'https://www.youtube.com/embed/6ZfuNTqbHE8' },
-	{ path: 'https://www.youtube.com/embed/EXeTwQWrcwY' },
-	{ path: 'https://www.youtube.com/embed/5iaYLCiq5RM' },
-	{ path: 'https://www.youtube.com/embed/zSWdZVtXT7E' },
-	{ path: 'https://www.youtube.com/embed/sutgWjz10sM' },
-	{ path: 'https://www.youtube.com/embed/XiHiW4N7-bo' },
-];
-
-const VideoPage = () => {
+const VideoPage = (props) => {
+	const { categories, loading } = props;
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
+	const video = JSON.parse(localStorage.getItem('currentVid'));
+
+	let recommend = [];
+	if (!loading) {
+		let videos = categories.get(video.tag);
+		if (videos) {
+			for (let [key, value] of Object.entries(videos)) {
+				if (key !== video.videoId) {
+					recommend.push(value);
+				}
+			}
+		}
+		// console.log(recommend);
+	}
+	// console.log(video);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
 
-	// const id = window.location.pathname.split('/')[2];
-
 	const tabsSection = (
 		<React.Fragment>
 			<AppBar position='static'>
-				<Tabs
-					value={value}
-					onChange={handleChange}
-					aria-label='video tabs'
-				>
-					<Tab label='Description' {...a11yProps(0)} />
-					<Tab label='Q & A' {...a11yProps(1)} />
-					<Tab label='Notes' {...a11yProps(2)} />
-				</Tabs>
+				<div style={{ display: 'flex' }}>
+					<div
+						style={{
+							padding: '0 20px',
+							display: 'flex',
+							color: 'lightgray',
+							alignItems: 'center',
+						}}
+					>
+						<Typography style={{ marginRight: 20 }}>
+							<b>Creator: {video.name}</b>
+						</Typography>
+						<Typography>
+							<b>Viewed by: {video.views}</b>
+						</Typography>
+					</div>
+					<Tabs
+						style={{ marginLeft: 'auto' }}
+						value={value}
+						onChange={handleChange}
+						aria-label='video tabs'
+					>
+						<Tab label='Description' {...a11yProps(0)} />
+						<Tab label='Q & A' {...a11yProps(1)} />
+						<Tab label='Notes' {...a11yProps(2)} />
+					</Tabs>
+				</div>
 			</AppBar>
 			<TabPanel value={value} index={0}>
-				Item One
+				<Typography className={classes.desc}>
+					{video.description}
+				</Typography>
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				Item Two
+				<Typography variant='h6' style={{ color: 'white' }}>
+					Coming Soon!
+				</Typography>
 			</TabPanel>
 			<TabPanel value={value} index={2}>
-				Item Three
+				<Typography variant='h6' style={{ color: 'white' }}>
+					Coming Soon!
+				</Typography>
 			</TabPanel>
 		</React.Fragment>
 	);
@@ -116,7 +152,7 @@ const VideoPage = () => {
 								controls
 								width='75vw'
 								height='75vh'
-								url='https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/videos%2FqUjH70lBJaVBsRklImEqgJR9qSj1%2FWhatsApp%20Video%202020-12-02%20at%2017.01.17.mp4?alt=media&token=f0a4f58c-77fd-4d6f-b773-f98d16e0e13a'
+								url={video.url}
 							/>
 						</Paper>
 					</Grid>
@@ -130,9 +166,23 @@ const VideoPage = () => {
 					<div className={classes.recomndHead}>RECOMMENDED</div>
 					<Divider style={{ background: 'lightgray' }} />
 					<div className={classes.videos}>
-						{videos.map(() => (
-							<SmallCard />
-						))}
+						{recommend.length > 0 ? (
+							recommend.map((video, index) => (
+								<SmallCard key={index} {...video} />
+							))
+						) : (
+							<Typography
+								variant='h6'
+								style={{
+									height: '10em',
+									alignItems: 'center',
+									display: 'flex',
+									justifyContent: 'center',
+								}}
+							>
+								Nothing here :(
+							</Typography>
+						)}
 					</div>
 				</Paper>
 			</Grid>
@@ -140,4 +190,12 @@ const VideoPage = () => {
 	);
 };
 
-export default VideoPage;
+const mapStateToProps = (state) => {
+	return {
+		categories: state.ctgr.categories,
+		error: state.ctgr.error,
+		loading: state.ctgr.loading,
+	};
+};
+
+export default connect(mapStateToProps)(VideoPage);

@@ -22,7 +22,7 @@ import javascript from '../../assets/icons/javascript.svg';
 import php from '../../assets/icons/php-document.svg';
 import nodejs from '../../assets/icons/nodejs.svg';
 import cpp from '../../assets/icons/cpp.svg';
-import SearchCard from '../../components/Card/Card.component';
+import VidCard from '../../components/Card/Card.component';
 
 const drawerWidth = 240;
 
@@ -76,10 +76,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-// {
-// 	name: 'Python',
-// 	tag: 'python',
-// },
 const topicsList = [
 	{
 		item: 'Data Structures',
@@ -181,7 +177,7 @@ const Practice = (props) => {
 					<Grid container spacing={2}>
 						{catg.map((video, index) => (
 							<Grid item lg={2} key={index}>
-								<SearchCard {...video} loading={loading} />
+								<VidCard {...video} loading={loading} />
 							</Grid>
 						))}
 					</Grid>

@@ -65,7 +65,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SmallCard = () => {
+const SmallCard = (props) => {
+	const { name, title, uploadedOn, views, url } = props;
 	const classes = useStyles();
 	return (
 		<Card className={classes.root}>
@@ -78,7 +79,7 @@ const SmallCard = () => {
 					// controls
 					width='25vw'
 					height='18vh'
-					url='https://firebasestorage.googleapis.com/v0/b/codinity-6ab53.appspot.com/o/videos%2FqUjH70lBJaVBsRklImEqgJR9qSj1%2FWhatsApp%20Video%202020-12-02%20at%2017.01.17.mp4?alt=media&token=f0a4f58c-77fd-4d6f-b773-f98d16e0e13a'
+					url={url}
 				/>
 				<PlayArrowIcon className={classes.playIcon} />
 			</CardMedia>
@@ -89,14 +90,14 @@ const SmallCard = () => {
 					</Avatar> */}
 				<div>
 					<Typography variant='subtitle1'>
-						<b>The React cook-book</b>
+						<b>{title}</b>
 					</Typography>
-					<Typography variant='body2'>Ramji Rathore</Typography>
+					<Typography variant='body2'>{name}</Typography>
 				</div>
 				{/* </div> */}
 				<div className={classes.section}>
 					<Typography className={classes.views}>
-						1.2M views - 5 days ago
+						{views} views - {uploadedOn}
 					</Typography>
 				</div>
 			</CardContent>
