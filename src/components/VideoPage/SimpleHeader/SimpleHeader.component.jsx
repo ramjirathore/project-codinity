@@ -79,7 +79,7 @@ export const Header = () => {
 				>
 					{currentUser ? (
 						<Avatar
-							alt='Hemant Panwar'
+							alt={video.name}
 							src='/static/images/avatar/1.jpg'
 							className={classes.orange}
 						/>

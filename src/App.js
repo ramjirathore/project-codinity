@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
 import { AuthProvider } from './contexts/AuthContext';
@@ -26,6 +26,14 @@ const App = (props) => {
 		props.InitBlogs();
 	});
 
+	let routes = null;
+
+	console.log(process.env.REACT_APP_ADMIN_ID, props.email);
+
+	if (process.env.REACT_APP_ADMIN_ID === props.email) {
+		routes = <Route exact path='/admin' component={AdminController} />;
+	}
+
 	return (
 		<React.Fragment>
 			<AuthProvider>
@@ -35,7 +43,7 @@ const App = (props) => {
 						path='/'
 						render={() => (
 							<>
-								<Header />
+								<Header {...props} />
 								<Landing {...props} />
 								<Footer />
 							</>
@@ -46,7 +54,7 @@ const App = (props) => {
 						path='/practice'
 						render={() => (
 							<>
-								<Header />
+								<Header {...props} />
 								<Practice {...props} />
 							</>
 						)}
@@ -56,7 +64,7 @@ const App = (props) => {
 						path='/categories'
 						render={() => (
 							<>
-								<Header />
+								<Header {...props} />
 								<Categories {...props} />
 								<Footer />
 							</>
@@ -67,7 +75,7 @@ const App = (props) => {
 						path='/events'
 						render={() => (
 							<>
-								<Header />
+								<Header {...props} />
 								<Events />
 							</>
 						)}
@@ -84,12 +92,11 @@ const App = (props) => {
 						path='/about'
 						render={() => (
 							<>
-								<Header />
+								<Header {...props} />
 								<About />
 							</>
 						)}
 					/>
-					<Route exact path='/admin' component={AdminController} />
 					<Route
 						exact
 						path='/video/:id'
@@ -100,8 +107,10 @@ const App = (props) => {
 							</>
 						)}
 					/>
+					{routes}
 					{/* Testing Component */}
 					<Route exact path='/testing' component={Testing} />
+					<Redirect to='/' />
 				</Switch>
 				{/* <Footer /> */}
 			</AuthProvider>
@@ -118,4 +127,10 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+const mapStateToProps = (state) => {
+	return {
+		email: state.usr.email,
+	};
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

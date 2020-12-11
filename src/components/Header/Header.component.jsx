@@ -350,6 +350,16 @@ export const Header = (props) => {
 								}}
 							/>
 						) : null}
+						{process.env.REACT_APP_ADMIN_ID === props.email ? (
+							<Button
+								component={Link}
+								variant='contained'
+								style={{ margin: '0 10' }}
+								onClick={() => props.history('/admin')}
+							>
+								Admin
+							</Button>
+						) : null}
 						<Button
 							component={Link}
 							to={currentUser ? '/' : '/login'}
@@ -387,6 +397,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
 	return {
 		name: state.usr.name,
+		email: state.usr.email,
 	};
 };
 
