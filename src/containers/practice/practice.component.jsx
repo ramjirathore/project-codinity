@@ -108,12 +108,13 @@ const topicsList = [
 ];
 
 const Practice = (props) => {
-	const { categories, loading } = props;
+	const { categories, loading, filtered, setFiltered } = props;
+	const classes = useStyles();
 	const initialState = JSON.parse(localStorage.getItem('tag'));
 	console.log(initialState);
-	const classes = useStyles();
 	const [selectedCatg, setSelectedCatg] = useState(initialState);
 
+	console.log(filtered);
 	let catg = [];
 	if (!loading) {
 		let videos = categories.get(selectedCatg.tag);
@@ -124,6 +125,11 @@ const Practice = (props) => {
 			}
 		}
 	}
+
+	const filter = (clg) => {
+		let temp = catg.filter((video) => video.college === clg);
+		setFiltered(temp);
+	};
 
 	return (
 		<div className={classes.root}>
@@ -178,17 +184,19 @@ const Practice = (props) => {
 						</ListItem>
 					))}
 				</List>
-				<Filters />
+				<Filters filter={filter} />
 			</Drawer>
 			<main className={classes.content}>
 				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
 				{catg.length ? (
 					<Grid container spacing={2}>
-						{catg.map((video, index) => (
-							<Grid item lg={2} key={index}>
-								<VidCard {...video} loading={loading} />
-							</Grid>
-						))}
+						{(filtered.length > 0 ? filtered : catg).map(
+							(video, index) => (
+								<Grid item lg={2} key={index}>
+									<VidCard {...video} loading={loading} />
+								</Grid>
+							)
+						)}
 					</Grid>
 				) : (
 					<div
@@ -216,4 +224,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(Practice);
+export default React.memo(connect(mapStateToProps)(Practice));

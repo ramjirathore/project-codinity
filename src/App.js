@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
@@ -21,14 +21,14 @@ import Events from './components/Events/Events.component';
 import Testing from './Testing.component';
 
 const App = (props) => {
+	const [filtered, setFiltered] = useState([]);
 	useEffect(() => {
 		props.InitCategories();
 		props.InitBlogs();
-	});
+	}, []);
+	console.log('hell');
 
 	let routes = null;
-
-	console.log(process.env.REACT_APP_ADMIN_ID, props.email);
 
 	if (process.env.REACT_APP_ADMIN_ID === props.email) {
 		routes = <Route exact path='/admin' component={AdminController} />;
@@ -55,7 +55,11 @@ const App = (props) => {
 						render={() => (
 							<>
 								<Header {...props} />
-								<Practice {...props} />
+								<Practice
+									{...props}
+									filtered={filtered}
+									setFiltered={setFiltered}
+								/>
 							</>
 						)}
 					/>

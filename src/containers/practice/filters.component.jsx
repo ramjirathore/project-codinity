@@ -7,6 +7,7 @@ import {
 	makeStyles,
 	FormControl,
 	Select,
+	Button,
 	InputLabel,
 } from '@material-ui/core';
 import list from '../../components/SignUp/collegeslist.json';
@@ -23,15 +24,21 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
+	details: {
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		height: '11em',
+	},
 }));
 
-const Filters = () => {
+const Filters = ({ filter }) => {
 	const classes = useStyles();
 	const [college, setCollege] = useState('');
 
 	return (
 		<>
-			<Accordion classes={{ root: classes.filter }}>
+			<Accordion classes={{ root: classes.filter }} elevation={0}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
 					aria-controls='panel1a-content'
@@ -41,13 +48,13 @@ const Filters = () => {
 						<b>FILTERS</b>
 					</Typography>
 				</AccordionSummary>
-				<AccordionDetails>
+				<AccordionDetails className={classes.details}>
 					<FormControl variant='outlined' style={{ marginTop: 18 }}>
 						<InputLabel htmlFor='outlined-age-native-simple'>
 							<b style={{ color: 'white' }}>College</b>
 						</InputLabel>
 						<Select
-							classes={{ outlined: { color: 'white' } }}
+							// classes={{ outlined: { color: 'white' } }}
 							native
 							required
 							autoWidth
@@ -66,7 +73,33 @@ const Filters = () => {
 								</option>
 							))}
 						</Select>
-                    </FormControl>
+					</FormControl>
+					<div style={{ display: 'flex', justifyContent: 'center' }}>
+						<Button
+							style={{
+								background: 'blue',
+								textTransform: 'capitalize',
+							}}
+							variant='contained'
+							color='primary'
+							onClick={() => filter(college)}
+						>
+							Apply
+						</Button>
+						<Button
+							className={classes.button}
+							style={{
+								marginLeft: '20px',
+								background: 'red',
+								textTransform: 'capitalize',
+							}}
+							variant='contained'
+							color='primary'
+							onClick={() => setCollege('')}
+						>
+							Reset
+						</Button>
+					</div>
 				</AccordionDetails>
 			</Accordion>
 		</>
