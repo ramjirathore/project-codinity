@@ -37,6 +37,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 	const classes = useStyles();
 	const [users, setUsers] = useState([]);
 	const [events, setEvents] = useState(0);
+	const [blogCount, setBlogsCount] = useState(0);
 
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -63,6 +64,11 @@ const Dashboard = ({ categories, blogs, loading }) => {
 			.get('https://codinity-6ab53.firebaseio.com/events.json')
 			.then((response) => {
 				setEvents(Object.keys(response.data).length);
+			});
+		axios
+			.get('https://codinity-6ab53.firebaseio.com/blogs.json')
+			.then((response) => {
+				setBlogsCount(Object.keys(response.data).length);
 			});
 	}, []);
 
@@ -115,7 +121,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 								<DataCard
 									heading='Blogs Posted'
 									headColor='yellow'
-									mainData={blogs.length}
+									mainData={blogCount}
 									currentDate={getCurrentDate()}
 								/>
 							</Paper>
