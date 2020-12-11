@@ -1,3 +1,8 @@
+##Codinity
+An educational video sharing platform bringing the Code and the Community together! 
+A platform for college going students to explore and share their knowledge
+on various topics related to computer science through video lectures. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts on the project
