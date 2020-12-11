@@ -11,6 +11,7 @@ import {
 	// Avatar,
 } from '@material-ui/core';
 import { db } from '../../../config/fbConfig';
+import { useAuth } from "../../../contexts/AuthContext"
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
@@ -85,10 +86,33 @@ const SmallCard = (props) => {
 		history,
 		reFetchCategories,
 	} = props;
-	const classes = useStyles();
+    const classes = useStyles();
+    
+    const { currentUser } = useAuth();
 
 	const handleVideoClick = (props) => {
-		const videoRef = db.ref(`categories/${tag}/${videoId}`);
+
+        if(currentUser === null)
+        {
+            reFetchCategories();
+            localStorage.setItem(
+                'currentVid',
+                JSON.stringify({
+                    url,
+                    views,
+                    title,
+                    name,
+                    tag,
+                    description,
+                    videoId,
+                })
+            );
+            history.push(videoId, '_blank');
+                
+            return;
+        }
+
+        const videoRef = db.ref(`categories/${tag}/${videoId}`);
 
 		let video;
 		videoRef

@@ -20,6 +20,7 @@ import * as actions from '../../store/actions/index';
 // import { Player } from 'video-react';
 
 import { db } from '../../config/fbConfig';
+import { useAuth } from "../../contexts/AuthContext"
 
 const useStyles = makeStyles((theme) => ({
 	card: {
@@ -81,11 +82,36 @@ const VideoCard = (props) => {
 		let pos = url.indexOf('token');
 		let res = url.substring(pos + 6);
 		return res;
-	};
+    };
+    
+    const { currentUser } = useAuth();
 
 	const increaseViews = (props) => {
-		const videoId = extractToken(url);
-		const videoRef = db.ref(`categories/${tag}/${videoId}`);
+
+        const videoId = extractToken(url);
+        
+        if(currentUser === null)
+        {
+            InitCategories();
+            localStorage.setItem(
+                'currentVid',
+                JSON.stringify({
+                    url,
+                    views,
+                    title,
+                    name,
+                    tag,
+                    description,
+                    videoId,
+                })
+            );
+            const path = window.location.origin + '/video/' + videoId;
+            window.open(path, '_blank');
+            
+            return;
+        }
+
+        const videoRef = db.ref(`categories/${tag}/${videoId}`);
 
 		let video;
 		videoRef
