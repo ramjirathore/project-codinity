@@ -10,6 +10,7 @@ import {
 	Typography,
 	// Avatar,
 } from '@material-ui/core';
+import { db } from '../../../config/fbConfig';
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
@@ -63,13 +64,63 @@ const useStyles = makeStyles((theme) => ({
 		opacity: 0.6,
 		fontSize: 12,
 	},
+	over: {
+		width: 201,
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+	},
 }));
 
 const SmallCard = (props) => {
-	const { name, title, uploadedOn, views, url } = props;
+	const {
+		name,
+		title,
+		uploadedOn,
+		views,
+		url,
+		tag,
+		description,
+		videoId,
+		history,
+		reFetchCategories,
+	} = props;
 	const classes = useStyles();
+
+	const handleVideoClick = (props) => {
+		const videoRef = db.ref(`categories/${tag}/${videoId}`);
+
+		let video;
+		videoRef
+			.once('value', (snapshot) => {
+				video = snapshot.val();
+			})
+			.then(() => {
+				videoRef.set({
+					...video,
+					views: views + 1,
+				});
+			})
+			.then(() => {
+				reFetchCategories();
+				localStorage.setItem(
+					'currentVid',
+					JSON.stringify({
+						url,
+						views,
+						title,
+						name,
+						tag,
+						description,
+						videoId,
+					})
+				);
+				history.push(videoId, '_blank');
+			});
+	};
+
 	return (
-		<Card className={classes.root}>
+		<Card className={classes.root} onClick={handleVideoClick}>
 			{/**Build On click */}
 			<CardMedia
 				className={classes.cover}
@@ -89,7 +140,7 @@ const SmallCard = (props) => {
 						R
 					</Avatar> */}
 				<div>
-					<Typography variant='subtitle1'>
+					<Typography variant='subtitle1' className={classes.over}>
 						<b>{title}</b>
 					</Typography>
 					<Typography variant='body2'>{name}</Typography>

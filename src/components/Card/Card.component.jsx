@@ -52,6 +52,15 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.getContrastText(deepPurple[500]),
 		backgroundColor: deepPurple[500],
 	},
+	title: {
+		color: 'white',
+		fontFamily: 'roboto',
+		fontSize: '1.2em',
+		width: 225,
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+	},
 }));
 
 const VideoCard = (props) => {
@@ -203,13 +212,7 @@ const VideoCard = (props) => {
 					</React.Fragment>
 				) : (
 					<>
-						<Typography
-							style={{
-								color: 'white',
-								fontFamily: 'roboto',
-								fontSize: '1.2em',
-							}}
-						>
+						<Typography className={classes.title}>
 							{title}
 						</Typography>
 						<Typography

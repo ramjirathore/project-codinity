@@ -96,7 +96,7 @@ const App = (props) => {
 						render={() => (
 							<>
 								<SimpleHeader />
-								<Video />
+								<Video {...props} />
 							</>
 						)}
 					/>

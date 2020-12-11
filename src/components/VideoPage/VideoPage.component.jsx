@@ -81,7 +81,7 @@ const VideoPage = (props) => {
 		if (videos) {
 			for (let [key, value] of Object.entries(videos)) {
 				if (key !== video.videoId) {
-					recommend.push(value);
+					recommend.push({ key, value });
 				}
 			}
 		}
@@ -168,7 +168,13 @@ const VideoPage = (props) => {
 					<div className={classes.videos}>
 						{recommend.length > 0 ? (
 							recommend.map((video, index) => (
-								<SmallCard key={index} {...video} />
+								<SmallCard
+									key={index}
+									{...video.value}
+									videoId={video.key}
+									history={props.history}
+									reFetchCategories={props.InitCategories}
+								/>
 							))
 						) : (
 							<Typography
