@@ -90,7 +90,8 @@ const Categories = (props) => {
 							<CategoriesCard
 								imgSrc={card.imgSrc}
 								field={card.field}
-								tag={card.tag}
+                                tag={card.tag}
+                                desc={card.desc}
 								history={props.history}
 							/>
 						</Grid>
