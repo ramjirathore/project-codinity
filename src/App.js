@@ -19,7 +19,7 @@ import About from './components/About/About.component';
 import Events from './components/Events/Events.component';
 import Blogs from './components/Blogs/Blogs.component';
 
-import Testing from './Testing.component';
+// import Testing from './Testing.component';
 
 const App = (props) => {
 	const [filtered, setFiltered] = useState([]);
@@ -122,7 +122,7 @@ const App = (props) => {
 					/>
 					{routes}
 					{/* Testing Component */}
-					<Route exact path='/testing' component={Testing} />
+					{/* <Route exact path='/testing' component={Testing} /> */}
 					<Redirect exact to='/' />
 				</Switch>
 				{/* <Footer /> */}
