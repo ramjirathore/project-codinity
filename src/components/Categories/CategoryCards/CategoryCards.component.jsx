@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CategoryCards = (props) => {
-	const { imgSrc, field, history, tag } = props;
+	const { imgSrc, field, history, tag, desc } = props;
 	const classes = useStyles();
 	return (
 		<Card className={classes.card} elevation={4}>
@@ -42,8 +42,7 @@ const CategoryCards = (props) => {
 					<b>{field}</b>
 				</Typography>
 				<Typography>
-					This is a media card which will have readme introduction or
-					something like that..
+					{desc}
 				</Typography>
 			</CardContent>
 			<CardActions>
