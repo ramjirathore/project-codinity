@@ -36,8 +36,11 @@ The idea behind Codinity is to basically provide a platform for college going st
 ## Future Prospects
 
 -   User page - Subscriptions, Uploaded Videos, Playlists, Liked videos, Notifications, Settings
+-   Search functionality
 -   Keeping in mind user preferences and interests
--   Notes and Q&A section for a video
+-   Video page - Like-Share-Subscribe, Notes, Q&A / Comments
+-   Live streaming
+-   User options: report content/users, share feedback
 -   Event Reminders
 
 ## Team
