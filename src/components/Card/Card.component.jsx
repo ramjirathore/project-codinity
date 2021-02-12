@@ -20,12 +20,13 @@ import * as actions from '../../store/actions/index';
 // import { Player } from 'video-react';
 
 import { db } from '../../config/fbConfig';
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
 	card: {
-		maxWidth: 390,
-		// margin: theme.spacing(2),
+		maxWidth: '25em',
+		minWidth: '20em',
+		margin: theme.spacing(2),
 		background: '#303030',
 		color: 'white',
 		'&:hover': {
@@ -38,8 +39,6 @@ const useStyles = makeStyles((theme) => ({
 		height: 150,
 	},
 	cover: {
-		height: 150,
-		// width: 201,
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -82,36 +81,35 @@ const VideoCard = (props) => {
 		let pos = url.indexOf('token');
 		let res = url.substring(pos + 6);
 		return res;
-    };
-    
-    const { currentUser } = useAuth();
+	};
+
+	const { currentUser } = useAuth();
 
 	const increaseViews = (props) => {
 
-        const videoId = extractToken(url);
-        
-        if(currentUser === null)
-        {
-            InitCategories();
-            localStorage.setItem(
-                'currentVid',
-                JSON.stringify({
-                    url,
-                    views,
-                    title,
-                    name,
-                    tag,
-                    description,
-                    videoId,
-                })
-            );
-            const path = window.location.origin + '/video/' + videoId;
-            window.open(path, '_blank');
-            
-            return;
-        }
+		const videoId = extractToken(url);
 
-        const videoRef = db.ref(`categories/${tag}/${videoId}`);
+		if (currentUser === null) {
+			InitCategories();
+			localStorage.setItem(
+				'currentVid',
+				JSON.stringify({
+					url,
+					views,
+					title,
+					name,
+					tag,
+					description,
+					videoId,
+				})
+			);
+			const path = window.location.origin + '/video/' + videoId;
+			window.open(path, '_blank');
+
+			return;
+		}
+
+		const videoRef = db.ref(`categories/${tag}/${videoId}`);
 
 		let video;
 		videoRef
@@ -149,9 +147,9 @@ const VideoCard = (props) => {
 
 	return (
 		<Card
-			className={classes.card}
-			elevation={4}
-			onClick={() => handleVideoClick()}
+			className={ classes.card }
+			elevation={ 4 }
+			onClick={ () => handleVideoClick() }
 		>
 			<CardHeader
 				avatar={
@@ -159,18 +157,18 @@ const VideoCard = (props) => {
 						<Skeleton
 							animation='wave'
 							variant='circle'
-							width={40}
-							height={40}
+							width={ 40 }
+							height={ 40 }
 						/>
 					) : (
-						<Avatar
-							alt={name}
-							className={classes.purple}
-							src='/static/images/avatar/1.jpg'
+							<Avatar
+								alt={ name }
+								className={ classes.purple }
+								src='/static/images/avatar/1.jpg'
 
 							// src='https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg'
-						/>
-					)
+							/>
+						)
 				}
 				// action={
 				// 	loading ? null : (
@@ -183,77 +181,77 @@ const VideoCard = (props) => {
 					loading ? (
 						<Skeleton
 							animation='wave'
-							height={10}
+							height={ 10 }
 							width='80%'
-							style={{ marginBottom: 6 }}
+							style={ { marginBottom: 6 } }
 						/>
 					) : (
-						<div style={{ color: 'white', fontSize: '1.3em' }}>
-							{name}
-						</div>
-					)
+							<div style={ { color: 'white', fontSize: '1.3em' } }>
+								{name }
+							</div>
+						)
 				}
 			/>
 			{loading ? (
 				<Skeleton
 					animation='wave'
 					variant='rect'
-					className={classes.media}
+					className={ classes.media }
 				/>
 			) : (
-				<CardMedia
-					className={classes.cover}
-					// image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
-					title='Ted talk'
-				>
-					{/* <Player>
+					<CardMedia
+						className={ classes.cover }
+						// image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
+						title='Ted talk'
+					>
+						{/* <Player>
 						<source src={vSrc} />
 					</Player> */}
-					{/* <iframe
+						{/* <iframe
 						width='100%'
 						height='100%'
 						title={vSrc}
 						src={vSrc}
 					></iframe> */}
 
-					<ReactPlayer
-						// controls
-						width='13.5vw'
-						height='15vh'
-						url={url}
-					/>
-					<PlayArrowIcon className={classes.playIcon} />
-				</CardMedia>
-			)}
+						<ReactPlayer
+							// controls
+							// width='1em'
+							height='15rem'
+							url={ url }
+						/>
+						<PlayArrowIcon className={ classes.playIcon } />
+					</CardMedia>
+				) }
 
 			<CardContent>
-				{loading ? (
+				{ loading ? (
 					<React.Fragment>
 						<Skeleton
 							animation='wave'
-							height={10}
-							style={{ marginBottom: 6 }}
+							height={ 10 }
+							style={ { marginBottom: 6 } }
 						/>
-						<Skeleton animation='wave' height={10} width='80%' />
+						<Skeleton animation='wave' height={ 10 } width='80%' />
 					</React.Fragment>
 				) : (
-					<>
-						<Typography className={classes.title}>
-							{title}
-						</Typography>
-						<Typography
-							variant='body2'
-							color='textSecondary'
-							component='p'
-							style={{
-								color: 'lightgray',
-								fontFamily: 'raleway',
-							}}
-						>
-							{views} views - {uploadedOn}
-						</Typography>
-					</>
-				)}
+						<>
+							<Typography className={ classes.title }>
+								{ title }
+							</Typography>
+							<Typography
+								variant='body2'
+								color='textSecondary'
+								component='p'
+								style={ {
+									color: 'lightgray',
+									fontFamily: 'raleway',
+								} }
+							>
+								{ views } views - { uploadedOn }
+							</Typography>
+						</>
+					) }
 			</CardContent>
 		</Card>
 	);

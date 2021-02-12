@@ -11,6 +11,7 @@ import {
 	ListItem,
 	ListItemIcon,
 	ListItemText,
+	Container,
 } from '@material-ui/core';
 
 import Filters from './filters.component';
@@ -57,6 +58,8 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.common.black,
 		padding: theme.spacing(3),
 		minHeight: '93.5vh',
+		display: 'flex',
+		justifyContent: 'center'
 	},
 	title: {
 		display: 'flex',
@@ -80,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	toolbar: {
 		...theme.mixins.toolbar,
-	},
+	}
 }));
 
 const topicsList = [
@@ -112,10 +115,10 @@ const Practice = (props) => {
 	const classes = useStyles();
 	const initialState = JSON.parse(localStorage.getItem('tag'));
 	// console.log(initialState);
-    const [selectedCatg, setSelectedCatg] = useState(initialState);
-    const [college, setCollege] = useState('');
+	const [selectedCatg, setSelectedCatg] = useState(initialState);
+	const [college, setCollege] = useState('');
 
-	console.log(filtered);
+	// console.log(filtered);
 	let catg = [];
 	if (!loading) {
 		let videos = categories.get(selectedCatg.tag);
@@ -129,44 +132,44 @@ const Practice = (props) => {
 
 	const filter = (clg) => {
 		let temp = catg.filter((video) => video.college === clg);
-        setFiltered(temp);
-        // console.log("filtering...", temp);
+		setFiltered(temp);
+		// console.log("filtering...", temp);
 	};
 
 	return (
-		<div className={classes.root}>
+		<div className={ classes.root }>
 			<CssBaseline />
 			<Drawer
-				className={classes.drawer}
+				className={ classes.drawer }
 				variant='permanent'
-				classes={{
+				classes={ {
 					paper: classes.drawerPaper,
-				}}
+				} }
 				anchor='left'
 			>
-				<div className={classes.toolbar} />
+				<div className={ classes.toolbar } />
 				<Divider />
 				<List>
-					{topicsList.map((topic, index) => (
+					{ topicsList.map((topic, index) => (
 						<ListItem
 							button
-							key={topic.item}
-							onClick={() => {
+							key={ topic.item }
+							onClick={ () => {
 								localStorage.setItem(
 									'tag',
 									JSON.stringify({ tag: topic.tag })
 								);
 								setFiltered([]);
 								setSelectedCatg({ tag: topic.tag });
-                                setFiltered([]);
-                                setCollege('');
-                            }}
-							selected={selectedCatg.tag === topic.tag}
+								setFiltered([]);
+								setCollege('');
+							} }
+							selected={ selectedCatg.tag === topic.tag }
 						>
 							<ListItemIcon>
 								<img
-									src={topic.icon}
-									className={classes.icon}
+									src={ topic.icon }
+									className={ classes.icon }
 									alt='data-structure'
 								/>
 							</ListItemIcon>
@@ -174,48 +177,51 @@ const Practice = (props) => {
 								className={
 									selectedCatg.tag === topic.tag
 										? [
-												classes.item,
-												classes.selectedItem,
-										  ].join(' ')
+											classes.item,
+											classes.selectedItem,
+										].join(' ')
 										: classes.item
 								}
 							>
-								{selectedCatg.tag === topic.tag ? (
-									<b>{topic.item}</b>
+								{ selectedCatg.tag === topic.tag ? (
+									<b>{ topic.item }</b>
 								) : (
-									topic.item
-								)}
+										topic.item
+									) }
 							</ListItemText>
 						</ListItem>
-					))}
+					)) }
 				</List>
-				<Filters filter={filter} college={college} setCollege={setCollege}/>
+				<Filters filter={ filter } college={ college } setCollege={ setCollege } />
 			</Drawer>
-			<main className={classes.content}>
-				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */}
-				{catg.length ? (
-					<Grid container spacing={2}>
-						{(filtered.length > 0 ? filtered : catg).map(
-							(video, index) => (
-								<Grid item lg={2} key={index}>
-									<VidCard {...video} loading={loading} />
-								</Grid>
-							)
-						)}
-					</Grid>
+			<main className={ classes.content }>
+				{/* <SearchCard data={null} isLoading={true} searchOn={true} /> */ }
+				{ catg.length ? (
+					<Container>
+
+						<Grid container>
+							{ (filtered.length > 0 ? filtered : catg).map(
+								(video, index) => (
+									<Grid item key={ index }>
+										<VidCard { ...video } loading={ loading } />
+									</Grid>
+								)
+							) }
+						</Grid>
+					</Container>
 				) : (
-					<div
-						style={{
-							display: 'flex',
-							justifyContent: 'center',
-							color: 'white',
-							alignItems: 'center',
-							height: '80vh',
-						}}
-					>
-						<Typography variant='h5'>No videos yet :(</Typography>
-					</div>
-				)}
+						<div
+							style={ {
+								display: 'flex',
+								justifyContent: 'center',
+								color: 'white',
+								alignItems: 'center',
+								height: '80vh',
+							} }
+						>
+							<Typography variant='h5'>No videos yet :(</Typography>
+						</div>
+					) }
 			</main>
 		</div>
 	);
