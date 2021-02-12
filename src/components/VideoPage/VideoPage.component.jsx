@@ -17,14 +17,16 @@ import SmallCard from './SmallCard/SmallCard.component';
 
 const useStyles = makeStyles((theme) => ({
 	sideContainer: {
-		minHeight: '100vh',
+		minHeight: '100%',
 	},
 	main: {
 		flex: 1,
 		background: theme.palette.common.grey,
+		height: '100%'
 	},
 	recomnd: {
 		height: '100%',
+		width: '100%',
 		background: theme.palette.common.black,
 		color: 'white',
 		// borderLeft: '1px solid lightgray',
@@ -146,7 +148,7 @@ const VideoPage = (props) => {
 			<Grid item className={ classes.main }>
 				<Grid container direction='column'>
 					<Grid item>
-						<Paper square style={ { height: '75vh' } }>
+						<Paper square style={ { height: '70vh' } }>
 							<ReactPlayer
 								controls
 								width='100%'
@@ -155,7 +157,7 @@ const VideoPage = (props) => {
 							/>
 						</Paper>
 					</Grid>
-					<Grid item>
+					<Grid item style={ { height: '25vh' } }>
 						{ tabsSection }
 					</Grid>
 				</Grid>
