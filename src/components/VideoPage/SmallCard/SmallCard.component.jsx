@@ -11,7 +11,7 @@ import {
 	// Avatar,
 } from '@material-ui/core';
 import { db } from '../../../config/fbConfig';
-import { useAuth } from "../../../contexts/AuthContext"
+import { useAuth } from "../../../contexts/AuthContext";
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'space-between',
 	},
 	cover: {
-		width: 201,
+		width: 200,
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -86,33 +86,32 @@ const SmallCard = (props) => {
 		history,
 		reFetchCategories,
 	} = props;
-    const classes = useStyles();
-    
-    const { currentUser } = useAuth();
+	const classes = useStyles();
+
+	const { currentUser } = useAuth();
 
 	const handleVideoClick = (props) => {
 
-        if(currentUser === null)
-        {
-            reFetchCategories();
-            localStorage.setItem(
-                'currentVid',
-                JSON.stringify({
-                    url,
-                    views,
-                    title,
-                    name,
-                    tag,
-                    description,
-                    videoId,
-                })
-            );
-            history.push(videoId, '_blank');
-                
-            return;
-        }
+		if (currentUser === null) {
+			reFetchCategories();
+			localStorage.setItem(
+				'currentVid',
+				JSON.stringify({
+					url,
+					views,
+					title,
+					name,
+					tag,
+					description,
+					videoId,
+				})
+			);
+			history.push(videoId, '_blank');
 
-        const videoRef = db.ref(`categories/${tag}/${videoId}`);
+			return;
+		}
+
+		const videoRef = db.ref(`categories/${tag}/${videoId}`);
 
 		let video;
 		videoRef
@@ -144,35 +143,35 @@ const SmallCard = (props) => {
 	};
 
 	return (
-		<Card className={classes.root} onClick={handleVideoClick}>
-			{/**Build On click */}
+		<Card className={ classes.root } onClick={ handleVideoClick }>
+			{/**Build On click */ }
 			<CardMedia
-				className={classes.cover}
+				className={ classes.cover }
 				title='Live from space album cover'
 			>
 				<ReactPlayer
 					// controls
-					width='25vw'
-					height='18vh'
-					url={url}
+					// width='25vw'
+					// height='18vh'
+					url={ url }
 				/>
-				<PlayArrowIcon className={classes.playIcon} />
+				<PlayArrowIcon className={ classes.playIcon } />
 			</CardMedia>
-			<CardContent className={classes.details}>
-				{/* <div className={classes.section}> */}
+			<CardContent className={ classes.details }>
+				{/* <div className={classes.section}> */ }
 				{/* <Avatar aria-label='recipe' className={classes.avatar}>
 						R
 					</Avatar> */}
 				<div>
-					<Typography variant='subtitle1' className={classes.over}>
-						<b>{title}</b>
+					<Typography variant='subtitle1' className={ classes.over }>
+						<b>{ title }</b>
 					</Typography>
-					<Typography variant='body2'>{name}</Typography>
+					<Typography variant='body2'>{ name }</Typography>
 				</div>
-				{/* </div> */}
-				<div className={classes.section}>
-					<Typography className={classes.views}>
-						{views} views - {uploadedOn}
+				{/* </div> */ }
+				<div className={ classes.section }>
+					<Typography className={ classes.views }>
+						{ views } views - { uploadedOn }
 					</Typography>
 				</div>
 			</CardContent>
