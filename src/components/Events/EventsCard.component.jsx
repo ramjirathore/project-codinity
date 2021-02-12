@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 	details: {
 		background: '#f3f3f3',
 		display: 'flex',
+		flexWrap: 'wrap',
 		flexDirection: 'column',
 		minWidth: 350,
 	},
@@ -53,55 +54,55 @@ const EventsCard = ({ link, title, date, name, time, hashTags }) => {
 	const classes = useStyles();
 
 	return (
-		<Card className={classes.root}>
-			<div className={classes.details}>
-				<CardContent className={classes.content}>
+		<Card className={ classes.root }>
+			<div className={ classes.details }>
+				<CardContent className={ classes.content }>
 					<div>
-						<Typography variant='h5'>{title}</Typography>
+						<Typography variant='h5'>{ title }</Typography>
 					</div>
-					<div className={classes.section}>
-						<Typography className={classes.views}>
+					<div className={ classes.section }>
+						<Typography className={ classes.views }>
 							Organizer
 						</Typography>
-						<Typography variant='body1'>{name}</Typography>
+						<Typography variant='body1'>{ name }</Typography>
 					</div>
 				</CardContent>
-				<div className={classes.controls}>
+				<div className={ classes.controls }>
 					<Typography
 						variant='body1'
-						style={{
+						style={ {
 							color: 'blue',
 							cursor: 'pointer',
 							margin: '5px 0',
-						}}
-						onClick={() => window.open(link)}
-						//**temp link */
+						} }
+						onClick={ () => window.open(link) }
+					//**temp link */
 					>
 						<b>Join Meet</b>
 					</Typography>
 					<div
-						style={{
+						style={ {
 							display: 'flex',
 							justifyContent: 'space-between',
 							maxWidth: '70%',
-						}}
+						} }
 					>
-						<Typography variant='body2'>Date: {date}</Typography>
-						<Typography variant='body2'>Time: {time}</Typography>
+						<Typography variant='body2'>Date: { date }</Typography>
+						<Typography variant='body2'>Time: { time }</Typography>
 					</div>
 				</div>
-				<div className={classes.hastags}>
-					<Typography style={{ fontSize: 15, color: 'green' }}>
-						{hashTags}
+				<div className={ classes.hastags }>
+					<Typography style={ { fontSize: 15, color: 'green' } }>
+						{ hashTags }
 					</Typography>
 				</div>
 			</div>
 			<CardMedia
-				className={classes.cover}
+				className={ classes.cover }
 				src='https://source.unsplash.com/random/?abstract'
-				style={{
+				style={ {
 					backgroundImage: `url(https://source.unsplash.com/random/?technology)`,
-				}}
+				} }
 				title='Live from space album cover'
 			/>
 		</Card>
