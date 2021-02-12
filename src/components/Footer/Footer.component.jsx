@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
 		textDecoration: 'none',
 		color: 'white',
 		cursor: 'pointer',
+		[theme.breakpoints.down('md')]: {
+			fontSize: '1.2em',
+		},
 	},
 	icon: {
 		width: '2em',
@@ -31,18 +34,18 @@ function Copyright() {
 			variant='body2'
 			color='textSecondary'
 			align='center'
-			style={{ color: 'white', padding: 10 }}
+			style={ { color: 'white', padding: 10 } }
 		>
-			{'Copyright © '}
+			{'Copyright © ' }
 			<Link
 				color='inherit'
 				to='/'
-				style={{ color: 'white', textDecoration: 'none' }}
+				style={ { color: 'white', textDecoration: 'none' } }
 			>
 				Codinity
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
+			</Link>{ ' ' }
+			{new Date().getFullYear() }
+			{'.' }
 			<br />
 			All rights reserved.
 		</Typography>
@@ -52,27 +55,27 @@ function Copyright() {
 const Footer = (props) => {
 	const classes = useStyles();
 	return (
-		<footer className={classes.footer}>
+		<footer className={ classes.footer }>
 			<Typography
 				variant='h4'
 				align='center'
 				gutterBottom
-				style={{ color: 'white' }}
+				style={ { color: 'white' } }
 			>
 				CODINITY
 			</Typography>
 
-			<Container maxWidth='md' style={{ padding: 20 }}>
+			<Container maxWidth='md' style={ { padding: 20 } }>
 				<Grid
 					container
 					justify='space-between'
-					style={{ color: 'white' }}
+					style={ { color: 'white' } }
 				>
 					<Grid item>
 						<Typography
 							variant='h5'
-							className={classes.link}
-							component={Link}
+							className={ classes.link }
+							component={ Link }
 							to='/'
 						>
 							Home
@@ -81,8 +84,8 @@ const Footer = (props) => {
 					<Grid item>
 						<Typography
 							variant='h5'
-							className={classes.link}
-							component={Link}
+							className={ classes.link }
+							component={ Link }
 							to='/categories'
 						>
 							Categories
@@ -91,8 +94,8 @@ const Footer = (props) => {
 					<Grid item>
 						<Typography
 							variant='h5'
-							className={classes.link}
-							component={Link}
+							className={ classes.link }
+							component={ Link }
 							to='/practice'
 						>
 							Practice
@@ -101,8 +104,8 @@ const Footer = (props) => {
 					<Grid item>
 						<Typography
 							variant='h5'
-							className={classes.link}
-							component={Link}
+							className={ classes.link }
+							component={ Link }
 							to='/events'
 						>
 							Events
@@ -111,8 +114,8 @@ const Footer = (props) => {
 					<Grid item>
 						<Typography
 							variant='h5'
-							className={classes.link}
-							component={Link}
+							className={ classes.link }
+							component={ Link }
 							to='/blogs'
 						>
 							Blogs
@@ -121,8 +124,8 @@ const Footer = (props) => {
 					<Grid item>
 						<Typography
 							variant='h5'
-							className={classes.link}
-							component={Link}
+							className={ classes.link }
+							component={ Link }
 							to='/about'
 						>
 							About
@@ -133,53 +136,53 @@ const Footer = (props) => {
 			<Grid
 				container
 				justify='center'
-				spacing={2}
-				style={{ padding: 10 }}
+				spacing={ 2 }
+				style={ { padding: 10 } }
 			>
 				<Grid
 					item
-					component={'a'}
+					component={ 'a' }
 					href='https://www.instagram.com'
 					rel='noopener noreferrer'
 					target='_blank'
 				>
 					<img
-						className={classes.icon}
+						className={ classes.icon }
 						alt='instagram logo'
-						src={instagram}
+						src={ instagram }
 					/>
 				</Grid>
 				<Grid
 					item
-					component={'a'}
+					component={ 'a' }
 					href='https://www.twitter.com'
 					rel='noopener noreferrer'
 					target='_blank'
 				>
 					<img
-						className={classes.icon}
+						className={ classes.icon }
 						alt='twitter logo'
-						src={twitter}
+						src={ twitter }
 					/>
 				</Grid>
 				<Grid
 					item
-					component={'a'}
+					component={ 'a' }
 					href='https://www.facebook.com'
 					rel='noopener noreferrer'
 					target='_blank'
 				>
 					<img
-						className={classes.icon}
+						className={ classes.icon }
 						alt='facebook logo'
-						src={facebook}
+						src={ facebook }
 					/>
 				</Grid>
 			</Grid>
 			<Typography
 				variant='body2'
 				align='center'
-				style={{ color: 'cyan', opacity: 0.8, padding: 5 }}
+				style={ { color: 'cyan', opacity: 0.8, padding: 5 } }
 			>
 				Designed and created by the cool minor team :)
 			</Typography>
