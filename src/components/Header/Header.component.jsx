@@ -10,7 +10,6 @@ import {
 	Toolbar,
 	IconButton,
 	Typography,
-	InputBase,
 	Button,
 	fade,
 	makeStyles,
@@ -21,7 +20,7 @@ import {
 	Avatar,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 
 import Profile from '../../containers/user/profile.component';
 import UploadVideo from '../../containers/user/uploadVideo.component';
@@ -47,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 		textDecoration: 'none',
 		color: 'white',
 		display: 'none',
+		minWidth: 'max-content',
 		[theme.breakpoints.up('sm')]: {
 			display: 'block',
 		},
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	options: {
 		display: 'flex',
-		flexGrow: 0.4,
+		width: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -92,7 +92,11 @@ const useStyles = makeStyles((theme) => ({
 		...theme.typography.tab,
 		fontSize: '1.2em',
 		fontFamily: 'Roboto',
+		width: 'max-content',
 		textTransform: 'uppercase',
+		[theme.breakpoints.down('md')]: {
+			fontSize: '1em',
+		},
 	},
 	toolbar: {
 		...theme.mixins.toolbar,
@@ -125,7 +129,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerItemSelected: {
 		opacity: 1,
-		// color: '#fc4445',
 		color: deepOrange[500],
 	},
 	orange: {
@@ -212,57 +215,57 @@ export const Header = (props) => {
 	const drawer = (
 		<React.Fragment>
 			<SwipeableDrawer
-				open={openDrawer}
-				onClose={() => {
+				open={ openDrawer }
+				onClose={ () => {
 					setOpenDrawer(false);
 					setUserFacility(-1);
-				}}
-				onOpen={() => setOpenDrawer(true)}
-				classes={{ paper: classes.drawer }}
+				} }
+				onOpen={ () => setOpenDrawer(true) }
+				classes={ { paper: classes.drawer } }
 			>
-				<div className={classes.toolbar} />
+				<div className={ classes.toolbar } />
 				<List disablePadding>
-					{facilities.map((facility, index) => (
+					{ facilities.map((facility, index) => (
 						<ListItem
-							key={`${facility}${index}`}
+							key={ `${facility}${index}` }
 							divider
 							button
-							onClick={() => {
+							onClick={ () => {
 								setUserFacility(facility.activeIndex);
-							}}
-							selected={userFacility === facility.activeIndex}
+							} }
+							selected={ userFacility === facility.activeIndex }
 						>
 							<ListItemText
 								className={
 									userFacility === facility.activeIndex
 										? [
-												classes.drawerItem,
-												classes.drawerItemSelected,
-										  ].join(' ')
+											classes.drawerItem,
+											classes.drawerItemSelected,
+										].join(' ')
 										: classes.drawerItem
 								}
 								disableTypography
 							>
-								{facility.name}
+								{ facility.name }
 							</ListItemText>
 						</ListItem>
-					))}
+					)) }
 					<ListItem
 						divider
 						button
-						onClick={() => {
+						onClick={ () => {
 							setUserFacility(5);
-						}}
-						selected={userFacility === 5}
-						className={classes.drawerItemEstimate}
+						} }
+						selected={ userFacility === 5 }
+						className={ classes.drawerItemEstimate }
 					>
 						<ListItemText
 							className={
 								userFacility === 5
 									? [
-											classes.drawerItem,
-											classes.drawerItemSelected,
-									  ].join(' ')
+										classes.drawerItem,
+										classes.drawerItemSelected,
+									].join(' ')
 									: classes.drawerItem
 							}
 							disableTypography
@@ -284,33 +287,33 @@ export const Header = (props) => {
 
 	return (
 		<>
-			<AppBar position='fixed' className={classes.nav}>
-				{/* {console.log(currentUser.email)} */}
+			<AppBar position='fixed' className={ classes.nav }>
+				{/* {console.log(currentUser.email)} */ }
 				<Toolbar>
-					{currentUser ? (
+					{ currentUser ? (
 						<IconButton
 							edge='start'
-							className={classes.menuButton}
-							onClick={() => {
+							className={ classes.menuButton }
+							onClick={ () => {
 								setOpenDrawer(!openDrawer);
-							}}
+							} }
 							color='inherit'
 							aria-label='open drawer'
 						>
 							<MenuIcon />
 						</IconButton>
-					) : null}
+					) : null }
 					<Typography
-						className={classes.title}
+						className={ classes.title }
 						variant='h4'
 						noWrap
-						component={Link}
+						component={ Link }
 						to='/'
-						onClick={() => setValue(0)}
+						onClick={ () => setValue(0) }
 					>
 						Codinity
 					</Typography>
-					<div className={classes.search}>
+					{/* <div className={classes.search}>
 						<div className={classes.searchIcon}>
 							<SearchIcon />
 						</div>
@@ -322,75 +325,74 @@ export const Header = (props) => {
 							}}
 							inputProps={{ 'aria-label': 'search' }}
 						/>
-					</div>
-					<div className={classes.options}>
-						<Tabs
-							indicatorColor='primary'
-							value={value}
-							onChange={(e, v) => setValue(v)}
-							className={classes.tabContainer}
-						>
-							{routes.map((route, index) => (
-								<Tab
-									key={`${route}${index}`}
-									className={classes.opt}
-									component={Link}
-									to={route.link}
-									label={route.name}
-									// onMouseOver={route.mouseOver}
-								/>
-							))}
-						</Tabs>
-					</div>
-					<div className={classes.log}>
-						{currentUser ? (
-							<Avatar
-								alt={props.name}
-								src='/static/images/avatar/1.jpg'
-								className={classes.orange}
-								onClick={() => {
-									setOpenDrawer(true);
-								}}
+					</div> */}
+					<Tabs
+						indicatorColor='primary'
+						value={ value }
+						onChange={ (e, v) => setValue(v) }
+						centered
+						className={ classes.options }
+					>
+						{ routes.map((route, index) => (
+							<Tab
+								key={ `${route}${index}` }
+								className={ classes.opt }
+								component={ Link }
+								to={ route.link }
+								label={ route.name }
+							// onMouseOver={route.mouseOver}
 							/>
-						) : null}
-						{process.env.REACT_APP_ADMIN_ID === props.email ? (
+						)) }
+					</Tabs>
+					<div className={ classes.log }>
+						{ currentUser ? (
+							<Avatar
+								alt={ props.name }
+								src='/static/images/avatar/1.jpg'
+								className={ classes.orange }
+								onClick={ () => {
+									setOpenDrawer(true);
+								} }
+							/>
+						) : null }
+						{ process.env.REACT_APP_ADMIN_ID === props.email ? (
 							<Button
-								component={Link}
+								component={ Link }
 								variant='contained'
-								style={{ margin: '0 10px' }}
+								style={ { margin: '0 10px' } }
 								to='/admin'
 							>
 								Admin
 							</Button>
-						) : null}
+						) : null }
 						<Button
-							component={Link}
-							to={currentUser ? '/' : '/login'}
+							component={ Link }
+							to={ currentUser ? '/' : '/login' }
 							variant='contained'
-							onClick={currentUser ? handleLogout : null}
+							onClick={ currentUser ? handleLogout : null }
 						>
-							{currentUser ? 'Logout' : 'Login'}
+							{ currentUser ? 'Logout' : 'Login' }
 						</Button>
 					</div>
-					{drawer}
 				</Toolbar>
 			</AppBar>
 			{userFacility === 0 ? (
-				<Profile profile={true} reset={() => setUserFacility(-1)} />
-			) : null}
+				<Profile profile={ true } reset={ () => setUserFacility(-1) } />
+			) : null }
 			{userFacility === 2 ? (
-				<UploadVideo upload={true} reset={() => setUserFacility(-1)} />
-			) : null}
+				<UploadVideo upload={ true } reset={ () => setUserFacility(-1) } />
+			) : null }
 			{userFacility === 3 ? (
 				<CreateEvent
-					eventReady={true}
-					reset={() => setUserFacility(-1)}
+					eventReady={ true }
+					reset={ () => setUserFacility(-1) }
 				/>
-			) : null}
+			) : null }
 			{userFacility === 4 ? (
-				<WriteBlog blogReady={true} reset={() => setUserFacility(-1)} />
-			) : null}
-			<div className={classes.toolbar} />
+				<WriteBlog blogReady={ true } reset={ () => setUserFacility(-1) } />
+			) : null }
+			{drawer }
+			<div className={ classes.toolbar } />
 		</>
 	);
 };
