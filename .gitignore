@@ -16,7 +16,6 @@
 /.firebase
 /functions
 .firebaserc
-firebase.json
 firestore.indexes.json
 firestore.rules
 database.rules.json
