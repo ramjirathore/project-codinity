@@ -30,13 +30,11 @@ export const initUserData = (db, userToken) => {
 	return (dispatch) => {
 		dispatch(fetchUserDataStart());
 		const usersRef = db.ref().child('users');
-		// console.log(usersRef);
+
 		usersRef
 			.once('value', (snapshot) => {
 				snapshot.forEach((childSnapshot) => {
-					// console.log(childSnapshot.key, childSnapshot.val());
 					if (childSnapshot.key === String(userToken)) {
-						// console.log('userData', childSnapshot.val());
 						dispatch(setUserData(childSnapshot.val()));
 					}
 				});

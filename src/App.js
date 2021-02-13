@@ -29,12 +29,10 @@ const App = (props) => {
 		props.InitBlogs();
 	});
 
-	// console.log(props.email);
-
 	let routes = null;
 
 	if (process.env.REACT_APP_ADMIN_ID === props.email) {
-		routes = <Route exact path='/admin' component={AdminController} />;
+		routes = <Route exact path="/admin" component={AdminController} />;
 	}
 
 	return (
@@ -43,7 +41,7 @@ const App = (props) => {
 				<Switch>
 					<Route
 						exact
-						path='/'
+						path="/"
 						render={() => (
 							<>
 								<Header {...props} />
@@ -54,7 +52,7 @@ const App = (props) => {
 					/>
 					<Route
 						exact
-						path='/practice'
+						path="/practice"
 						render={() => (
 							<>
 								<Header {...props} />
@@ -68,7 +66,7 @@ const App = (props) => {
 					/>
 					<Route
 						exact
-						path='/categories'
+						path="/categories"
 						render={() => (
 							<>
 								<Header {...props} />
@@ -79,7 +77,7 @@ const App = (props) => {
 					/>
 					<Route
 						exact
-						path='/events'
+						path="/events"
 						render={() => (
 							<>
 								<Header {...props} />
@@ -89,7 +87,7 @@ const App = (props) => {
 					/>
 					<Route
 						exact
-						path='/blogs'
+						path="/blogs"
 						render={() => (
 							<>
 								<Header {...props} />
@@ -97,11 +95,11 @@ const App = (props) => {
 							</>
 						)}
 					/>
-					<Route exact path='/login' component={SignIn} />
-					<Route exact path='/signup' component={SignUp} />
+					<Route exact path="/login" component={SignIn} />
+					<Route exact path="/signup" component={SignUp} />
 					<Route
 						exact
-						path='/about'
+						path="/about"
 						render={() => (
 							<>
 								<Header {...props} />
@@ -112,7 +110,7 @@ const App = (props) => {
 					/>
 					<Route
 						exact
-						path='/video/:id'
+						path="/video/:id"
 						render={() => (
 							<>
 								<SimpleHeader />
@@ -123,7 +121,7 @@ const App = (props) => {
 					{routes}
 					{/* Testing Component */}
 					{/* <Route exact path='/testing' component={Testing} /> */}
-					<Redirect exact to='/' />
+					<Redirect exact to="/" />
 				</Switch>
 				{/* <Footer /> */}
 			</AuthProvider>

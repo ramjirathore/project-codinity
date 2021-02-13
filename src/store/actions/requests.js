@@ -31,13 +31,11 @@ export const initRequest = (db) => {
 		dispatch(fetchRequestStart());
 
 		const usersRef = db.ref().child('unapproved videos');
-		// console.log(usersRef);
+
 		let unapproved = [];
 		usersRef
 			.once('value', (snapshot) => {
 				snapshot.forEach((childSnapshot) => {
-					// console.log(childSnapshot.key, childSnapshot.val());
-					// console.log('requests', childSnapshot.val());
 					unapproved.push(childSnapshot.val());
 				});
 				dispatch(fetchRequestSuccess());

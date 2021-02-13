@@ -95,7 +95,7 @@ function EnhancedTableHead(props) {
 	return (
 		<TableHead>
 			<TableRow>
-				<TableCell padding='checkbox'>
+				<TableCell padding="checkbox">
 					<Checkbox
 						indeterminate={
 							numSelected > 0 && numSelected < rowCount
@@ -179,18 +179,18 @@ const EnhancedTableToolbar = (props) => {
 			{numSelected > 0 ? (
 				<Typography
 					className={classes.title}
-					color='inherit'
-					variant='subtitle1'
-					component='div'
+					color="inherit"
+					variant="subtitle1"
+					component="div"
 				>
 					{numSelected} selected
 				</Typography>
 			) : (
 				<Typography
 					className={classes.title}
-					variant='h5'
-					id='tableTitle'
-					component='div'
+					variant="h5"
+					id="tableTitle"
+					component="div"
 				>
 					<b>Video Requests</b>
 				</Typography>
@@ -199,7 +199,7 @@ const EnhancedTableToolbar = (props) => {
 			{numSelected > 0 ? (
 				<div style={{ flex: 1, display: 'flex' }}>
 					<Button
-						variant='contained'
+						variant="contained"
 						style={{
 							background: '#4CAF50',
 							color: 'white',
@@ -211,7 +211,7 @@ const EnhancedTableToolbar = (props) => {
 						Accept
 					</Button>
 					<Button
-						variant='contained'
+						variant="contained"
 						style={{ background: '#f44336', color: 'white' }}
 						onClick={props.reject}
 					>
@@ -269,9 +269,7 @@ const EnhancedTable = (props) => {
 	const [dense, setDense] = React.useState(false);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-	// console.log(props.videos);
 	let rows = [];
-	console.log(selected);
 	if (!props.loading) {
 		rows = props.videos.map((item) => {
 			return createData(
@@ -339,7 +337,6 @@ const EnhancedTable = (props) => {
 		rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
 	const acceptVideos = () => {
-		console.log('accept clicked');
 		const videosRef = db.ref().child('unapproved videos');
 
 		const extractToken = (url) => {
@@ -363,17 +360,13 @@ const EnhancedTable = (props) => {
 				})
 				.then(() => {
 					videoId = extractToken(video.url);
-					// console.log(videoId);
 				})
 				.then(() => {
-					// console.log("in push 1")
-					// console.log(uid, video);
 					const ref = db.ref(`categories/${video.tag}/${videoId}`);
-					// console.log("pushing", ref.toString());
+
 					ref.set(video);
 				})
 				.then(() => {
-					// console.log("in remove 1");
 					vidRef.remove();
 					window.location.reload();
 				});
@@ -381,7 +374,6 @@ const EnhancedTable = (props) => {
 	};
 
 	const rejectVideos = () => {
-		console.log('reject clicked');
 		const videosRef = db.ref().child('unapproved videos');
 
 		for (let index in selected) {
@@ -398,7 +390,6 @@ const EnhancedTable = (props) => {
 					};
 				})
 				.then(() => {
-					// console.log("in remove 2");
 					vidRef.remove();
 					window.location.reload();
 				});
@@ -418,9 +409,9 @@ const EnhancedTable = (props) => {
 						<TableContainer>
 							<Table
 								className={classes.table}
-								aria-labelledby='tableTitle'
+								aria-labelledby="tableTitle"
 								size={dense ? 'small' : 'medium'}
-								aria-label='enhanced table'
+								aria-label="enhanced table"
 							>
 								<EnhancedTableHead
 									classes={classes}
@@ -455,7 +446,7 @@ const EnhancedTable = (props) => {
 															row.uid
 														)
 													}
-													role='checkbox'
+													role="checkbox"
 													aria-checked={
 														isItemSelected
 													}
@@ -463,7 +454,7 @@ const EnhancedTable = (props) => {
 													key={row.email}
 													selected={isItemSelected}
 												>
-													<TableCell padding='checkbox'>
+													<TableCell padding="checkbox">
 														<Checkbox
 															checked={
 																isItemSelected
@@ -474,10 +465,10 @@ const EnhancedTable = (props) => {
 														/>
 													</TableCell>
 													<TableCell
-														component='th'
+														component="th"
 														id={labelId}
-														scope='row'
-														padding='none'
+														scope="row"
+														padding="none"
 													>
 														{row.email}
 													</TableCell>
@@ -488,8 +479,8 @@ const EnhancedTable = (props) => {
 													<TableCell>
 														<a
 															href={row.url}
-															target='_blank'
-															rel='noopener noreferrer'
+															target="_blank"
+															rel="noopener noreferrer"
 														>
 															{row.title}
 														</a>
@@ -511,7 +502,7 @@ const EnhancedTable = (props) => {
 											<TableCell colSpan={6}>
 												{rows.length === 0 ? (
 													<Typography
-														variant='h5'
+														variant="h5"
 														style={{
 															display: 'flex',
 															justifyContent:
@@ -531,7 +522,7 @@ const EnhancedTable = (props) => {
 						</TableContainer>
 						<TablePagination
 							rowsPerPageOptions={[10, 20]}
-							component='div'
+							component="div"
 							count={rows.length}
 							rowsPerPage={rowsPerPage}
 							page={page}
@@ -547,7 +538,7 @@ const EnhancedTable = (props) => {
 							/>
 						}
 						style={{ color: 'white' }}
-						label='Dense Padding'
+						label="Dense Padding"
 					/>
 				</>
 			) : (

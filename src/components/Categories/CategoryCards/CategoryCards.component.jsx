@@ -9,7 +9,7 @@ import {
 	Typography,
 } from '@material-ui/core';
 
-import { db } from '../../../config/fbConfig'
+import { db } from '../../../config/fbConfig';
 
 const useStyles = makeStyles((theme) => ({
 	card: {
@@ -35,21 +35,19 @@ const CategoryCards = (props) => {
 			<CardMedia
 				className={classes.cardMedia}
 				image={imgSrc}
-				title='Image title'
+				title="Image title"
 			/>
 			<CardContent className={classes.cardContent}>
-				<Typography gutterBottom variant='h6' component='h2'>
+				<Typography gutterBottom variant="h6" component="h2">
 					<b>{field}</b>
 				</Typography>
-				<Typography>
-					{desc}
-				</Typography>
+				<Typography>{desc}</Typography>
 			</CardContent>
 			<CardActions>
 				<Button
-					size='small'
-					variant='contained'
-					color='primary'
+					size="small"
+					variant="contained"
+					color="primary"
 					onClick={() => {
 						localStorage.setItem('tag', JSON.stringify({ tag }));
 						history.push('/practice');
@@ -57,23 +55,22 @@ const CategoryCards = (props) => {
 				>
 					Practice
 				</Button>
-                <Button 
-                    size='small' 
-                    variant='contained' 
-                    color='primary'
-                    onClick={() => {
-                        const docRef = db.ref(`docs/${tag}`);
-                        let url;
-                        docRef.once('value', (snapshot) => {
-                            url = snapshot.val();
-                            // console.log(url);
-                        })
-                        .then( () => {
-                            if(url!=null)
-                                window.open(url, '_blank');
-                        })
-                    }}
-                >
+				<Button
+					size="small"
+					variant="contained"
+					color="primary"
+					onClick={() => {
+						const docRef = db.ref(`docs/${tag}`);
+						let url;
+						docRef
+							.once('value', (snapshot) => {
+								url = snapshot.val();
+							})
+							.then(() => {
+								if (url != null) window.open(url, '_blank');
+							});
+					}}
+				>
 					Explore
 				</Button>
 			</CardActions>

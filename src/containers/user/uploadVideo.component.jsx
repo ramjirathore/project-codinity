@@ -46,10 +46,10 @@ const DialogTitle = withStyles(styles)((props) => {
 	const { children, classes, onClose, ...other } = props;
 	return (
 		<MuiDialogTitle disableTypography className={classes.root} {...other}>
-			<Typography variant='h6'>{children}</Typography>
+			<Typography variant="h6">{children}</Typography>
 			{onClose ? (
 				<IconButton
-					aria-label='close'
+					aria-label="close"
 					className={classes.closeButton}
 					onClick={onClose}
 				>
@@ -169,14 +169,12 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 		);
 
 		videoRef.put(file).then(function (snapshot) {
-			// console.log(snapshot);
 			snapshot.ref
 				.getDownloadURL()
 				.then(function (URL) {
-					console.log(URL);
 					videoToDatabase(String(URL));
 				})
-				.catch((error) => console.log('error:', error));
+				.catch((error) => {});
 		});
 	};
 
@@ -191,15 +189,15 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 		<div>
 			{videoUploaded ? (
 				<Alert
-					message='Great! Video has gone approval now.'
-					title='Upload Video'
-					type='success'
+					message="Great! Video has gone approval now."
+					title="Upload Video"
+					type="success"
 				/>
 			) : null}
 			<Dialog
 				fullWidth
 				onClose={handleClose}
-				aria-labelledby='customized-dialog-title'
+				aria-labelledby="customized-dialog-title"
 				open={open}
 				classes={{ paper: classes.paper }}
 			>
@@ -213,14 +211,14 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 						noValidate
 					>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='title'
-							label='Tile of Video'
-							name='title'
-							autoComplete='title'
+							id="title"
+							label="Tile of Video"
+							name="title"
+							autoComplete="title"
 							autoFocus
 							value={video.title}
 							onChange={(e) =>
@@ -229,14 +227,14 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 						/>
 						<TextField
 							multiline
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='description'
-							label='Description'
-							name='description'
-							autoComplete='description'
+							id="description"
+							label="Description"
+							name="description"
+							autoComplete="description"
 							autoFocus
 							rows={8}
 							rowsMax={8}
@@ -249,10 +247,10 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 							}
 						/>
 						<FormControl
-							variant='outlined'
+							variant="outlined"
 							style={{ marginTop: 18, width: '100%' }}
 						>
-							<InputLabel htmlFor='outlined-age-native-simple'>
+							<InputLabel htmlFor="outlined-age-native-simple">
 								Category
 							</InputLabel>
 							<Select
@@ -266,13 +264,13 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 										tag: e.target.value,
 									})
 								}
-								label='Category'
+								label="Category"
 								inputProps={{
 									name: 'tag',
 									id: 'outlined-age-native-simple',
 								}}
 							>
-								<option aria-label='None' value='' />
+								<option aria-label="None" value="" />
 								{videoTypes.map((item) => (
 									<option key={item.name} value={item.tag}>
 										{item.name}
@@ -282,10 +280,10 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 						</FormControl>
 					</form>
 					<div style={{ marginTop: 18 }}>
-						<Button variant='contained' component='label'>
+						<Button variant="contained" component="label">
 							Choose File
 							<input
-								type='file'
+								type="file"
 								hidden
 								onChange={(e) =>
 									setVideo({
@@ -301,7 +299,7 @@ const UploadVideo = ({ upload, name, email, college, reset }) => {
 					<Button
 						autoFocus
 						onClick={handleUpload}
-						variant='contained'
+						variant="contained"
 						style={{ backgroundColor: 'blue', color: 'white' }}
 					>
 						Upload

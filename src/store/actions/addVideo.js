@@ -5,9 +5,7 @@ import firebaseDb from '../../config/fbConfig';
 export const addVideo = (category, video) => {
 	return (dispatch) => {
 		// dispatch(addVideoObjectStart());
-		firebaseDb.child(`categories/${category}`).push(video, (err) => {
-			console.log(err);
-		});
+		firebaseDb.child(`categories/${category}`).push(video, (err) => {});
 		// axios
 		// 	.get("https://codinity-6ab53.firebaseio.com/categories.json")
 		//     .then((response) => {

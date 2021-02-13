@@ -27,18 +27,17 @@ const Event = () => {
 				setBlogs({ blog: blg, loading: false });
 			});
 	}
-	// console.log(blogs.event);
 
 	return (
 		<div className={classes.back}>
-			<Container maxWidth='lg'>
+			<Container maxWidth="lg">
 				<Grid container>
 					<Grid item md={12}>
 						<div className={classes.HeaderContent}>
 							<Typography
-								component='h1'
-								variant='h2'
-								color='inherit'
+								component="h1"
+								variant="h2"
+								color="inherit"
 								gutterBottom
 								elevation={10}
 								style={{ fontWeight: 600 }}

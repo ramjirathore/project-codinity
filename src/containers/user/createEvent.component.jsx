@@ -55,10 +55,10 @@ const DialogTitle = withStyles(styles)((props) => {
 	const { children, classes, onClose, ...other } = props;
 	return (
 		<MuiDialogTitle disableTypography className={classes.root} {...other}>
-			<Typography variant='h6'>{children}</Typography>
+			<Typography variant="h6">{children}</Typography>
 			{onClose ? (
 				<IconButton
-					aria-label='close'
+					aria-label="close"
 					className={classes.closeButton}
 					onClick={onClose}
 				>
@@ -179,15 +179,15 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 		<div>
 			{finish ? (
 				<Alert
-					message='Event Created!'
-					title='Create an Event'
-					type='success'
+					message="Event Created!"
+					title="Create an Event"
+					type="success"
 				/>
 			) : null}
 			<Dialog
 				fullWidth
 				onClose={handleClose}
-				aria-labelledby='customized-dialog-title'
+				aria-labelledby="customized-dialog-title"
 				open={open}
 				classes={{ paper: classes.paper }}
 			>
@@ -201,14 +201,14 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 						noValidate
 					>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='title'
-							label='Event Title'
-							name='title'
-							autoComplete='title'
+							id="title"
+							label="Event Title"
+							name="title"
+							autoComplete="title"
 							autoFocus
 							value={event.title}
 							onChange={(e) =>
@@ -217,14 +217,14 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 						/>
 						<TextField
 							multiline
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='description'
-							label='Description'
-							name='description'
-							autoComplete='description'
+							id="description"
+							label="Description"
+							name="description"
+							autoComplete="description"
 							autoFocus
 							rows={8}
 							rowsMax={8}
@@ -237,10 +237,10 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 							}
 						/>
 						<FormControl
-							variant='outlined'
+							variant="outlined"
 							style={{ marginTop: 18, width: '100%' }}
 						>
-							<InputLabel htmlFor='outlined-age-native-simple'>
+							<InputLabel htmlFor="outlined-age-native-simple">
 								Category
 							</InputLabel>
 							<Select
@@ -254,13 +254,13 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 										tag: e.target.value,
 									})
 								}
-								label='Category'
+								label="Category"
 								inputProps={{
 									name: 'tag',
 									id: 'outlined-age-native-simple',
 								}}
 							>
-								<option aria-label='None' value='' />
+								<option aria-label="None" value="" />
 								{videoTypes.map((item) => (
 									<option key={item.name} value={item.tag}>
 										{item.name}
@@ -269,14 +269,14 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 							</Select>
 						</FormControl>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='meetlink'
-							label='Meet Link'
-							name='meetlink'
-							autoComplete='meetlink'
+							id="meetlink"
+							label="Meet Link"
+							name="meetlink"
+							autoComplete="meetlink"
 							autoFocus
 							value={event.link}
 							onChange={(e) =>
@@ -284,14 +284,14 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 							}
 						/>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='hashtags'
-							label='hashtags'
-							name='hashtags'
-							autoComplete='hashtags'
+							id="hashtags"
+							label="hashtags"
+							name="hashtags"
+							autoComplete="hashtags"
 							autoFocus
 							value={event.hashTags}
 							onChange={(e) =>
@@ -308,28 +308,27 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 							>
 								<KeyboardDatePicker
 									disableToolbar
-									variant='inline'
-									format='MM/dd/yyyy'
-									margin='normal'
-									id='date-picker-inline'
-									label='Choose Date'
+									variant="inline"
+									format="MM/dd/yyyy"
+									margin="normal"
+									id="date-picker-inline"
+									label="Choose Date"
 									value={event.date}
 									onChange={(date) => {
 										setEvent({
 											...event,
 											date,
 										});
-										console.log(date);
 									}}
 									KeyboardButtonProps={{
 										'aria-label': 'change date',
 									}}
 								/>
 								<KeyboardTimePicker
-									margin='normal'
-									variant='inline'
-									id='time-picker'
-									label='Choose Time'
+									margin="normal"
+									variant="inline"
+									id="time-picker"
+									label="Choose Time"
 									value={event.time}
 									onChange={(time) =>
 										setEvent({
@@ -349,10 +348,10 @@ const Event = ({ eventReady, name, email, college, reset }) => {
 					style={{ display: 'flex', justifyContent: 'center' }}
 				>
 					<Button
-						size='large'
+						size="large"
 						autoFocus
 						onClick={handleCreate}
-						variant='contained'
+						variant="contained"
 						style={{ backgroundColor: 'blue', color: 'white' }}
 					>
 						Create

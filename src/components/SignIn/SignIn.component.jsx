@@ -20,9 +20,9 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const Copyright = () => {
 	return (
-		<Typography variant='body2' color='textSecondary' align='center'>
+		<Typography variant="body2" color="textSecondary" align="center">
 			{'Copyright © '}
-			<Link color='inherit' to='/' style={{ textDecoration: 'none' }}>
+			<Link color="inherit" to="/" style={{ textDecoration: 'none' }}>
 				Codinity
 			</Link>{' '}
 			{new Date().getFullYear()}
@@ -89,7 +89,6 @@ const SignIn = (props) => {
 
 	async function handleSignIn(event) {
 		event.preventDefault();
-		console.log(user);
 
 		try {
 			setError('');
@@ -100,19 +99,18 @@ const SignIn = (props) => {
 			setError('Failed to log in');
 		}
 
-		console.log(error);
+		if (error.length) alert(error);
 	}
 
 	return (
-		<Grid container component='main' className={classes.root}>
-			{/* {console.log(user.email)} */}
+		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={8} className={classes.image}>
 				<Typography
-					variant='h1'
+					variant="h1"
 					className={classes.company}
 					component={Link}
-					to='/'
+					to="/"
 				>
 					Codinity
 				</Typography>
@@ -130,7 +128,7 @@ const SignIn = (props) => {
 					<Avatar className={classes.avatar}>
 						<LockOutlinedIcon />
 					</Avatar>
-					<Typography component='h1' variant='h5'>
+					<Typography component="h1" variant="h5">
 						Sign in
 					</Typography>
 					<form
@@ -139,14 +137,14 @@ const SignIn = (props) => {
 						noValidate
 					>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='email'
-							label='Email Address'
-							name='email'
-							autoComplete='email'
+							id="email"
+							label="Email Address"
+							name="email"
+							autoComplete="email"
 							autoFocus
 							value={user.email}
 							onChange={(e) =>
@@ -154,15 +152,15 @@ const SignIn = (props) => {
 							}
 						/>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							name='password'
-							label='Password'
-							type='password'
-							id='password'
-							autoComplete='current-password'
+							name="password"
+							label="Password"
+							type="password"
+							id="password"
+							autoComplete="current-password"
 							value={user.password}
 							onChange={(e) =>
 								setUser({ ...user, password: e.target.value })
@@ -170,15 +168,15 @@ const SignIn = (props) => {
 						/>
 						<FormControlLabel
 							control={
-								<Checkbox value='remember' color='primary' />
+								<Checkbox value="remember" color="primary" />
 							}
-							label='Remember me'
+							label="Remember me"
 						/>
 						<Button
-							type='submit'
+							type="submit"
 							fullWidth
-							variant='contained'
-							color='primary'
+							variant="contained"
+							color="primary"
 							className={classes.submit}
 							disabled={loading}
 						>
@@ -187,8 +185,8 @@ const SignIn = (props) => {
 						<Grid container>
 							<Grid item xs>
 								<Link
-									variant='body2'
-									to='/'
+									variant="body2"
+									to="/"
 									style={{ textDecoration: 'none' }}
 								>
 									{/* path will be added */}
@@ -197,8 +195,8 @@ const SignIn = (props) => {
 							</Grid>
 							<Grid item>
 								<Link
-									variant='body2'
-									to='/signup'
+									variant="body2"
+									to="/signup"
 									style={{ textDecoration: 'none' }}
 								>
 									{"Don't have an account? Sign Up"}

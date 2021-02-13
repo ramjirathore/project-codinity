@@ -178,8 +178,6 @@ export const Header = (props) => {
 	const [openDrawer, setOpenDrawer] = useState(false);
 	const [error, setError] = useState('');
 
-	// console.log(currentUser);
-
 	async function handleLogout() {
 		setError('');
 
@@ -190,7 +188,7 @@ export const Header = (props) => {
 			setError('Failed to log out');
 		}
 
-		console.log(error);
+		if (error.length) alert(error);
 	}
 
 	useEffect(() => {
@@ -215,57 +213,57 @@ export const Header = (props) => {
 	const drawer = (
 		<React.Fragment>
 			<SwipeableDrawer
-				open={ openDrawer }
-				onClose={ () => {
+				open={openDrawer}
+				onClose={() => {
 					setOpenDrawer(false);
 					setUserFacility(-1);
-				} }
-				onOpen={ () => setOpenDrawer(true) }
-				classes={ { paper: classes.drawer } }
+				}}
+				onOpen={() => setOpenDrawer(true)}
+				classes={{ paper: classes.drawer }}
 			>
-				<div className={ classes.toolbar } />
+				<div className={classes.toolbar} />
 				<List disablePadding>
-					{ facilities.map((facility, index) => (
+					{facilities.map((facility, index) => (
 						<ListItem
-							key={ `${facility}${index}` }
+							key={`${facility}${index}`}
 							divider
 							button
-							onClick={ () => {
+							onClick={() => {
 								setUserFacility(facility.activeIndex);
-							} }
-							selected={ userFacility === facility.activeIndex }
+							}}
+							selected={userFacility === facility.activeIndex}
 						>
 							<ListItemText
 								className={
 									userFacility === facility.activeIndex
 										? [
-											classes.drawerItem,
-											classes.drawerItemSelected,
-										].join(' ')
+												classes.drawerItem,
+												classes.drawerItemSelected,
+										  ].join(' ')
 										: classes.drawerItem
 								}
 								disableTypography
 							>
-								{ facility.name }
+								{facility.name}
 							</ListItemText>
 						</ListItem>
-					)) }
+					))}
 					<ListItem
 						divider
 						button
-						onClick={ () => {
+						onClick={() => {
 							setUserFacility(5);
-						} }
-						selected={ userFacility === 5 }
-						className={ classes.drawerItemEstimate }
+						}}
+						selected={userFacility === 5}
+						className={classes.drawerItemEstimate}
 					>
 						<ListItemText
 							className={
 								userFacility === 5
 									? [
-										classes.drawerItem,
-										classes.drawerItemSelected,
-									].join(' ')
+											classes.drawerItem,
+											classes.drawerItemSelected,
+									  ].join(' ')
 									: classes.drawerItem
 							}
 							disableTypography
@@ -287,29 +285,28 @@ export const Header = (props) => {
 
 	return (
 		<>
-			<AppBar position='fixed' className={ classes.nav }>
-				{/* {console.log(currentUser.email)} */ }
+			<AppBar position="fixed" className={classes.nav}>
 				<Toolbar>
-					{ currentUser ? (
+					{currentUser ? (
 						<IconButton
-							edge='start'
-							className={ classes.menuButton }
-							onClick={ () => {
+							edge="start"
+							className={classes.menuButton}
+							onClick={() => {
 								setOpenDrawer(!openDrawer);
-							} }
-							color='inherit'
-							aria-label='open drawer'
+							}}
+							color="inherit"
+							aria-label="open drawer"
 						>
 							<MenuIcon />
 						</IconButton>
-					) : null }
+					) : null}
 					<Typography
-						className={ classes.title }
-						variant='h4'
+						className={classes.title}
+						variant="h4"
 						noWrap
-						component={ Link }
-						to='/'
-						onClick={ () => setValue(0) }
+						component={Link}
+						to="/"
+						onClick={() => setValue(0)}
 					>
 						Codinity
 					</Typography>
@@ -327,72 +324,72 @@ export const Header = (props) => {
 						/>
 					</div> */}
 					<Tabs
-						indicatorColor='primary'
-						value={ value }
-						onChange={ (e, v) => setValue(v) }
+						indicatorColor="primary"
+						value={value}
+						onChange={(e, v) => setValue(v)}
 						centered
-						className={ classes.options }
+						className={classes.options}
 					>
-						{ routes.map((route, index) => (
+						{routes.map((route, index) => (
 							<Tab
-								key={ `${route}${index}` }
-								className={ classes.opt }
-								component={ Link }
-								to={ route.link }
-								label={ route.name }
-							// onMouseOver={route.mouseOver}
+								key={`${route}${index}`}
+								className={classes.opt}
+								component={Link}
+								to={route.link}
+								label={route.name}
+								// onMouseOver={route.mouseOver}
 							/>
-						)) }
+						))}
 					</Tabs>
-					<div className={ classes.log }>
-						{ currentUser ? (
+					<div className={classes.log}>
+						{currentUser ? (
 							<Avatar
-								alt={ props.name }
-								src='/static/images/avatar/1.jpg'
-								className={ classes.orange }
-								onClick={ () => {
+								alt={props.name}
+								src="/static/images/avatar/1.jpg"
+								className={classes.orange}
+								onClick={() => {
 									setOpenDrawer(true);
-								} }
+								}}
 							/>
-						) : null }
-						{ process.env.REACT_APP_ADMIN_ID === props.email ? (
+						) : null}
+						{process.env.REACT_APP_ADMIN_ID === props.email ? (
 							<Button
-								component={ Link }
-								variant='contained'
-								style={ { margin: '0 10px' } }
-								to='/admin'
+								component={Link}
+								variant="contained"
+								style={{ margin: '0 10px' }}
+								to="/admin"
 							>
 								Admin
 							</Button>
-						) : null }
+						) : null}
 						<Button
-							component={ Link }
-							to={ currentUser ? '/' : '/login' }
-							variant='contained'
-							onClick={ currentUser ? handleLogout : null }
+							component={Link}
+							to={currentUser ? '/' : '/login'}
+							variant="contained"
+							onClick={currentUser ? handleLogout : null}
 						>
-							{ currentUser ? 'Logout' : 'Login' }
+							{currentUser ? 'Logout' : 'Login'}
 						</Button>
 					</div>
 				</Toolbar>
 			</AppBar>
 			{userFacility === 0 ? (
-				<Profile profile={ true } reset={ () => setUserFacility(-1) } />
-			) : null }
+				<Profile profile={true} reset={() => setUserFacility(-1)} />
+			) : null}
 			{userFacility === 2 ? (
-				<UploadVideo upload={ true } reset={ () => setUserFacility(-1) } />
-			) : null }
+				<UploadVideo upload={true} reset={() => setUserFacility(-1)} />
+			) : null}
 			{userFacility === 3 ? (
 				<CreateEvent
-					eventReady={ true }
-					reset={ () => setUserFacility(-1) }
+					eventReady={true}
+					reset={() => setUserFacility(-1)}
 				/>
-			) : null }
+			) : null}
 			{userFacility === 4 ? (
-				<WriteBlog blogReady={ true } reset={ () => setUserFacility(-1) } />
-			) : null }
-			{drawer }
-			<div className={ classes.toolbar } />
+				<WriteBlog blogReady={true} reset={() => setUserFacility(-1)} />
+			) : null}
+			{drawer}
+			<div className={classes.toolbar} />
 		</>
 	);
 };
