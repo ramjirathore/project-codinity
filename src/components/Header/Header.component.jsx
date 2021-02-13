@@ -352,7 +352,7 @@ export const Header = (props) => {
 								}}
 							/>
 						) : null}
-						{process.env.REACT_APP_ADMIN_ID === props.email ? (
+						{'superuser@gmail.com' === props.email ? (
 							<Button
 								component={Link}
 								variant="contained"

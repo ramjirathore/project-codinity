@@ -31,7 +31,7 @@ const App = (props) => {
 
 	let routes = null;
 
-	if (process.env.REACT_APP_ADMIN_ID === props.email) {
+	if ('superuser@gmail.com' === props.email) {
 		routes = <Route exact path="/admin" component={AdminController} />;
 	}
 
