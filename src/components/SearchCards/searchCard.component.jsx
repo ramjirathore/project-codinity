@@ -5,7 +5,7 @@ import {
 	CardContent,
 	Typography,
 	Grid,
-	Tooltip
+	Tooltip,
 } from '@material-ui/core';
 
 import { Skeleton } from '@material-ui/lab';
@@ -22,17 +22,17 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: '2px 2px 10px rgb(204,204,204,0.8)',
 		cursor: 'pointer',
 		'&:hover': {
-			boxShadow: '4px 8px 30px rgba(0, 0, 0, 0.15)'
-		}
+			boxShadow: '4px 8px 30px rgba(0, 0, 0, 0.15)',
+		},
 	},
 	content: {
 		padding: 0,
-		maxWidth: '100%'
+		maxWidth: '100%',
 	},
 	titleBar: {
 		padding: 12,
 		backgroundColor: `${theme.palette.common.lightblue}`,
-		display: 'flex'
+		display: 'flex',
 	},
 	title: {
 		fontSize: '1.2rem',
@@ -41,14 +41,14 @@ const useStyles = makeStyles((theme) => ({
 		color: `${theme.palette.common.blue}`,
 		overflow: 'hidden',
 		whiteSpace: 'nowrap',
-		textOverflow: 'ellipsis'
+		textOverflow: 'ellipsis',
 	},
 	item: {
-		width: '100px'
+		width: '100px',
 	},
 	courtDetail: {
 		padding: 12,
-		display: 'flex'
+		display: 'flex',
 	},
 	courtName: {
 		padding: 5,
@@ -58,16 +58,16 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: 600,
 		display: 'flex',
 		justifyContent: 'space-between',
-		boxShadow: '2px 2px 2px rgb(204,204,204,0.8)'
+		boxShadow: '2px 2px 2px rgb(204,204,204,0.8)',
 	},
 	description: {
 		paddingLeft: 12,
-		paddingRight: 12
+		paddingRight: 12,
 	},
 	pos: {
 		marginBottom: 12,
-		textTransform: 'capitalize'
-	}
+		textTransform: 'capitalize',
+	},
 }));
 
 const SearchCard = ({ data, isLoading, searchOn }) => {
@@ -115,7 +115,10 @@ const SearchCard = ({ data, isLoading, searchOn }) => {
 						style={{ width: '40%', height: '40%' }}
 					>
 						<Typography className={classes.courtName}>
-							<Skeleton aninmation="wave" style={{ width: '100%' }} />
+							<Skeleton
+								aninmation="wave"
+								style={{ width: '100%' }}
+							/>
 						</Typography>
 					</Typography>
 				</Grid>
@@ -141,16 +144,16 @@ const SearchCard = ({ data, isLoading, searchOn }) => {
 	let isPA = null;
 	let dataCards = '';
 	if (data) {
-		// console.log(data);
 		dataCards = data.map(
 			(doc, index) => (
 				(isPA = doc.docPenaltyAmt != null),
 				(
-					// console.log(isPA),
 					<Card
 						key={doc.LMID + index}
 						className={classes.root}
-						onClick={() => window.open(`/judgement/${doc.docLMID}`, '_blank')}
+						onClick={() =>
+							window.open(`/judgement/${doc.docLMID}`, '_blank')
+						}
 					>
 						<CardContent className={classes.content}>
 							<Grid
@@ -161,7 +164,12 @@ const SearchCard = ({ data, isLoading, searchOn }) => {
 								alignItems="center"
 								className={classes.titleBar}
 							>
-								<Grid className={classes.item} item xs zeroMinWidth>
+								<Grid
+									className={classes.item}
+									item
+									xs
+									zeroMinWidth
+								>
 									<Tooltip title={doc.title}>
 										<Typography
 											className={classes.title}
@@ -192,27 +200,43 @@ const SearchCard = ({ data, isLoading, searchOn }) => {
 								alignItems="center"
 								className={classes.courtDetail}
 							>
-								<Typography className={classes.pos} component="div">
+								<Typography
+									className={classes.pos}
+									component="div"
+								>
 									<Typography className={classes.courtName}>
 										{doc.heading}
 									</Typography>
 								</Typography>
 								{isPA ? (
-									<Typography className={classes.pos} component="div">
-										<Typography className={classes.courtName}>
+									<Typography
+										className={classes.pos}
+										component="div"
+									>
+										<Typography
+											className={classes.courtName}
+										>
 											Penalty Amount:{' '}
-											{doc.docPenaltyAmt.toLocaleString('en-IN')}
+											{doc.docPenaltyAmt.toLocaleString(
+												'en-IN'
+											)}
 										</Typography>
 									</Typography>
 								) : null}
-								<Typography className={classes.pos} component="div">
+								<Typography
+									className={classes.pos}
+									component="div"
+								>
 									<Typography className={classes.courtName}>
 										{doc.subheading}
 									</Typography>
 								</Typography>
 							</Grid>
 
-							<Typography letterSpacing={0} style={{ padding: 20 }}>
+							<Typography
+								letterSpacing={0}
+								style={{ padding: 20 }}
+							>
 								{doc.HIGHLIGHTS}
 							</Typography>
 						</CardContent>

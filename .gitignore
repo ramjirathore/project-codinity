@@ -16,12 +16,12 @@
 /.firebase
 /functions
 .firebaserc
-firebase.json
 firestore.indexes.json
 firestore.rules
 database.rules.json
 remoteconfig.template.json
 storage.rules
+*debug.log*
 
 # misc
 .DS_Store

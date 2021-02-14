@@ -56,22 +56,22 @@ export const Header = () => {
 			setError('Failed to log out');
 		}
 
-		console.log(error);
+		if (error.length) alert(error);
 	}
 	return (
 		<>
-			<Paper square position='static' className={classes.nav}>
+			<Paper square position="static" className={classes.nav}>
 				<Typography
 					className={classes.company}
-					variant='h4'
+					variant="h4"
 					noWrap
 					component={Link}
-					to='/'
+					to="/"
 				>
 					Codinity
 				</Typography>
-				<hr size='2' style={{ height: '40%', margin: '0 20px' }} />
-				<Typography className={classes.title} variant='h5'>
+				<hr size="2" style={{ height: '40%', margin: '0 20px' }} />
+				<Typography className={classes.title} variant="h5">
 					{video.title}
 				</Typography>
 				<div
@@ -80,14 +80,14 @@ export const Header = () => {
 					{currentUser ? (
 						<Avatar
 							alt={video.name}
-							src='/static/images/avatar/1.jpg'
+							src="/static/images/avatar/1.jpg"
 							className={classes.orange}
 						/>
 					) : null}
 					<Button
 						component={Link}
 						to={currentUser ? '/' : '/login'}
-						variant='contained'
+						variant="contained"
 						onClick={currentUser ? handleLogout : null}
 					>
 						{currentUser ? 'Logout' : 'Login'}

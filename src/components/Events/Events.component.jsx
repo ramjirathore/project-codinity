@@ -27,18 +27,17 @@ const Event = () => {
 				setEvents({ event: ev, loading: false });
 			});
 	}
-	// console.log(events.event);
 
 	return (
 		<div className={classes.back}>
-			<Container maxWidth='lg'>
+			<Container maxWidth="lg">
 				<Grid container>
 					<Grid item md={12}>
 						<div className={classes.HeaderContent}>
 							<Typography
-								component='h1'
-								variant='h2'
-								color='inherit'
+								component="h1"
+								variant="h2"
+								color="inherit"
 								gutterBottom
 								elevation={10}
 								style={{ fontWeight: 600 }}
@@ -59,9 +58,7 @@ const Event = () => {
 									md={6}
 									lg={6}
 								>
-									<EventsCard
-										{...card}
-									/>
+									<EventsCard {...card} />
 								</Grid>
 						  ))
 						: null}

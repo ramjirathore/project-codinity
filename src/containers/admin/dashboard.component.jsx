@@ -49,7 +49,6 @@ const Dashboard = ({ categories, blogs, loading }) => {
 			.once('value', (snapshot) => {
 				let allUsers = [];
 				snapshot.forEach((childSnapshot) => {
-					// console.log(childSnapshot.key, childSnapshot.val());
 					allUsers.push({
 						key: childSnapshot.key,
 						name: childSnapshot.val().name,
@@ -58,7 +57,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 					setUsers([...allUsers]);
 				});
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {});
 
 		axios
 			.get('https://codinity-6ab53.firebaseio.com/events.json')
@@ -77,7 +76,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 	if (!loading) {
 		for (let [key, video] of categories) {
 			const len = Object.keys(video).length;
-			// console.log(key, video);
+
 			allCategories.push({ key, len });
 			totalVideos += len;
 		}
@@ -100,13 +99,13 @@ const Dashboard = ({ categories, blogs, loading }) => {
 					<Grid container spacing={4}>
 						<Grid item xs={12} md={4} lg={3}>
 							<Paper
-								variant='outlined'
+								variant="outlined"
 								style={{ borderColor: 'cyan' }}
 								className={fixedHeightPaper}
 							>
 								<DataCard
-									heading='Total Users'
-									headColor='cyan'
+									heading="Total Users"
+									headColor="cyan"
 									mainData={users.length}
 									currentDate={getCurrentDate()}
 								/>
@@ -114,13 +113,13 @@ const Dashboard = ({ categories, blogs, loading }) => {
 						</Grid>
 						<Grid item xs={12} md={4} lg={3}>
 							<Paper
-								variant='outlined'
+								variant="outlined"
 								style={{ borderColor: 'yellow' }}
 								className={fixedHeightPaper}
 							>
 								<DataCard
-									heading='Blogs Posted'
-									headColor='yellow'
+									heading="Blogs Posted"
+									headColor="yellow"
 									mainData={blogCount}
 									currentDate={getCurrentDate()}
 								/>
@@ -128,28 +127,28 @@ const Dashboard = ({ categories, blogs, loading }) => {
 						</Grid>
 						<Grid item xs={12} md={4} lg={3}>
 							<Paper
-								variant='outlined'
+								variant="outlined"
 								className={fixedHeightPaper}
 								style={{ borderColor: 'lightgreen' }}
 							>
 								<DataCard
-									heading='Events Scheduled'
+									heading="Events Scheduled"
 									mainData={events}
-									headColor='lightgreen'
+									headColor="lightgreen"
 									currentDate={getCurrentDate()}
 								/>
 							</Paper>
 						</Grid>
 						<Grid item xs={12} md={4} lg={3}>
 							<Paper
-								variant='outlined'
+								variant="outlined"
 								className={fixedHeightPaper}
 								style={{ borderColor: 'orange' }}
 							>
 								<DataCard
-									heading='Total Videos'
+									heading="Total Videos"
 									mainData={totalVideos}
-									headColor='orange'
+									headColor="orange"
 									currentDate={getCurrentDate()}
 								/>
 							</Paper>
@@ -160,7 +159,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 								<Table
 									header={['Token', 'UserName', 'Email']}
 									rows={users}
-									color='purple'
+									color="purple"
 								/>
 							</Paper>
 						</Grid>
@@ -169,7 +168,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 								<Table
 									header={categoriesHeader}
 									rows={allCategories}
-									color='red'
+									color="red"
 								/>
 							</Paper>
 						</Grid>

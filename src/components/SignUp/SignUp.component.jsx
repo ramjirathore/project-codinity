@@ -23,9 +23,9 @@ import { db } from '../../config/fbConfig';
 
 const Copyright = () => {
 	return (
-		<Typography variant='body2' color='textSecondary' align='center'>
+		<Typography variant="body2" color="textSecondary" align="center">
 			{'Copyright © '}
-			<Link color='inherit' to='/' style={{ textDecoration: 'none' }}>
+			<Link color="inherit" to="/" style={{ textDecoration: 'none' }}>
 				Codinity
 			</Link>{' '}
 			{new Date().getFullYear()}
@@ -108,7 +108,7 @@ const SignUp = () => {
 				window.location.assign('/');
 			},
 			function (error) {
-				console.log('error:', error.code, error.message);
+				alert(error);
 			}
 		);
 
@@ -118,7 +118,6 @@ const SignUp = () => {
 	const [pushAllowed, setPushAllowed] = useState(true);
 
 	const userToDatabase = () => {
-		// console.log(currentUser.uid);
 		const ref = db.ref(`users/${currentUser.uid}`);
 		ref.set({
 			email: user.email,
@@ -131,14 +130,14 @@ const SignUp = () => {
 	};
 
 	return (
-		<Grid container component='main' className={classes.root}>
+		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={8} className={classes.image}>
 				<Typography
-					variant='h1'
+					variant="h1"
 					className={classes.company}
 					component={Link}
-					to='/'
+					to="/"
 				>
 					Codinity
 				</Typography>
@@ -156,7 +155,7 @@ const SignUp = () => {
 					<Avatar className={classes.avatar}>
 						<LockOutlinedIcon />
 					</Avatar>
-					<Typography component='h1' variant='h5'>
+					<Typography component="h1" variant="h5">
 						Sign Up
 					</Typography>
 					<form
@@ -165,14 +164,14 @@ const SignUp = () => {
 						noValidate
 					>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='name'
-							label='Name'
-							name='name'
-							autoComplete='name'
+							id="name"
+							label="Name"
+							name="name"
+							autoComplete="name"
 							autoFocus
 							value={user.name}
 							onChange={(e) =>
@@ -180,14 +179,14 @@ const SignUp = () => {
 							}
 						/>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							id='email'
-							label='Email Address'
-							name='email'
-							autoComplete='email'
+							id="email"
+							label="Email Address"
+							name="email"
+							autoComplete="email"
 							autoFocus
 							value={user.email}
 							onChange={(e) =>
@@ -195,25 +194,25 @@ const SignUp = () => {
 							}
 						/>
 						<TextField
-							variant='outlined'
-							margin='normal'
+							variant="outlined"
+							margin="normal"
 							required
 							fullWidth
-							name='password'
-							label='Password'
-							type='password'
-							id='password'
-							autoComplete='current-password'
+							name="password"
+							label="Password"
+							type="password"
+							id="password"
+							autoComplete="current-password"
 							value={user.password}
 							onChange={(e) =>
 								setUser({ ...user, password: e.target.value })
 							}
 						/>
 						<FormControl
-							variant='outlined'
+							variant="outlined"
 							style={{ marginTop: 18 }}
 						>
-							<InputLabel htmlFor='outlined-age-native-simple'>
+							<InputLabel htmlFor="outlined-age-native-simple">
 								College
 							</InputLabel>
 							<Select
@@ -227,13 +226,13 @@ const SignUp = () => {
 										college: e.target.value,
 									})
 								}
-								label='College'
+								label="College"
 								inputProps={{
 									name: 'age',
 									id: 'outlined-age-native-simple',
 								}}
 							>
-								<option aria-label='None' value='' />
+								<option aria-label="None" value="" />
 								{list.map((item) => (
 									<option
 										key={item.college}
@@ -245,20 +244,20 @@ const SignUp = () => {
 							</Select>
 						</FormControl>
 						<Button
-							type='submit'
+							type="submit"
 							fullWidth
-							variant='contained'
-							color='primary'
+							variant="contained"
+							color="primary"
 							className={classes.submit}
 							disabled={loading}
 						>
 							Sign Up
 						</Button>
-						<Grid container justify='center'>
+						<Grid container justify="center">
 							<Grid item>
 								<Link
-									variant='body2'
-									to='/login'
+									variant="body2"
+									to="/login"
 									style={{
 										textDecoration: 'none',
 									}}
