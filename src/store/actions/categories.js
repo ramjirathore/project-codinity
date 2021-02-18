@@ -31,7 +31,7 @@ export const initCategories = () => {
 	return (dispatch) => {
 		dispatch(fetchCategoriesStart());
 		axios
-			.get('https://codinity-6ab53.firebaseio.com/categories.json')
+			.get(`${process.env.REACT_APP_DATABASE_URL}/categories.json`)
 			.then((response) => {
 				let categories = new Map();
 				for (let [key, value] of Object.entries(response.data)) {

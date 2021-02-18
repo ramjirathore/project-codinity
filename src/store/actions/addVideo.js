@@ -7,7 +7,7 @@ export const addVideo = (category, video) => {
 		// dispatch(addVideoObjectStart());
 		firebaseDb.child(`categories/${category}`).push(video, (err) => {});
 		// axios
-		// 	.get("https://codinity-6ab53.firebaseio.com/categories.json")
+		// 	.get(`${process.env.REACT_APP_DATABASE_URL}/categories.json`)
 		//     .then((response) => {
 		//         console.log(response);
 		//         dispatch(addVideoObjectSuccess());

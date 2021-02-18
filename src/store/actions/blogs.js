@@ -31,7 +31,7 @@ export const initBlogs = () => {
 	return (dispatch) => {
 		dispatch(fetchBlogsStart());
 		axios
-			.get('https://codinity-6ab53.firebaseio.com/blogs.json')
+			.get(`${process.env.REACT_APP_DATABASE_URL}/blogs.json`)
 			.then((response) => {
 				// let categories = [];
 				// for (let [key, value] of Object.entries(response.data)) {
