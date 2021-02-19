@@ -18,7 +18,7 @@ const Event = () => {
 	const [blogs, setBlogs] = useState({ blog: [], loading: true });
 	if (blogs.loading) {
 		axios
-			.get('https://codinity-6ab53.firebaseio.com/blogs.json')
+			.get(`${process.env.REACT_APP_DATABASE_URL}/blogs.json`)
 			.then((response) => {
 				let blg = [];
 				for (let [, value] of Object.entries(response.data)) {

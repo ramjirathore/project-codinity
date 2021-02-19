@@ -18,7 +18,7 @@ const Event = () => {
 	const [events, setEvents] = useState({ event: [], loading: true });
 	if (events.loading) {
 		axios
-			.get('https://codinity-6ab53.firebaseio.com/events.json')
+			.get(`${process.env.REACT_APP_DATABASE_URL}/events.json`)
 			.then((response) => {
 				let ev = [];
 				for (let [, value] of Object.entries(response.data)) {

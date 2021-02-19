@@ -60,12 +60,12 @@ const Dashboard = ({ categories, blogs, loading }) => {
 			.catch((err) => {});
 
 		axios
-			.get('https://codinity-6ab53.firebaseio.com/events.json')
+			.get(`${process.env.REACT_APP_DATABASE_URL}/events.json`)
 			.then((response) => {
 				setEvents(Object.keys(response.data).length);
 			});
 		axios
-			.get('https://codinity-6ab53.firebaseio.com/blogs.json')
+			.get(`${process.env.REACT_APP_DATABASE_URL}/blogs.json`)
 			.then((response) => {
 				setBlogsCount(Object.keys(response.data).length);
 			});
@@ -73,7 +73,7 @@ const Dashboard = ({ categories, blogs, loading }) => {
 
 	let allCategories = [];
 	let totalVideos = 0;
-	if (!loading) {
+	if (!loading && categories !== null) {
 		for (let [key, video] of categories) {
 			const len = Object.keys(video).length;
 
